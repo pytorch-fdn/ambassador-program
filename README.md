@@ -18,13 +18,13 @@ To submit a request, click the appropriate link below:
 ## ❓ Frequently Asked Questions (FAQ)  
 
 ### What is the PyTorch Foundation Initiatives repository?  
-This repository is a public space where community members can nominate individuals, propose new initiatives, and request participation in PyTorch Foundation programs such as the Ambassador Program, OSPO Outreach, and Speakers Bureau.  
+This repository is a public space where community members can nominate individuals and request participation in PyTorch Foundation programs such as the Ambassador Program, OSPO Outreach, and Speakers Bureau.  
 
 ### Who can submit a nomination or proposal?  
-Anyone from the community can submit a nomination or proposal through GitHub Issues. We encourage developers, researchers, educators, and advocates to participate.  
+Anyone from the community can submit a nomination. We encourage developers, researchers, educators, and advocates to participate.  
 
 ### How are nominations reviewed and approved?  
-Once a nomination is submitted, it will be reviewed by the PyTorch Foundation team. Discussions and feedback may take place within the issue before a decision is made. Approved nominations are moved to a private repository for further processing.  
+Once a nomination is submitted, it will be reviewed by the PyTorch Foundation team. Discussions and feedback may take place within the issue before a decision is made.
 
 ### Can I nominate myself for a program?  
 Yes, self-nominations are allowed. If you believe you are a good fit for one of the programs, feel free to submit a nomination.  
