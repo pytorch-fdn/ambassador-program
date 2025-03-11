@@ -1,0 +1,20 @@
+name: "Auto-Move Issues in GitHub Project"
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  move-to-project-column:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move Issue in Project
+        uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: "https://github.com/orgs/pytorch-fdn/projects/1"  # Update with your actual project link
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          label-to-column-mapping: |
+            nomination: "New Submissions"
+            pending-review: "Pending Review"
+            approved: "Approved"
+            needs-more-info: "Needs More Info"
+            rejected: "Rejected"
