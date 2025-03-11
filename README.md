@@ -33,7 +33,7 @@ Yes, self-nominations are allowed. If you believe you are a good fit for one of 
 If a nomination is accepted, the individual or organization will be contacted with further details. Approved nominations are managed in a private repository for program coordination.  
 
 ### Where can I discuss ideas and give feedback?  
-You can participate in discussions and share feedback in [GitHub Discussions](https://github.com/pytorch/foundation-initiative/discussions).  
+You can participate in discussions and share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
 
 ### How can I stay updated on new initiatives?  
 Stay tuned to this repository for announcements, or follow official PyTorch Foundation channels for updates.  
