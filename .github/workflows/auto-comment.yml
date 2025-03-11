@@ -7,13 +7,19 @@ jobs:
   comment-on-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Welcome Comment Based on Program
+      - name: Add Welcome Comment for Nominations Only
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
             const labels = issue.labels.map(label => label.name.toLowerCase());
+
+            // Only proceed if the issue has the "nomination" label
+            if (!labels.includes("nomination")) {
+              console.log("Skipping: Issue is not a nomination.");
+              return;
+            }
 
             let programName = "Foundation Initiative Program";
             let programDocs = "https://github.com/pytorch-fdn/foundation-initiative";
@@ -33,7 +39,7 @@ jobs:
             Your nomination is currently under review. A team member will evaluate the submission and update the status accordingly.\n\n
             🔹 **Next Steps:**\n
             - If additional details are needed, we will comment here requesting more information.\n
-            - If approved, we will update the status to **"approved"** ✅ we will contact you regarding the next steps.\n
+            - If approved, we will update the status to **"approved"** ✅ and contact you regarding the next steps.\n
             - If the nomination does not meet the criteria, we will provide feedback and mark it as **"rejected"** ❌.\n\n
             📖 **Program Details & Requirements:** [Read More Here](${programDocs})\n\n
             Please stay tuned and feel free to respond here if you have any questions. 🚀`;
