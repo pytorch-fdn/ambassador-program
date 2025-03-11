@@ -1,0 +1,40 @@
+name: "Auto-Update Nomination Status Labels"
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  update-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Comment and Update Labels
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const comment = context.payload.comment.body.toLowerCase();
+            const repoOwner = context.repo.owner;
+            const repoName = context.repo.repo;
+            const issueNumber = issue.number;
+
+            let newLabel = null;
+
+            if (comment.includes("approved")) {
+              newLabel = "approved";
+            } else if (comment.includes("rejected")) {
+              newLabel = "rejected";
+            } else if (comment.includes("needs more info")) {
+              newLabel = "needs-more-info";
+            }
+
+            if (newLabel) {
+              await github.rest.issues.update({
+                owner: repoOwner,
+                repo: repoName,
+                issue_number: issueNumber,
+                labels: [newLabel]
+              });
+
+              console.log(`Updated issue #${issueNumber} with label: ${newLabel}`);
+            }
