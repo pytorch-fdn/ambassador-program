@@ -10,7 +10,7 @@ jobs:
       - name: Move Issue in Project
         uses: actions/add-to-project@v0.5.0
         with:
-          project-url: "https://github.com/orgs/pytorch-fdn/projects/1"  # Update with your actual project link
+          project-url: "https://github.com/orgs/pytorch-fdn/projects/8" 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           label-to-column-mapping: |
             nomination: "New Submissions"
