@@ -1,0 +1,66 @@
+name: "Submit Feedback or Ideas"
+description: "Share your feedback or propose an idea to improve PyTorch Foundation Initiatives."
+title: "[Feedback] <Brief Idea or Topic>"
+labels: ["feedback", "pending-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 💡 Submit Feedback or Ideas
+
+        Thank you for sharing your feedback or idea to improve the PyTorch Foundation Initiatives!  
+        Please fill out the following details to help us better understand your suggestion.
+
+  - type: input
+    id: feedback-title
+    attributes:
+      label: "Brief Summary of Your Idea"
+      placeholder: "Example: Improve event scheduling for Ambassador Program"
+
+  - type: dropdown
+    id: program-category
+    attributes:
+      label: "Which program does this feedback apply to?"
+      options:
+        - "General PyTorch Foundation Initiatives"
+        - "PyTorch Ambassador Program"
+        - "OSPO Outreach"
+        - "Speakers Bureau"
+        - "Other"
+
+  - type: textarea
+    id: idea-description
+    attributes:
+      label: "Describe Your Feedback or Idea"
+      description: "Explain your suggestion, the problem it solves, and any potential solutions."
+      placeholder: "Provide as much detail as possible..."
+      render: markdown
+
+  - type: checkboxes
+    id: benefits
+    attributes:
+      label: "What benefits does this idea bring?"
+      options:
+        - label: "Improves community engagement"
+        - label: "Enhances event organization"
+        - label: "Provides better educational resources"
+        - label: "Supports contributors and ambassadors"
+        - label: "Other (please describe in the comments below)"
+
+  - type: textarea
+    id: additional-comments
+    attributes:
+      label: "Additional Comments (Optional)"
+      placeholder: "Any extra details, related links, or references?"
+
+  - type: markdown
+    attributes:
+      value: |
+        ## 🗳️ Next Steps
+
+        Once submitted, a team member will review your feedback.  
+        - If additional details are needed, we will comment here.  
+        - If approved, the idea may be discussed further before implementation.  
+        - If not feasible, we will provide an explanation.  
+
+        Thank you for helping improve PyTorch Foundation Initiatives! 🚀
