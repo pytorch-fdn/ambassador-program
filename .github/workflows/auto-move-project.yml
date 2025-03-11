@@ -10,6 +10,6 @@ jobs:
       - name: Move Issue to Project
         uses: actions/add-to-project@v0.5.0
         with:
-          project-url: "https://github.com/orgs/pytorch-fdn/projects/8"  # Use the correct GitHub Project URL
+          project-url: "https://github.com/orgs/pytorch-fdn/projects/8"  
           github-token: ${{ secrets.GITHUB_TOKEN }}
           labeled: "nomination, pending-review, approved, needs-more-info, rejected"
