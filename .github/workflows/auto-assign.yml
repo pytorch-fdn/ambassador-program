@@ -1,0 +1,13 @@
+name: "Auto-Assign Nomination Issues"
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  assign-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign Issue to Maintainer
+        uses: pozil/auto-assign-issue@v1
+        with:
+          assignees: "reginankenchor"
