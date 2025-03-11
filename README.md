@@ -11,7 +11,7 @@ This repository serves as the public hub for community-driven nominations, propo
 
 ## 📝 Submit a Nomination  
 To submit a request, click the appropriate link below:  
-- **Nominate a PyTorch Ambassador** 👉 [Submit Here](https://github.com/pytorch-fdn/foundation-initiative/issues)  
+- **Nominate a PyTorch Ambassador** 👉 [Submit Here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)  
 
 ---
 
