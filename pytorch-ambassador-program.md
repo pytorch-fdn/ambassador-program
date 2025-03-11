@@ -102,7 +102,7 @@ Follow PyTorch's official channels, join the PyTorch Foundation Slack, and parti
 
 For questions or additional information, please reach out via:  
 - 📧 **Email:** [foundation@pytorch.org](mailto:foundation@pytorch.org)   
-- 🌍 **GitHub Discussions:** [Join Here](https://github.com/pytorch/foundation-initiative/discussions)  
+- 🌍 **Feedback:** [Here](https://github.com/pytorch/foundation-initiative/discussions)  
 
 ---
 
