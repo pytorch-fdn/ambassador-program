@@ -1,4 +1,4 @@
-# PyTorch Foundation Initiatives 
+# PyTorch Foundation Programs 
 
 Welcome to the PyTorch Foundation Initiatives repository!   
 
