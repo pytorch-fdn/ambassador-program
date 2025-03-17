@@ -17,7 +17,7 @@ To submit a request, click the appropriate link below:
 
 ## ❓ Frequently Asked Questions (FAQ)  
 
-### What is the PyTorch Foundation Initiatives repository?  
+### What is the PyTorch Foundation Program repository?  
 This repository is a public space where community members can nominate individuals and request participation in PyTorch Foundation programs such as the Ambassador Program, OSPO Outreach, and Speakers Bureau.  
 
 ### Who can submit a nomination or proposal?  
