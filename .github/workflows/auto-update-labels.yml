@@ -20,12 +20,16 @@ jobs:
 
             let newLabel = null;
 
-            if (comment.includes("approved")) {
+            if (comment.includes("initial review complete")) {
+              newLabel = "under-initial-review";
+            } else if (comment.includes("scheduled for interview")) {
+              newLabel = "one-on-one-review";
+            } else if (comment.includes("ranking complete")) {
+              newLabel = "ranking-in-progress";
+            } else if (comment.includes("approved")) {
               newLabel = "approved";
             } else if (comment.includes("rejected")) {
               newLabel = "rejected";
-            } else if (comment.includes("needs more info")) {
-              newLabel = "needs-more-info";
             }
 
             if (newLabel) {
