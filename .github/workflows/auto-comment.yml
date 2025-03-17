@@ -21,13 +21,13 @@ jobs:
               return;
             }
 
-            let programName = "Foundation Initiative Program";
-            let programDocs = "https://github.com/pytorch-fdn/foundation-initiative";
+            let programName = "PyTorch Foundation Programs";
+            let programDocs = "https://github.com/pytorch-fdn/foundation-programs";
 
             if (labels.includes("ambassador")) {
               programName = "PyTorch Ambassador Program";
               programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/pytorch-ambassador-program.md";
-            } else if (labels.includes("osp-outreach")) {
+            } else if (labels.includes("ospo-outreach")) {
               programName = "OSPO Outreach Program";
               programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/osp-outreach.md";
             } else if (labels.includes("speakers-bureau")) {
@@ -37,10 +37,11 @@ jobs:
 
             const commentBody = `👋 Thank you for submitting a nomination for the **${programName}**! 🎉\n\n
             Your nomination is currently under review. A team member will evaluate the submission and update the status accordingly.\n\n
-            🔹 **Next Steps:**\n
-            - If additional details are needed, we will comment here requesting more information.\n
-            - If approved, we will update the status to **"approved"** ✅ and contact you regarding the next steps.\n
-            - If the nomination does not meet the criteria, we will provide feedback and mark it as **"rejected"** ❌.\n\n
+            🔹 **Review Process & Next Steps:**\n
+            1️⃣ **Initial Review** - The nomination will be reviewed by the team.  
+            2️⃣ **One-on-One Review** - If shortlisted, the nominee will have a session with the Executive Director.  
+            3️⃣ **Ranking & Selection** - Nominees will be ranked based on eligibility & impact.  
+            4️⃣ **Final Decision** - Selected ambassadors will receive an **official invitation**. ✅\n\n
             📖 **Program Details & Requirements:** [Read More Here](${programDocs})\n\n
             Please stay tuned and feel free to respond here if you have any questions. 🚀`;
 
@@ -50,3 +51,4 @@ jobs:
               issue_number: issue.number,
               body: commentBody
             });
+
