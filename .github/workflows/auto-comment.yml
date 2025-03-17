@@ -42,7 +42,7 @@ jobs:
             2️⃣ **One-on-One Review** - If shortlisted, the nominee will have a session with the Executive Director.  
             3️⃣ **Ranking & Selection** - Nominees will be ranked based on eligibility & impact.  
             4️⃣ **Final Decision** - Selected ambassadors will receive an **official invitation**. ✅\n\n
-            📖 **Program Details & Requirements:** [Read More Here](${programDocs})\n\n
+            📖 **Program Details & Requirements:** [Read More Here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md)\n\n
             Please stay tuned and feel free to respond here if you have any questions. 🚀`;
 
             await github.rest.issues.createComment({
