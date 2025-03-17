@@ -96,10 +96,10 @@ body:
         - label: "A PyTorch user group organizer or meetup host."
         - label: "A researcher or educator using PyTorch in academic work or training."
         - label: "An active leader in the PyTorch community with **at least one year** of experience in:"
-        - label: "✔ Organizing events (virtual/in-person)."
-        - label: "✔ Speaking at AI/ML conferences."
-        - label: "✔ Mentoring others in PyTorch."
-        - label: "✔ Creating technical content (e.g., blogs, videos, tutorials)."
+        - label: "Organizing events (virtual/in-person)."
+        - label: "Speaking at AI/ML conferences."
+        - label: "Mentoring others in PyTorch."
+        - label: "Creating technical content (e.g., blogs, videos, tutorials)."
 
   - type: textarea
     id: nominee-expectations
