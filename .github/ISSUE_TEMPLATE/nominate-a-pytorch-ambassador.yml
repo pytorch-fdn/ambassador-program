@@ -34,7 +34,7 @@ body:
       label: "Please confirm that the nominee meets the following requirements:"
       options:
         - label: "The nominee is **18 years of age or older**."
-        - label: "The nominee **agrees to abide by the [PyTorch Code of Conduct](https://github.com/pytorch/community/blob/main/CODE_OF_CONDUCT.md)**."
+        - label: "The nominee **agrees to abide by the [PyTorch Code of Conduct](https://pytorch.org/code-of-conduct)**."
         - label: "The nominee **agrees to comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)**."
         - label: "The nominee meets **at least one** of the qualifications listed in the [PyTorch Ambassador Program documentation](https://github.com/pytorch/foundation-initiative/blob/main/pytorch-ambassador-program.md)."
 
