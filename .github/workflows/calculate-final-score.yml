@@ -27,19 +27,20 @@ jobs:
             const scoreRegex = /^score:\s*(\d)/i;
             let totalScore = 0;
             let numScores = 0;
-
+            const reviewers = [];
             const seenUsers = new Set();
 
             comments.data.forEach(comment => {
               const match = comment.body.match(scoreRegex);
-              if (match) {
-                const score = parseInt(match[1]);
-                const author = comment.user.login;
+              const author = comment.user.login;
 
-                if (!seenUsers.has(author) && score >= 1 && score <= 5) {
+              if (match && !seenUsers.has(author)) {
+                const score = parseInt(match[1]);
+                if (score >= 1 && score <= 5) {
                   totalScore += score;
                   numScores++;
                   seenUsers.add(author);
+                  reviewers.push(`@${author}`);
                 }
               }
             });
@@ -50,10 +51,26 @@ jobs:
             }
 
             const average = totalScore / numScores;
-            console.log(`Average score is ${average} based on ${numScores} unique reviewers.`);
-
             const finalLabel = average >= 3.0 ? "approved" : "rejected";
+            const oppositeLabel = finalLabel === "approved" ? "rejected" : "approved";
 
+            // Remove opposite label if it exists
+            const existingLabels = (await github.rest.issues.get({
+              owner,
+              repo,
+              issue_number
+            })).data.labels.map(label => label.name);
+
+            if (existingLabels.includes(oppositeLabel)) {
+              await github.rest.issues.removeLabel({
+                owner,
+                repo,
+                issue_number,
+                name: oppositeLabel
+              });
+            }
+
+            // Add the correct outcome label
             await github.rest.issues.addLabels({
               owner,
               repo,
@@ -61,9 +78,11 @@ jobs:
               labels: [finalLabel]
             });
 
+            // Post comment with reviewer names and score summary
+            const reviewersList = reviewers.join(", ");
             await github.rest.issues.createComment({
               owner,
               repo,
               issue_number,
-              body: `🧮 Average score from ${numScores} reviewers: **${average.toFixed(2)}**. Final decision: **${finalLabel.toUpperCase()}**.`
+              body: `🧮 Average score from ${numScores} reviewer(s): **${average.toFixed(2)}**\n👥 Reviewed by: ${reviewersList}\n📌 Final decision: **${finalLabel.toUpperCase()}**`
             });
