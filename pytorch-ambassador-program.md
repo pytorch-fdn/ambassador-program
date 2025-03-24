@@ -93,7 +93,7 @@ Yes, PyTorch Ambassadors receive quarterly stipends and event sponsorships to fu
 ### 🔹 What happens after I apply?  
 Applications will be reviewed by the PyTorch Foundation team. Selected candidates will be invited for onboarding.  
 
-### 🔹 How can I stay updated on PyTorch Foundation initiatives?  
+### 🔹 How can I stay updated on PyTorch Foundation Programs?  
 Follow PyTorch's official channels, join the PyTorch Foundation Slack, and participate in GitHub Discussions.  
 
 ---
