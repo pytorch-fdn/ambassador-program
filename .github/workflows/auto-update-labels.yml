@@ -20,11 +20,11 @@ jobs:
 
             let newLabel = null;
 
-            if (comment.includes("initial review complete")) {
+            if (comment.includes("initial review")) {
               newLabel = "under-initial-review";
             } else if (comment.includes("scheduled for interview")) {
               newLabel = "one-on-one-review";
-            } else if (comment.includes("ranking complete")) {
+            } else if (comment.includes("ranking in progress")) {
               newLabel = "ranking-in-progress";
             } else if (comment.includes("approved")) {
               newLabel = "approved";
