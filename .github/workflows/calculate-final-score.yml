@@ -1,0 +1,69 @@
+
+name: "Finalize Nomination Ranking"
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  finalize-decision:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculate Average Score from Comments & Approve/Reject
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.issue.number;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+
+            // Get all comments on the issue
+            const comments = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number
+            });
+
+            const scoreRegex = /^score:\s*(\d)/i;
+            let totalScore = 0;
+            let numScores = 0;
+
+            const seenUsers = new Set();
+
+            comments.data.forEach(comment => {
+              const match = comment.body.match(scoreRegex);
+              if (match) {
+                const score = parseInt(match[1]);
+                const author = comment.user.login;
+
+                if (!seenUsers.has(author) && score >= 1 && score <= 5) {
+                  totalScore += score;
+                  numScores++;
+                  seenUsers.add(author);
+                }
+              }
+            });
+
+            if (numScores === 0) {
+              console.log("No valid scores found.");
+              return;
+            }
+
+            const average = totalScore / numScores;
+            console.log(`Average score is ${average} based on ${numScores} unique reviewers.`);
+
+            const finalLabel = average >= 3.0 ? "approved" : "rejected";
+
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number,
+              labels: [finalLabel]
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `🧮 Average score from ${numScores} reviewers: **${average.toFixed(2)}**. Final decision: **${finalLabel.toUpperCase()}**.`
+            });
