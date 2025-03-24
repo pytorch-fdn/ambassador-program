@@ -26,7 +26,7 @@ jobs:
 
             if (labels.includes("ambassador")) {
               programName = "PyTorch Ambassador Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/pytorch-ambassador-program.md";
+              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md";
             } else if (labels.includes("ospo-outreach")) {
               programName = "OSPO Outreach Program";
               programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/osp-outreach.md";
