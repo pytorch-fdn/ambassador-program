@@ -35,7 +35,7 @@ If a nomination is accepted, the individual or organization will be contacted wi
 ### Where can I discuss ideas and give feedback?  
 You can participate in discussions and share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
 
-### How can I stay updated on new initiatives?  
+### How can I stay updated on new programs?  
 Stay tuned to this repository for announcements, or follow official PyTorch Foundation channels for updates.  
 
 ---
