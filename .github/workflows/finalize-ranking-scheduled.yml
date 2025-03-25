@@ -2,21 +2,22 @@
 name: "Finalize Ranking Scores (Scheduled)"
 on:
   schedule:
-    - cron: "0 */2 * * *"  # Every 2 hours
-  workflow_dispatch:       # Allow manual runs too
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
 
 jobs:
   finalize-ranking:
     runs-on: ubuntu-latest
     steps:
-      - name: Find Open Nominations
+      - name: Process Open Nominations
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { repo, owner } = context.repo;
+            const threshold = 3.0;
+            const scoreRegex = /^score:\s*(\d)/i;
 
-            // Get all open issues with 'nomination' label
             const issues = await github.rest.issues.listForRepo({
               owner,
               repo,
@@ -24,13 +25,9 @@ jobs:
               labels: "nomination"
             });
 
-            const scoreRegex = /^score:\s*(\d)/i;
-            const threshold = 3.0;
-
             for (const issue of issues.data) {
               const issue_number = issue.number;
 
-              // Get all comments on the issue
               const comments = await github.rest.issues.listComments({
                 owner,
                 repo,
@@ -63,8 +60,9 @@ jobs:
               const finalLabel = avg >= threshold ? "approved" : "rejected";
               const oppositeLabel = finalLabel === "approved" ? "rejected" : "approved";
 
-              const existingLabels = issue.labels.map(label => label.name);
-              if (existingLabels.includes(oppositeLabel)) {
+              const currentLabels = issue.labels.map(label => label.name);
+
+              if (currentLabels.includes(oppositeLabel)) {
                 await github.rest.issues.removeLabel({
                   owner,
                   repo,
@@ -73,12 +71,32 @@ jobs:
                 });
               }
 
-              if (!existingLabels.includes(finalLabel)) {
+              if (!currentLabels.includes(finalLabel)) {
                 await github.rest.issues.addLabels({
                   owner,
                   repo,
                   issue_number,
                   labels: [finalLabel]
+                });
+              }
+
+              // Remove pending-review if it exists
+              if (currentLabels.includes("pending-review")) {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number,
+                  name: "pending-review"
+                });
+              }
+
+              // Close the issue if rejected
+              if (finalLabel === "rejected") {
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number,
+                  state: "closed"
                 });
               }
 
