@@ -1,0 +1,91 @@
+
+name: "Finalize Ranking Scores (Scheduled)"
+on:
+  schedule:
+    - cron: "0 */2 * * *"  # Every 2 hours
+  workflow_dispatch:       # Allow manual runs too
+
+jobs:
+  finalize-ranking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find Open Nominations
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { repo, owner } = context.repo;
+
+            // Get all open issues with 'nomination' label
+            const issues = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+              labels: "nomination"
+            });
+
+            const scoreRegex = /^score:\s*(\d)/i;
+            const threshold = 3.0;
+
+            for (const issue of issues.data) {
+              const issue_number = issue.number;
+
+              // Get all comments on the issue
+              const comments = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number
+              });
+
+              let totalScore = 0;
+              let numScores = 0;
+              const reviewers = new Set();
+              const reviewerList = [];
+
+              comments.data.forEach(comment => {
+                const match = comment.body.match(scoreRegex);
+                const author = comment.user.login;
+
+                if (match && !reviewers.has(author)) {
+                  const score = parseInt(match[1]);
+                  if (score >= 1 && score <= 5) {
+                    totalScore += score;
+                    numScores++;
+                    reviewers.add(author);
+                    reviewerList.push(`@${author}`);
+                  }
+                }
+              });
+
+              if (numScores === 0) continue;
+
+              const avg = totalScore / numScores;
+              const finalLabel = avg >= threshold ? "approved" : "rejected";
+              const oppositeLabel = finalLabel === "approved" ? "rejected" : "approved";
+
+              const existingLabels = issue.labels.map(label => label.name);
+              if (existingLabels.includes(oppositeLabel)) {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number,
+                  name: oppositeLabel
+                });
+              }
+
+              if (!existingLabels.includes(finalLabel)) {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number,
+                  labels: [finalLabel]
+                });
+              }
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `🧮 Final average score from ${numScores} reviewer(s): **${avg.toFixed(2)}**\n👥 Reviewed by: ${reviewerList.join(", ")}\n📌 Final decision: **${finalLabel.toUpperCase()}**`
+              });
+            }
