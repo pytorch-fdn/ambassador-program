@@ -43,7 +43,10 @@ jobs:
             3️⃣ **Ranking & Selection** - Nominees will be ranked based on eligibility & impact.  
             4️⃣ **Final Decision** - Selected ambassadors will receive an **official invitation**. ✅\n\n
             📖 **Program Details & Requirements:** [Read More Here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md)\n\n
-            Please stay tuned and feel free to respond here if you have any questions. 🚀`;
+            💬 **Have questions about your nomination?** 
+            Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue number in the description.  
+            This helps us keep nomination threads focused on the review process. 🙏\n\n
+            Thank you for helping grow the PyTorch community! 🚀`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
