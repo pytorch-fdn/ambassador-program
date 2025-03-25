@@ -1,21 +1,24 @@
+
 # 🧑‍⚖️ Reviewer Guide: PyTorch Ambassador Program
 
 Welcome, and thank you for helping review nominations for the PyTorch Ambassador Program! 🎉
 
-This guide will walk you through everything you need to know to review nominations using our score-based ranking system.
+This guide will walk you through everything you need to know to review nominations using our **delayed, score-based ranking system**.
 
 ---
 
 ## 📌 Overview
 
-When someone is nominated to become a PyTorch Ambassador, we ask reviewers to evaluate their application and **submit a score from 1 to 5**. Once all reviewers have submitted scores, the system will automatically **calculate the average** and determine whether the nominee is **approved or rejected**.
+When someone is nominated to become a PyTorch Ambassador, we ask reviewers to evaluate their application and **submit a score from 1 to 5**. The system will acknowledge each reviewer's score and later calculate a final decision based on all inputs.
+
+Final decisions are calculated and posted **automatically every 2 hours**, or once all reviewers have submitted.
 
 ---
 
 ## 📥 Step 1: Identify New Nominations
 
 You can find open nominations under the Issues tab:  
-👉 https://github.com/pytorch-fdn/foundation-initiative/issues
+👉 https://github.com/pytorch-fdn/foundation-programs/issues
 
 Each nomination issue will have the label:  
 - `nomination`  
@@ -51,57 +54,65 @@ Where `X` is your score (from 1 to 5):
 | 4 | Good — strong candidate |
 | 5 | Excellent — exceptional fit |
 
-✅ **Only your first score comment will be counted.**  
-✅ **The score comment is not case-sensitive.** (`score: 4` or `SCORE: 4` both work)
+✅ **Only your first valid score will be counted** (multiple scores from the same reviewer are ignored)  
+✅ **The score comment is not case-sensitive** (`Score: 4`, `SCORE: 4`, etc.)
+
+After your score is submitted, the system will post a response like:
+
+```
+📝 Score received from @yourname: 4
+⏳ Final decision will be calculated and posted after all reviewers have submitted their scores or in approximately 2 hours.
+```
 
 ---
 
-## 📊 Step 4: How the Decision Is Made
+## 📊 Step 4: How the Final Decision Works
 
-Once reviewers have submitted their scores, the system will:
-1. Collect all `Score: X` comments
+A separate workflow runs every 2 hours to process nominations. It will:
+
+1. Collect all unique `Score: X` comments from reviewers
 2. Calculate the **average score**
-3. Automatically apply a label:
+3. Automatically apply a final status label:
 
 | Average Score | Final Status |
 |---------------|--------------|
 | ≥ 3.0 | ✅ Approved |
 | < 3.0 | ❌ Rejected |
 
-An automatic comment will appear with the summary:
-- Average score
-- List of reviewers
-- Final decision
+The system will then post a summary comment with:
+- The number of reviewers
+- The average score
+- The usernames of reviewers
+- The final decision
 
 ---
 
 ## 🧼 Step 5: That’s It!
 
-Once the system decides:
+Once the final decision is made:
 - If approved → The issue is labeled `approved` and onboarding begins
-- If rejected → The issue is labeled `rejected` and closed with feedback
+- If rejected → The issue is labeled `rejected` and the team may follow up with feedback
 
 ---
 
 ## 💡 Example Comments
 
-Here’s a valid comment:
+**✅ Valid:**
 
 ```
 Score: 4
-Shows strong involvement with community projects and mentoring.
+Nominee has demonstrated strong community contributions and leadership.
 ```
 
-This is **not valid** and will be ignored:
+**❌ Invalid (ignored):**
 
 ```
-My rating is 5/5
+Rated 5 stars!
 ```
 
 ---
 
 ## 🙋 Need Help?
 
-If you're unsure how to score someone, just leave a comment and tag the core team for support.
-
-Thanks again for your role in making the PyTorch community amazing! 💪
+If you're unsure how to score a nominee, just leave a comment on the issue and tag the core team.  
+Thanks again for supporting the growth of the PyTorch community! 🚀
