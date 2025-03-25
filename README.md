@@ -1,6 +1,6 @@
 # PyTorch Foundation Programs 
 
-Welcome to the PyTorch Foundation Initiatives repository!   
+Welcome to the PyTorch Foundation Programs repository!   
 
 This repository serves as the public hub for community-driven nominations, proposals, and requests related to PyTorch Foundation programs, including the Ambassador Program, OSPO Outreach, and Speakers Bureau. It allows community members to nominate or propose individuals and organizations for participation in these programs.
 
