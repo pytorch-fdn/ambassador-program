@@ -12,20 +12,20 @@ to activate, connect, and build community and interest in PyTorch at scale.
 Ambassadors are expected to actively contribute to the PyTorch community by:  
 
 ### **1️⃣ Local Community Leadership**  
-- 👥 Build and foster local PyTorch communities through networking and engagement.  
-- 🎤 Host at least one event per quarter (in-person or virtual) to educate and connect users.  
-- 💬 Engage in online discussions on official PyTorch platforms (Slack, PyTorch Discuss, etc.).  
-- 🔗 Encourage collaboration and share insights from local communities with the global PyTorch network.  
+- Build and foster local PyTorch communities through networking and engagement.  
+- Host at least one event per quarter (in-person or virtual) to educate and connect users.  
+- Engage in online discussions on official PyTorch platforms (Slack, PyTorch Discuss, etc.).  
+- Encourage collaboration and share insights from local communities with the global PyTorch network.  
 
 ### **2️⃣ Learning & Development**  
-- 📚 Complete the PyTorch Ambassador onboarding program and ongoing training.  
-- 🎓 Engage in PyTorch Foundation learning sessions to stay updated on new developments.  
-- 🛠 Develop as a subject matter expert (SME) and contribute to community learning.  
+- Complete the PyTorch Ambassador onboarding program and ongoing training.  
+- Engage in PyTorch Foundation learning sessions to stay updated on new developments.  
+- Develop as a subject matter expert (SME) and contribute to community learning.  
 
 ### **3️⃣ Knowledge Sharing**  
-- ✍️ Create and share content (blog posts, tutorials, videos) related to PyTorch.  
-- 📢 Promote PyTorch advancements and community contributions on social media.  
-- 🏆 Identify success stories to be featured by the PyTorch Foundation.  
+- Create and share content (blog posts, tutorials, videos) related to PyTorch.  
+- Promote PyTorch advancements and community contributions on social media.  
+- Identify success stories to be featured by the PyTorch Foundation.  
 
 ---
 
