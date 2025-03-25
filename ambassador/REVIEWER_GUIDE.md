@@ -1,4 +1,3 @@
-
 # 🧑‍⚖️ Reviewer Guide: PyTorch Ambassador Program
 
 Welcome, and thank you for helping review nominations for the PyTorch Ambassador Program! 🎉
@@ -18,7 +17,7 @@ Final decisions are calculated and posted **automatically every 2 hours**, or on
 ## 📥 Step 1: Identify New Nominations
 
 You can find open nominations under the Issues tab:  
-👉 https://github.com/pytorch-fdn/foundation-programs/issues
+👉 https://github.com/pytorch-fdn/foundation-initiative/issues
 
 Each nomination issue will have the label:  
 - `nomination`  
@@ -68,7 +67,7 @@ After your score is submitted, the system will post a response like:
 
 ## 📊 Step 4: How the Final Decision Works
 
-A separate workflow runs every 2 hours to process nominations. It will:
+A scheduled workflow runs every 2 hours to process nominations. It will:
 
 1. Collect all unique `Score: X` comments from reviewers
 2. Calculate the **average score**
@@ -79,7 +78,10 @@ A separate workflow runs every 2 hours to process nominations. It will:
 | ≥ 3.0 | ✅ Approved |
 | < 3.0 | ❌ Rejected |
 
-The system will then post a summary comment with:
+4. **Removes** the `pending-review` label if present
+5. **Closes the issue automatically** if the nominee is rejected
+
+The system then posts a summary comment with:
 - The number of reviewers
 - The average score
 - The usernames of reviewers
@@ -91,7 +93,7 @@ The system will then post a summary comment with:
 
 Once the final decision is made:
 - If approved → The issue is labeled `approved` and onboarding begins
-- If rejected → The issue is labeled `rejected` and the team may follow up with feedback
+- If rejected → The issue is labeled `rejected` and is automatically closed
 
 ---
 
