@@ -1,4 +1,4 @@
-# 🧑‍⚖️ Reviewer Guide: PyTorch Ambassador Program
+# Reviewer Guide: PyTorch Ambassador Program
 
 Welcome, and thank you for helping review nominations for the PyTorch Ambassador Program! 🎉
 
