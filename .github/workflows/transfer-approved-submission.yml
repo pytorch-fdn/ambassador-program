@@ -9,10 +9,10 @@ jobs:
     if: github.event.label.name == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - name: Transfer Issue
+      - name: Transfer Issue to Private Repo
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           script: |
             const issue = context.payload.issue;
             const repoOwner = context.repo.owner;
