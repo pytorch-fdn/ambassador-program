@@ -9,7 +9,7 @@ jobs:
     if: github.event.label.name == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - name: Transfer Issue to Private Repo
+      - name: Transfer Issue
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -20,12 +20,12 @@ jobs:
             const privateRepo = "foundation-programs-management";
             const assignee = "reginankenchor";
 
-            const privateBody = [
-              "📝 **Submission Transferred from Public Repository**",
+            const bodyContent = [
+              "📝 Submission Transferred from Public Repository",
               "",
-              "------",
+              "----------------------------------------",
               issue.body,
-              "------",
+              "----------------------------------------",
               `🔔 @${assignee} — this submission has been approved and is now ready for program-level follow-up.`
             ].join("\n\n");
 
@@ -33,12 +33,12 @@ jobs:
               owner: repoOwner,
               repo: privateRepo,
               title: issue.title,
-              body: privateBody,
+              body: bodyContent,
               assignees: [assignee]
             });
 
-            const publicComment = [
-              "✅ This submission has been **approved** and transferred to the private program management repository.",
+            const confirmation = [
+              "✅ This submission has been approved and transferred to the private program management repository.",
               "",
               `🔗 [View it here](${newIssue.data.html_url})`,
               "",
@@ -49,7 +49,7 @@ jobs:
               owner: repoOwner,
               repo: publicRepo,
               issue_number: issue.number,
-              body: publicComment
+              body: confirmation
             });
 
             await github.rest.issues.update({
