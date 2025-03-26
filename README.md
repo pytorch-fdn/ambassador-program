@@ -5,7 +5,7 @@ Welcome to the PyTorch Foundation Programs repository!
 This repository serves as the public hub for community-driven nominations, proposals, and requests related to PyTorch Foundation programs, including the Ambassador Program, OSPO Outreach, and Speakers Bureau. It allows community members to nominate or propose individuals and organizations for participation in these programs.
 
 ## 📌 Programs Managed  
-- **PyTorch Ambassador Program** - Learn more about the ambassador program [here](https://github.com/pytorch-fdn/foundation-initiative/blob/main/pytorch-ambassador-program.md).  
+- **PyTorch Ambassador Program** - Learn more about the ambassador program [here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md). 
 - **OSPO Outreach** - Learn more about the outreach program [here](link-to-md-file).  
 - **Speakers Bureau** - Learn more about the speakers bureau [here](link-to-md-file).  
 
@@ -33,7 +33,7 @@ Yes, self-nominations are allowed. If you believe you are a good fit for one of 
 If a nomination is accepted, the individual or organization will be contacted with further details. Approved nominations are managed in a private repository for program coordination.  
 
 ### Where can I discuss ideas and give feedback?  
-You can participate in discussions and share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
+You can share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
 
 ### How can I stay updated on new programs?  
 Stay tuned to this repository for announcements, or follow official PyTorch Foundation channels for updates.  
