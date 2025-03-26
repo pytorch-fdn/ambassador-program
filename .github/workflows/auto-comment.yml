@@ -1,3 +1,4 @@
+
 name: "Auto-Comment on Nomination Issues"
 on:
   issues:
@@ -7,51 +8,82 @@ jobs:
   comment-on-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Welcome Comment for Nominations Only
+      - name: Add Welcome Comment Based on Program
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
             const labels = issue.labels.map(label => label.name.toLowerCase());
+            const issueNumber = issue.number;
+            const repoOwner = context.repo.owner;
+            const repoName = context.repo.repo;
 
-            // Only proceed if the issue has the "nomination" label
-            if (!labels.includes("nomination")) {
-              console.log("Skipping: Issue is not a nomination.");
-              return;
-            }
-
-            let programName = "PyTorch Foundation Programs";
+            let programName = "PyTorch Foundation Program";
             let programDocs = "https://github.com/pytorch-fdn/foundation-programs";
+            let commentBody = "";
 
             if (labels.includes("ambassador")) {
               programName = "PyTorch Ambassador Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md";
-            } else if (labels.includes("ospo-outreach")) {
-              programName = "OSPO Outreach Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/osp-outreach.md";
+              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/ambassador/README.md";
+              commentBody = [
+                `👋 Thank you for submitting a nomination for the **${programName}**! 🎉`,
+                "",
+                "Your nomination is currently under review. A team member will evaluate the submission and update the status accordingly.",
+                "",
+                "🔹 **Review Process & Next Steps:**",
+                "1️⃣ Initial Review – The nomination will be reviewed by the team.",
+                "2️⃣ One-on-One Review – If shortlisted, the nominee will have a session with the Executive Director.",
+                "3️⃣ Ranking & Selection – Reviewers will assign scores based on eligibility and impact.",
+                "4️⃣ Final Decision – Selected ambassadors will receive an **official invitation**. ✅",
+                "",
+                `📖 Program Details: [View Documentation](${programDocs})`,
+                "",
+                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this nomination issue number.",
+                "",
+                "Thank you for helping grow the PyTorch community! 🚀"
+              ].join("\n\n");
             } else if (labels.includes("speakers-bureau")) {
               programName = "Speakers Bureau Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-initiative/blob/main/speakers-bureau.md";
+              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/speakers-bureau/README.md";
+              commentBody = [
+                `👋 Thank you for submitting a nomination for the **${programName}**! 🎤`,
+                "",
+                "Your nomination is currently being reviewed. A team member will evaluate the speaker’s background, proposed topics, and fit for upcoming events.",
+                "",
+                `📖 Program Details: [View Documentation](${programDocs})`,
+                "",
+                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue.",
+                "",
+                "We appreciate your effort to support PyTorch education and visibility worldwide! 🌍"
+              ].join("\n\n");
+            } else if (labels.includes("ospo-outreach")) {
+              programName = "OSPO Outreach Program";
+              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/ospo-outreach/README.md";
+              commentBody = [
+                `👋 Thank you for your submission to the **${programName}**! 🧪`,
+                "",
+                "Your outreach proposal is under review. The team will evaluate the research goals, scope, and alignment with PyTorch Foundation priorities.",
+                "",
+                `📖 Program Details: [View Documentation](${programDocs})`,
+                "",
+                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue.",
+                "",
+                "Thank you for advancing open-source AI and ML innovation with us! 🤝"
+              ].join("\n\n");
+            } else {
+              commentBody = [
+                `👋 Thank you for submitting to the **${programName}**!`,
+                "",
+                `Your submission is under review. Please refer to our [documentation](${programDocs}) for next steps.`,
+                "",
+                "If you have questions, submit a [Feedback Issue](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and include this issue number."
+              ].join("\n\n");
             }
 
-            const commentBody = `👋 Thank you for submitting a nomination for the **${programName}**! 🎉\n\n
-            Your nomination is currently under review. A team member will evaluate the submission and update the status accordingly.\n\n
-            🔹 **Review Process & Next Steps:**\n
-            1️⃣ **Initial Review** - The nomination will be reviewed by the team.  
-            2️⃣ **One-on-One Review** - If shortlisted, the nominee will have a session with the Executive Director.  
-            3️⃣ **Ranking & Selection** - Nominees will be ranked based on eligibility & impact.  
-            4️⃣ **Final Decision** - Selected ambassadors will receive an **official invitation**. ✅\n\n
-            📖 **Program Details & Requirements:** [Read More Here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md)\n\n
-            💬 **Have questions about your nomination?** 
-            Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue number in the description.  
-            This helps us keep nomination threads focused on the review process. 🙏\n\n
-            Thank you for helping grow the PyTorch community! 🚀`;
-
             await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
+              owner: repoOwner,
+              repo: repoName,
+              issue_number: issueNumber,
               body: commentBody
             });
-
