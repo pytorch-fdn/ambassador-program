@@ -138,5 +138,4 @@ body:
           - `rejected` ❌ → Your nomination was not approved.  
 
         **💬 Have Questions?**  
-        - If you have any questions about your nomination, you can **leave a comment on this issue**.  
-        - A team member will respond as soon as possible
+        "If you have questions, submit a [Feedback Issue](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and include this issue number."
