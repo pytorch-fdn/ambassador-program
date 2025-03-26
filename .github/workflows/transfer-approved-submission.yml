@@ -1,0 +1,58 @@
+
+name: "Transfer Approved Submission to Private Repo"
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  transfer-submission:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Transfer Issue to Private Repo
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const repoOwner = context.repo.owner;
+            const publicRepo = context.repo.repo;
+            const privateRepo = "foundation-programs-management";
+            const assignee = "reginankenchor";
+
+            // Step 1: Create issue in private repo
+            const newIssue = await github.rest.issues.create({
+              owner: repoOwner,
+              repo: privateRepo,
+              title: issue.title,
+              body: `📝 **Submission Transferred from Public Repository**
+
+---
+
+${issue.body}
+
+---
+
+🔔 @${assignee} — this submission has been approved and is now ready for program-level follow-up.`,
+              assignees: [assignee]
+            });
+
+            // Step 2: Comment on original public issue
+            await github.rest.issues.createComment({
+              owner: repoOwner,
+              repo: publicRepo,
+              issue_number: issue.number,
+              body: `✅ This submission has been **approved** and transferred to the private program management repository.
+
+🔗 [View it here](${newIssue.data.html_url})
+
+This issue has been closed here for tracking purposes.`
+            });
+
+            // Step 3: Close the public issue
+            await github.rest.issues.update({
+              owner: repoOwner,
+              repo: publicRepo,
+              issue_number: issue.number,
+              state: "closed"
+            });
