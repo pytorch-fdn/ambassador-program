@@ -2,14 +2,14 @@
 name: "Finalize Ranking Scores (Scheduled)"
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 */2 * * *"  # Runs every 2 hours
   workflow_dispatch:
 
 jobs:
   finalize-ranking:
     runs-on: ubuntu-latest
     steps:
-      - name: Process Open Nominations
+      - name: Process Unranked Nominations
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,6 +27,9 @@ jobs:
 
             for (const issue of issues.data) {
               const issue_number = issue.number;
+              const currentLabels = issue.labels.map(label => label.name);
+
+              if (currentLabels.includes("ranked")) continue; // Skip already ranked
 
               const comments = await github.rest.issues.listComments({
                 owner,
@@ -60,8 +63,6 @@ jobs:
               const finalLabel = avg >= threshold ? "approved" : "rejected";
               const oppositeLabel = finalLabel === "approved" ? "rejected" : "approved";
 
-              const currentLabels = issue.labels.map(label => label.name);
-
               if (currentLabels.includes(oppositeLabel)) {
                 await github.rest.issues.removeLabel({
                   owner,
@@ -80,7 +81,6 @@ jobs:
                 });
               }
 
-              // Remove pending-review if it exists
               if (currentLabels.includes("pending-review")) {
                 await github.rest.issues.removeLabel({
                   owner,
@@ -90,7 +90,6 @@ jobs:
                 });
               }
 
-              // Close the issue if rejected
               if (finalLabel === "rejected") {
                 await github.rest.issues.update({
                   owner,
@@ -105,5 +104,12 @@ jobs:
                 repo,
                 issue_number,
                 body: `🧮 Final average score from ${numScores} reviewer(s): **${avg.toFixed(2)}**\n👥 Reviewed by: ${reviewerList.join(", ")}\n📌 Final decision: **${finalLabel.toUpperCase()}**`
+              });
+
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: ["ranked"]
               });
             }
