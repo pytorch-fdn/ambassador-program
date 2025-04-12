@@ -1,7 +1,5 @@
 # PyTorch Ambassador Program 🚀
 
-## Overview 🌎  
-
 The PyTorch Ambassador Program brings together our top rising leaders globally to empower them 
 to activate, connect, and build community and interest in PyTorch at scale. 
 
