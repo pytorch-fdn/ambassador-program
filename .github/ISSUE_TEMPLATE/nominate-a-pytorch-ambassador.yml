@@ -66,6 +66,18 @@ body:
       label: "(Optional) Organization / Affiliation"
       placeholder: "Enter the nominee’s organization (if applicable)."
 
+   - type: dropdown
+    id: nominee-region
+    attributes:
+      label: "Which region is the nominee based in?"
+      options:
+        - China
+        - South Korea
+        - India
+        - United States (San Francisco)
+        - United Kingdom
+        - Other
+
   - type: markdown
     attributes:
       value: "### **Nominator Information (If Different from Nominee)**"
