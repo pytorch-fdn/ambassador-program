@@ -36,7 +36,7 @@ To become a PyTorch Ambassador, candidates must meet the following criteria:
 - 📜 Must follow the PyTorch Foundation Code of Conduct.  
 - ⚖️ Must comply with the LF antitrust policy [here](https://www.linuxfoundation.org/legal/antitrust-policy).  
 - 🖥️ Demonstrate technical knowledge of PyTorch through:  
-  - 🔹 Open-source contributions to PyTorch.  
+  - 🔹 Open source contributions to PyTorch.  
   - 🔹 Published research, tutorials, or educational content featuring PyTorch.  
   - 🔹 Organizing or actively participating in a PyTorch user group or community.  
 - 🕐 Commit to a one-year term, with the option for renewal.  
