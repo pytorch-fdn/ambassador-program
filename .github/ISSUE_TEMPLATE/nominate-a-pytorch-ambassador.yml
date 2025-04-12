@@ -66,6 +66,21 @@ body:
       label: "(Optional) Organization / Affiliation"
       placeholder: "Enter the nominee’s organization (if applicable)."
 
+  - type: markdown
+    attributes:
+      value: |
+        ### 🌍 Regional Focus for 2025
+
+        For the 2025 cohort, the PyTorch Ambassador Program will prioritize applicants from the following regions:
+
+        - China  
+        - South Korea  
+        - India  
+        - United States (San Francisco)  
+        - United Kingdom  
+
+        We welcome all nominations, but please note that this first cohort is regionally focused.
+
   - type: dropdown
     id: nominee-region
     attributes:
