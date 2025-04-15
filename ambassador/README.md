@@ -1,4 +1,4 @@
-# PyTorch Ambassador Program 🚀
+# PyTorch Ambassador Program 
 
 ## Overview 🌎  
 
