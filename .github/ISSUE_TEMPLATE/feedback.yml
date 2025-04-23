@@ -24,8 +24,6 @@ body:
       options:
         - "General PyTorch Foundation Initiatives"
         - "PyTorch Ambassador Program"
-        - "OSPO Outreach"
-        - "Speakers Bureau"
         - "Other"
 
   - type: textarea
