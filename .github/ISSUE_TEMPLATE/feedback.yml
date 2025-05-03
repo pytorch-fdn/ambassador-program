@@ -2,7 +2,13 @@ name: "Submit Feedback or Ideas"
 description: "Share your feedback or propose an idea to improve PyTorch Foundation Programs."
 title: "[Feedback] <Brief Idea or Topic>"
 labels: ["feedback", "pending-review"]
+
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > 📝 **Note:** Please fill out the above field with a brief summary of your feedback or idea, replacing `<Brief Idea or Topic>`.
+
   - type: markdown
     attributes:
       value: |
