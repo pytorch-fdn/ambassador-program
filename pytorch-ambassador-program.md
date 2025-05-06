@@ -51,12 +51,11 @@ To become a PyTorch Ambassador, candidates must meet the following criteria:
 - 🔒 Access to a private Slack group for engagement with other ambassadors and PyTorch Foundation staff.  
 
 ### **2️⃣ Access to Exclusive Resources**  
-- 🚀 Early access to PyTorch releases and technical documentation.  
 - 🎤 Invites to training, leadership workshops, and technical briefings.  
 - 📖 Event organization materials and playbooks.  
 
 ### **3️⃣ Financial & Event Support**  
-- 💰 Quarterly stipend to support community events.  
+- 💰 Approved expense reimbursement to support community engagement
 - 🎟️ Free or discounted tickets to the PyTorch Conference.  
 - 🎁 Ambassador swag for outreach events.  
 
