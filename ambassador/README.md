@@ -84,10 +84,7 @@ Ambassadors commit to a one-year term, with the option for renewal based on enga
 Yes! Community members can nominate others who are making a meaningful impact in the PyTorch ecosystem.  
 
 ### 🔹 What is the time commitment for an Ambassador?  
-Ambassadors should expect to dedicate 5-10 hours per month for organizing events, engaging in discussions, and learning.  
-
-### 🔹 Do Ambassadors receive financial support for hosting events?  
-Yes, PyTorch Ambassadors receive quarterly stipends and event sponsorships to fund meetups and workshops.  
+Ambassadors should expect to dedicate 5-10 hours per month for organizing events, engaging in discussions, and learning.   
 
 ### 🔹 What happens after I apply?  
 Applications will be reviewed by the PyTorch Foundation team. Selected candidates will be invited for onboarding.  
