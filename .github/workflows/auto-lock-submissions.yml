@@ -31,7 +31,7 @@ jobs:
               });
 
               // Add a small delay to ensure comment is posted before locking
-              await new Promise(resolve => setTimeout(resolve, 5000));  // 5-second delay
+              await new Promise(resolve => setTimeout(resolve, 10000));  // 10-second delay
 
               // Lock the issue with 'resolved' reason
               await github.rest.issues.lock({
