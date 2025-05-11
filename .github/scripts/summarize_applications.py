@@ -40,16 +40,19 @@ for issue in issues:
 
     csv_rows.append([issue.number, name, email, org, location])
 
-# Write to Markdown
-with open("SUMMARY.md", "w") as f:
+# Ensure ambassador directory exists
+os.makedirs("ambassador", exist_ok=True)
+
+# Write to Markdown in ambassador folder
+with open("ambassador/SUMMARY.md", "w") as f:
     f.writelines(summary_lines)
 
-print("Summary written to SUMMARY.md")
+print("Summary written to ambassador/SUMMARY.md")
 
-# Write to CSV
-with open("SUMMARY.csv", "w", newline='', encoding='utf-8') as csvfile:
+# Write to CSV in ambassador folder
+with open("ambassador/SUMMARY.csv", "w", newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Issue #", "Nominee Name", "Email", "Organization", "Location"])
     writer.writerows(csv_rows)
 
-print("Summary written to SUMMARY.csv")
+print("Summary written to ambassador/SUMMARY.csv")
