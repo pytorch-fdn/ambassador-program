@@ -2,7 +2,6 @@ import os
 import csv
 from github import Github
 import re
-from collections import Counter
 
 # Get token and repo name from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
@@ -19,12 +18,9 @@ issues = list(repo.get_issues(state='all', labels=['ambassador']))
 summary_lines = []
 summary_lines.append("# PyTorch Ambassador Applications Summary\n\n")
 summary_lines.append(f"**Total Applications**: {len(issues)}\n\n")
-
 summary_lines.append("| Issue # | Nominee Name | Email | Organization | Location |\n")
 summary_lines.append("|--------|--------------|------|--------------|----------|\n")
 
-# Data collection for location grouping and CSV export
-location_counter = Counter()
 csv_rows = []
 
 for issue in issues:
@@ -42,18 +38,7 @@ for issue in issues:
 
     summary_lines.append(f"| {issue.number} | {name} | {email} | {org} | {location} |\n")
 
-    # Count locations
-    location_counter[location] += 1
-
-    # Prepare CSV row
     csv_rows.append([issue.number, name, email, org, location])
-
-# Add location summary to Markdown
-summary_lines.append("\n## Applications by Location\n\n")
-summary_lines.append("| Location | Count |\n")
-summary_lines.append("|----------|------:|\n")
-for loc, count in location_counter.items():
-    summary_lines.append(f"| {loc} | {count} |\n")
 
 # Write to Markdown
 with open("SUMMARY.md", "w") as f:
