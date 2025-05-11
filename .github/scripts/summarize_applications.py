@@ -1,6 +1,8 @@
 import os
+import csv
 from github import Github
 import re
+from collections import Counter
 
 # Get token and repo name from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
@@ -11,14 +13,19 @@ g = Github(GITHUB_TOKEN)
 repo = g.get_repo(GITHUB_REPOSITORY)
 
 # Fetch issues with 'ambassador' label
-issues = repo.get_issues(state='all', labels=['ambassador'])
+issues = list(repo.get_issues(state='all', labels=['ambassador']))
 
 # Prepare summary content
 summary_lines = []
 summary_lines.append("# PyTorch Ambassador Applications Summary\n\n")
-summary_lines.append(f"**Total Applications**: {issues.totalCount}\n\n")
+summary_lines.append(f"**Total Applications**: {len(issues)}\n\n")
+
 summary_lines.append("| Issue # | Nominee Name | Email | Organization | Location |\n")
 summary_lines.append("|--------|--------------|------|--------------|----------|\n")
+
+# Data collection for location grouping and CSV export
+location_counter = Counter()
+csv_rows = []
 
 for issue in issues:
     body = issue.body
@@ -35,9 +42,29 @@ for issue in issues:
 
     summary_lines.append(f"| {issue.number} | {name} | {email} | {org} | {location} |\n")
 
-# Write summary to SUMMARY.md
-output_file = "SUMMARY.md"
-with open(output_file, "w") as f:
+    # Count locations
+    location_counter[location] += 1
+
+    # Prepare CSV row
+    csv_rows.append([issue.number, name, email, org, location])
+
+# Add location summary to Markdown
+summary_lines.append("\n## Applications by Location\n\n")
+summary_lines.append("| Location | Count |\n")
+summary_lines.append("|----------|------:|\n")
+for loc, count in location_counter.items():
+    summary_lines.append(f"| {loc} | {count} |\n")
+
+# Write to Markdown
+with open("SUMMARY.md", "w") as f:
     f.writelines(summary_lines)
 
-print(f"Summary written to {output_file}")
+print("Summary written to SUMMARY.md")
+
+# Write to CSV
+with open("SUMMARY.csv", "w", newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Issue #", "Nominee Name", "Email", "Organization", "Location"])
+    writer.writerows(csv_rows)
+
+print("Summary written to SUMMARY.csv")
