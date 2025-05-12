@@ -1,9 +1,16 @@
 # PyTorch Ambassador Applications Summary
 
-**Total Applications**: 115
+**Total Applications**: 122
 
 | Issue # | Nominee Name | Email | Organization | Location |
 |--------|--------------|------|--------------|----------|
+| 152 | Zesheng Zong | zesheng.zong@gmail.com | _No response_ | Xi'an Shaanxi China |
+| 151 | Junaid Mir | junaid.mir@uni-due.de | University of Duisburg-Essen | Essen, Germany |
+| 150 | Masahiro Hiramori | contact@mshr-h.com | Mitsubishi Electric Corporation | Kanagawa, Japan |
+| 149 | TALMEEZ FUAAD | fuaadtalmeez@gmail.com | _No response_ | Sahiwal, Punjab, Pakistan |
+| 148 | Dr. Mrugendrasinh Rahevar | mrugendrarahevar.ce@charusat.ac.in | CSPIT, CHARUSAT | Anand |
+| 147 | TAMWO FEUWO FRANCK VALERE | franck.tamwo@facsiences-uy1.cm | _No response_ | Yaoundé, Center, Cameroon |
+| 146 | Sarthak Purohit | sarthakpurohit@gmail.com | Red Hat | Bengaluru, Karnatak, India |
 | 145 | Ezekiel Mathias | ezekielmathias500@gmail.com | _No response_ | Lagos, Nigeria |
 | 144 | Bassey Ene | basseyene778@gmail.com | _No response_ | Abuja, Nigeria |
 | 143 | Hossain Kabir | mdr74242@gmail.com | _No response_ | Dhaka BD |
