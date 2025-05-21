@@ -19,12 +19,12 @@ jobs:
             const repoName = context.repo.repo;
 
             let programName = "PyTorch Foundation Program";
-            let programDocs = "https://github.com/pytorch-fdn/ambassador-program";
+            let programDocs = "https://github.com/pytorch-fdn/foundation-programs";
             let commentBody = "";
 
             if (labels.includes("ambassador")) {
               programName = "PyTorch Ambassador Program";
-              programDocs = "https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md";
+              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md";
               commentBody = [
                 `👋 Thank you for submitting a nomination for the **${programName}**! 🎉`,
                 "",
