@@ -1,41 +1,100 @@
-# PyTorch Foundation Programs 
+# PyTorch Ambassador Program
 
-Welcome to the PyTorch Foundation Programs repository!   
+![PyTorch Ecosystem](https://raw.githubusercontent.com/pytorch/pytorch/0d4cedaa47c7ee22042eb24e87eb3cfe95502404/docs/source/_static/img/pytorch-logo-dark.svg)
 
-This repository serves as the public hub for community-driven nominations, proposals, and requests related to PyTorch Foundation programs, including the Ambassador Program. It allows community members to nominate or propose individuals and organizations for participation in this program.
-
-## 📌 Programs Managed  
-- **PyTorch Ambassador Program** - Learn more about the ambassador program [here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md). 
-
-## 📝 Submit a Nomination  
-To submit a request, click the appropriate link below:  
-- **Nominate a PyTorch Ambassador** 👉 [Submit Here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)  
+## 🌎 Overview
+The PyTorch Ambassador Program brings together our top rising leaders globally to empower them to activate, connect, and build community and interest in PyTorch at scale.
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)  
+## 🔹 Responsibilities
 
-### What is the PyTorch Foundation Program repository?  
-This repository is a public space where community members can nominate individuals and request participation in PyTorch Foundation programs such as the Ambassador Program.  
+### 1️⃣ Local Community Leadership
+- Build and foster local PyTorch communities through networking and engagement.
+- Host at least one event per quarter (in-person or virtual).
+- Engage in online discussions (Slack, PyTorch Discuss, etc.).
+- Encourage collaboration and share insights with the global community.
 
-### Who can submit a nomination or proposal?  
-Anyone from the community can submit a nomination. We encourage developers, researchers, educators, and advocates to participate.  
+### 2️⃣ Learning & Development
+- Complete onboarding and ongoing training.
+- Join Foundation learning sessions to stay updated.
+- Develop as a subject matter expert and contribute to learning.
 
-### How are nominations reviewed and approved?  
-Once a nomination is submitted, it will be reviewed by the PyTorch Foundation team. Discussions and feedback may take place within the issue before a decision is made.
-
-### Can I nominate myself for a program?  
-Yes, self-nominations are allowed. If you believe you are a good fit for one of the programs, feel free to submit a nomination.  
-
-### What happens after a nomination is approved?  
-If a nomination is accepted, the individual or organization will be contacted with further details. Approved nominations are managed in a private repository for program coordination.  
-
-### Where can I discuss ideas and give feedback?  
-You can share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
-
-### How can I stay updated on new programs?  
-Stay tuned to this repository for announcements, or follow official PyTorch Foundation channels for updates.  
+### 3️⃣ Knowledge Sharing
+- Share content (blogs, tutorials, videos) about PyTorch.
+- Promote community advancements on social media.
+- Identify stories to be featured by the Foundation.
 
 ---
 
-If you have any other questions, feel free to open a discussion or issue in this repository.  
+## ✅ Requirements
+To become a PyTorch Ambassador, you must:
+- 🎂 Be at least 18 years old.
+- 📝 Sign the Ambassador Agreement & NDA.
+- 📜 Follow the PyTorch Code of Conduct.
+- ⚖️ Comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy).
+- 🖥️ Demonstrate technical knowledge of PyTorch via:
+  - Open source contributions
+  - Research/tutorials
+  - Community organizing
+- 🕐 Commit to a one-year term (renewable).
+
+---
+
+## 🎁 Benefits
+
+### 1️⃣ Recognition & Engagement
+- 🏅 “PyTorch Ambassador” title for LinkedIn, etc.
+- 🌟 Featured on website and socials.
+- 🔒 Access to a private Slack group.
+
+### 2️⃣ Resources
+- 🎤 Invites to training and briefings.
+- 📖 Event playbooks and materials.
+
+### 3️⃣ Support
+- 💰 Reimbursement for community activities.
+- 🎟️ Free or discounted conference tickets.
+- 🎁 Ambassador swag.
+
+### 4️⃣ Professional Growth
+- 🔗 Networking with AI/ML leaders.
+- 🎙️ Speaker opportunities.
+- 🏆 Recognition for top contributors.
+
+---
+
+## ❓ Frequently Asked Questions
+
+### 🔹 What is the PyTorch Ambassador Program?
+An initiative to empower individuals to promote PyTorch and build local AI/ML communities.
+
+### 🔹 Who can apply?
+Developers, educators, researchers, and advocates who contribute to PyTorch.
+
+### 🔹 How long is the commitment?
+One year, with potential for renewal.
+
+### 🔹 Can I nominate someone?
+Yes! You can nominate yourself or others in the community.
+
+### 🔹 How much time is expected?
+Roughly 5–10 hours/month for events, mentoring, and content.
+
+### 🔹 What happens after applying?
+A review process followed by onboarding if selected.
+
+### 🔹 How to stay updated?
+Follow PyTorch channels and join our Slack.
+
+---
+
+## 📞 Contact
+
+- 📧 Email: ambassador@pytorch.org
+- 🌍 [Leave Feedback](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20)
+
+---
+
+## 🏛 Attribution
+This program is adapted from the TODO Group Ambassador Program.
