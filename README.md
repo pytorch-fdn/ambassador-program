@@ -5,6 +5,9 @@
 ## 🌎 Overview
 The PyTorch Ambassador Program brings together our top rising leaders globally to empower them to activate, connect, and build community and interest in PyTorch at scale.
 
+## 📝 Submit a Nomination  
+To submit a request, click the appropriate link below:  
+- **Nominate a PyTorch Ambassador** 👉 [Submit Here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)  
 ---
 
 ## 🔹 Responsibilities
