@@ -22,7 +22,7 @@ jobs:
       - name: Run Summary Script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: pytorch-fdn/foundation-programs
+          GITHUB_REPOSITORY: pytorch-fdn/ambassador-program
         run: python .github/scripts/summarize_applications.py
 
       - name: Commit and Push Summary
