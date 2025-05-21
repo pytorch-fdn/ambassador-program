@@ -97,4 +97,4 @@ Follow PyTorch channels and join our Slack.
 ---
 
 ## 🏛 Attribution
-This program is adapted from the TODO Group Ambassador Program.
+This program is adapted from the TODO Group and CNCF Ambassador Program.
