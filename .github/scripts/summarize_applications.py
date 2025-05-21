@@ -5,7 +5,7 @@ import re
 
 # Get token and repo name from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")  # Example: 'pytorch-fdn/foundation-programs'
+GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")  # Example: 'pytorch-fdn/ambassador-program'
 
 # Authenticate with GitHub
 g = Github(GITHUB_TOKEN)
