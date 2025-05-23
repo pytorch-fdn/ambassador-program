@@ -1,5 +1,5 @@
 name: "Submit Feedback or Ideas"
-description: "Share your feedback or propose an idea to improve PyTorch Foundation Programs."
+description: "Share your feedback or propose an idea to improve the PyTorch Ambassador Program."
 title: "[Feedback] <Brief Idea or Topic>"
 labels: ["feedback", "pending-review"]
 
@@ -7,36 +7,37 @@ body:
   - type: markdown
     attributes:
       value: |
-        > 📝 **Note:** Please fill out the above field with a brief summary of your feedback or idea, replacing `<Brief Idea or Topic>`.
+        > 📝 **Note:** Please fill out the title field with a brief summary of your feedback or idea, replacing `<Brief Idea or Topic>`.
 
   - type: markdown
     attributes:
       value: |
         # 💡 Submit Feedback or Ideas
 
-        Thank you for sharing your feedback or idea to improve the PyTorch Foundation Programs!  
-        Please fill out the following details to help us better understand your suggestion.
+        Thank you for sharing your feedback or idea to improve the **PyTorch Ambassador Program**!  
+        Please fill out the details below to help us better understand your suggestion.
 
   - type: input
     id: feedback-title
     attributes:
       label: "Brief Summary of Your Idea"
-      placeholder: "Example: Improve event scheduling for Ambassador Program"
+      placeholder: "Example: Improve onboarding process for new ambassadors"
 
   - type: dropdown
     id: program-category
     attributes:
-      label: "Which program does this feedback apply to?"
+      label: "Which area does this feedback apply to?"
       options:
-        - "General PyTorch Foundation Initiatives"
         - "PyTorch Ambassador Program"
+        - "Community Events"
+        - "Educational Resources"
         - "Other"
 
   - type: textarea
     id: idea-description
     attributes:
       label: "Describe Your Feedback or Idea"
-      description: "Explain your suggestion, the problem it solves, and any potential solutions."
+      description: "Explain your suggestion, the problem it solves, and any potential improvements."
       placeholder: "Provide as much detail as possible..."
       render: markdown
 
@@ -67,4 +68,4 @@ body:
         - If approved, the idea may be discussed further before implementation.  
         - If not feasible, we will provide an explanation.  
 
-        Thank you for sharing your feedback or idea to improve the PyTorch Foundations Program! 🚀
+        Thank you for helping improve the PyTorch Ambassador Program.
