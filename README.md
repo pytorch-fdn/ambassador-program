@@ -1,43 +1,47 @@
-# PyTorch Foundation Programs
 
 ![PyTorch Ecosystem](https://raw.githubusercontent.com/pytorch/pytorch/0d4cedaa47c7ee22042eb24e87eb3cfe95502404/docs/source/_static/img/pytorch-logo-dark.svg)
 
-Welcome to the PyTorch Foundation Programs repository!   
+ # PyTorch Ambassador Program
 
-This repository serves as the public hub for community-driven nominations, proposals, and requests related to PyTorch Foundation programs, including the Ambassador Program. It allows community members to nominate or propose individuals and organizations for participation in this program.
+Welcome to the official repository for the **PyTorch Ambassador Program**.
 
-## 📌 Programs Managed  
-- **PyTorch Ambassador Program** - Learn more about the ambassador program [here](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md). 
-
-## 📝 Submit a Nomination  
-To submit a request, click the appropriate link below:  
-- **Nominate a PyTorch Ambassador** 👉 [Submit Here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)  
+This program recognizes and supports exceptional community members who actively promote, teach, and contribute to the PyTorch ecosystem. Ambassadors are leaders, educators, and advocates who help grow PyTorch adoption globally through events, content creation, open-source contributions, and community engagement.
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)  
+## 📌 Program Overview
 
-### What is the PyTorch Foundation Program repository?  
-This repository is a public space where community members can nominate individuals and request participation in PyTorch Foundation programs such as the Ambassador Program.  
-
-### Who can submit a nomination or proposal?  
-Anyone from the community can submit a nomination. We encourage developers, researchers, educators, and advocates to participate.  
-
-### How are nominations reviewed and approved?  
-Once a nomination is submitted, it will be reviewed by the PyTorch Foundation team. Discussions and feedback may take place within the issue before a decision is made.
-
-### Can I nominate myself for a program?  
-Yes, self-nominations are allowed. If you believe you are a good fit for one of the programs, feel free to submit a nomination.  
-
-### What happens after a nomination is approved?  
-If a nomination is accepted, the individual or organization will be contacted with further details. Approved nominations are managed in a private repository for program coordination.  
-
-### Where can I discuss ideas and give feedback?  
-You can share feedback [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20) 
-
-### How can I stay updated on new programs?  
-Stay tuned to this repository for announcements, or follow official PyTorch Foundation channels for updates.  
+Learn more about the responsibilities, benefits, and eligibility criteria:  
+**→ [Ambassador Program Overview](./README.md)**
 
 ---
 
-If you have any other questions, feel free to open a discussion or issue in this repository.  
+## 📝 Submit a Nomination
+
+If you know someone who would make a great PyTorch Ambassador—or if you're nominating yourself—use the form below:
+
+**→ [Submit a Nomination](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)**
+
+---
+
+## ❓ Frequently Asked Questions (FAQ)
+
+### Who can become a PyTorch Ambassador?
+Developers, researchers, educators, and advocates who are actively involved in the PyTorch community and meet the eligibility criteria.
+
+### Can I nominate myself?
+Yes. Self-nominations are encouraged if you meet the requirements and are passionate about community leadership.
+
+### What happens after I submit a nomination?
+Your submission will be reviewed by the PyTorch Foundation team. Qualified nominees may be contacted for further discussion and onboarding.
+
+### Where can I give feedback or ask questions?
+You can submit feedback or inquiries [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20).
+
+---
+
+## 📬 Contact
+
+For general questions or additional information:  
+**Email:** ambassador@pytorch.org
+
