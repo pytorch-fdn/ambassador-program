@@ -42,7 +42,7 @@ body:
         - label: "The nominee is **18 years of age or older**."
         - label: "The nominee **agrees to abide by the [PyTorch Code of Conduct](https://github.com/pytorch-fdn/Foundation/blob/main/PyTorch%20Foundation%20Code%20of%20Conduct.md)**."
         - label: "The nominee **agrees to comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)**."
-        - label: "The nominee meets **at least one** of the qualifications listed in the [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md)."
+        - label: "The nominee meets **at least one** of the qualifications listed in the [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md)."
 
   - type: markdown
     attributes:
