@@ -36,7 +36,7 @@ Yes. Self-nominations are encouraged if you meet the requirements and are passio
 Your submission will be reviewed by the PyTorch Foundation team. Qualified nominees may be contacted for further discussion and onboarding.
 
 ### Where can I give feedback or ask questions?
-You can submit feedback or inquiries [here](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml&title=%5BFeedback%5D%20).
+You can submit feedback or inquiries [here](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=feedback.yml&title=%5BFeedback%5D%20).
 
 ---
 
