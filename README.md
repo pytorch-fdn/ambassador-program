@@ -20,7 +20,7 @@ Learn more about the responsibilities, benefits, and eligibility criteria:
 
 If you know someone who would make a great PyTorch Ambassador—or if you're nominating yourself—use the form below:
 
-**→ [Submit a Nomination](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=nominate-a-pytorch-ambassador.yml)**
+**→ [Submit a Nomination](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=nominate-a-pytorch-ambassador.yml)**
 
 ---
 
