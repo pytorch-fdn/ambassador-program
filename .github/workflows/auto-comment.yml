@@ -24,7 +24,7 @@ jobs:
 
             if (labels.includes("ambassador")) {
               programName = "PyTorch Ambassador Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/pytorch-ambassador-program.md";
+              programDocs = "https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md";
               commentBody = [
                 `👋 Thank you for submitting a nomination for the **${programName}**! 🎉`,
                 "",
