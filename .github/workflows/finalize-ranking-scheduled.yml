@@ -1,15 +1,12 @@
-
-name: "Finalize Ranking Scores (Scheduled)"
+name: "Finalize Review Scores"
 on:
-  schedule:
-    - cron: "0 */2 * * *"  # Runs every 2 hours
   workflow_dispatch:
 
 jobs:
-  finalize-ranking:
+  finalize-scoring:
     runs-on: ubuntu-latest
     steps:
-      - name: Process Unranked Nominations
+      - name: Process Scored Nominations
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -29,7 +26,7 @@ jobs:
               const issue_number = issue.number;
               const currentLabels = issue.labels.map(label => label.name);
 
-              if (currentLabels.includes("ranked")) continue; // Skip already ranked
+              if (currentLabels.includes("ranked")) continue;
 
               const comments = await github.rest.issues.listComments({
                 owner,
