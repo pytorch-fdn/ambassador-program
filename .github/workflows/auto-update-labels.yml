@@ -1,44 +1,43 @@
-name: "Auto-Update Nomination Status Labels"
+name: "Mark Nomination as Under Review"
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "The issue number of the nomination to update"
+        required: true
 
 jobs:
-  update-labels:
+  update-nomination-status:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Comment and Update Labels
+      - name: Set issue status to under-review and scoring-in-progress
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issue = context.payload.issue;
-            const comment = context.payload.comment.body.toLowerCase();
-            const repoOwner = context.repo.owner;
-            const repoName = context.repo.repo;
-            const issueNumber = issue.number;
+            const issue_number = parseInt('${{ github.event.inputs.issue_number }}', 10);
+            const { repo, owner } = context.repo;
 
-            let newLabel = null;
+            const issue = await github.rest.issues.get({
+              owner,
+              repo,
+              issue_number
+            });
 
-            if (comment.includes("initial review")) {
-              newLabel = "under-initial-review";
-            } else if (comment.includes("scheduled for interview")) {
-              newLabel = "one-on-one-review";
-            } else if (comment.includes("ranking in progress")) {
-              newLabel = "ranking-in-progress";
-            } else if (comment.includes("approved")) {
-              newLabel = "approved";
-            } else if (comment.includes("rejected")) {
-              newLabel = "rejected";
-            }
+            let labels = issue.data.labels.map(label => label.name);
 
-            if (newLabel) {
-              await github.rest.issues.update({
-                owner: repoOwner,
-                repo: repoName,
-                issue_number: issueNumber,
-                labels: [newLabel]
-              });
+            // Remove 'pending-review' if it's there
+            labels = labels.filter(label => label !== "pending-review");
 
-              console.log(`Updated issue #${issueNumber} with label: ${newLabel}`);
-            }
+            // Add new labels if not already present
+            if (!labels.includes("under-review")) labels.push("under-review");
+            if (!labels.includes("scoring-in-progress")) labels.push("scoring-in-progress");
+
+            await github.rest.issues.update({
+              owner,
+              repo,
+              issue_number,
+              labels
+            });
+
+            console.log(`Updated issue #${issue_number}: added 'under-review' and 'scoring-in-progress', removed 'pending-review' if present.`);
