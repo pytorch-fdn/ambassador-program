@@ -78,13 +78,17 @@ jobs:
                 });
               }
 
-              if (currentLabels.includes("pending-review")) {
-                await github.rest.issues.removeLabel({
-                  owner,
-                  repo,
-                  issue_number,
-                  name: "pending-review"
-                });
+              // 🧼 Remove temporary review-phase labels
+              const labelsToRemove = ["pending-review", "under-review", "scoring-in-progress"];
+              for (const label of labelsToRemove) {
+                if (currentLabels.includes(label)) {
+                  await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number,
+                    name: label
+                  });
+                }
               }
 
               if (finalLabel === "rejected") {
