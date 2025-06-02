@@ -26,7 +26,7 @@ jobs:
               const issue_number = issue.number;
               const currentLabels = issue.labels.map(label => label.name);
 
-              if (currentLabels.includes("ranked")) continue;
+              if (currentLabels.includes("scoring-complete")) continue;
 
               const comments = await github.rest.issues.listComments({
                 owner,
@@ -107,6 +107,6 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                labels: ["ranked"]
+                labels: ["scoring-complete"]
               });
             }
