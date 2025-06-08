@@ -1,7 +1,8 @@
 name: "Nominate a PyTorch Ambassador"
 description: "🚫 Nominations are currently closed"
 title: "[Nomination] <Nominee Name>"
-labels: ["nomination", "pending-review", "ambassador"]
+# labels: ["nomination", "pending-review", "ambassador"]
+labels: "closed"
 
 body:
   - type: markdown
