@@ -2,6 +2,7 @@ name: "Nominate a PyTorch Ambassador"
 description: "Submit a nomination for the PyTorch Ambassador Program."
 title: "[Nomination] <Nominee Name>"
 labels: ["nomination", "pending-review", "ambassador"]
+available: false
 
 body:
   - type: markdown
