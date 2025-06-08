@@ -1,5 +1,5 @@
 name: "Nominate a PyTorch Ambassador"
-description: "Submit a nomination for the PyTorch Ambassador Program."
+description: "🚫 Nominations are currently closed"
 title: "[Nomination] <Nominee Name>"
 labels: ["nomination", "pending-review", "ambassador"]
 
@@ -7,147 +7,162 @@ body:
   - type: markdown
     attributes:
       value: |
-        > 📝 **Note:** Please fill out the above field with the name of your nominee replacing `<Nominee Name>`.
+        ⚠️ **Nominations Are Now Closed**
 
-  - type: markdown
-    attributes:
-      value: |
-        # 🎖 PyTorch Ambassador Nomination Request
+        Thank you for your interest in the **PyTorch Ambassador Program**.  
+        The nomination cycle closed on **June 7** and we are no longer accepting submissions through this form.
 
-        Thank you for your interest in the **PyTorch Ambassador Program**!  
-        Before submitting a nomination, please ensure you have **read the** [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md)  
-        and that the nominee meets the eligibility criteria outlined below.
+        If you have any questions or feedback, please submit them using the following link:  
+        👉 [Submit Feedback](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=feedback.yml&title=%5BFeedback%5D%20)
 
-  - type: markdown
-    attributes:
-      value: "## ✅ Are You Nominating Yourself or Someone Else?"
+        You can also check back later for updates on the next application cycle.
 
-  - type: checkboxes
-    id: nomination-type
-    attributes:
-      label: "Select one:"
-      options:
-        - label: "I am **nominating myself** for the PyTorch Ambassador Program."
-        - label: "I am **nominating someone else** to become a PyTorch Ambassador."
+        — The PyTorch Foundation Team 🧡
 
-  - type: markdown
-    attributes:
-      value: "## ✅ Pre-Submission Checklist"
-
-  - type: checkboxes
-    id: checklist
-    attributes:
-      label: "Please confirm that the nominee meets the following requirements:"
-      options:
-        - label: "The nominee is **18 years of age or older**."
-        - label: "The nominee **agrees to abide by the [PyTorch Code of Conduct](https://github.com/pytorch-fdn/Foundation/blob/main/PyTorch%20Foundation%20Code%20of%20Conduct.md)**."
-        - label: "The nominee **agrees to comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)**."
-        - label: "The nominee meets **at least one** of the qualifications listed in the [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md)."
-
-  - type: markdown
-    attributes:
-      value: "## 📞 Contact Information"
-
-  - type: input
-    id: nominee-name
-    attributes:
-      label: "Nominee Name"
-      placeholder: "Enter the full name of the nominee."
-
-  - type: input
-    id: nominee-email
-    attributes:
-      label: "Nominee Email"
-      placeholder: "Enter nominee's email address."
-
-  - type: input
-    id: nominee-github
-    attributes:
-      label: "Nominee's GitHub or GitLab Handle"
-      placeholder: "Enter their GitHub or GitLab username."
-
-  - type: input
-    id: nominee-organization
-    attributes:
-      label: "(Optional) Organization / Affiliation"
-      placeholder: "Enter the nominee's organization (if applicable)."
-
-  - type: input
-    id: nominee-location
-    attributes:
-      label: "City, State/Province, Country"
-      placeholder: "e.g., Lagos, Nigeria or San Francisco, CA, USA"
-
-  - type: markdown
-    attributes:
-      value: "### **Nominator Information (If Different from Nominee)**"
-
-  - type: input
-    id: your-name
-    attributes:
-      label: "Your Name"
-      placeholder: "Enter your name (if you are nominating someone else)."
-
-  - type: input
-    id: your-email
-    attributes:
-      label: "Your Email (Optional)"
-      placeholder: "Enter your email address."
-
-  - type: markdown
-    attributes:
-      value: "## 🔹 Nominee's Contributions to PyTorch"
-
-  - type: checkboxes
-    id: nominee-contributions
-    attributes:
-      label: "How has the nominee contributed to PyTorch?"
-      options:
-        - label: "An active contributor to PyTorch repositories (e.g., commits, PRs, discussions)."
-        - label: "A speaker at PyTorch events or workshops."
-        - label: "A PyTorch user group organizer or meetup host."
-        - label: "A researcher or educator using PyTorch in academic work or training."
-        - label: "An active leader in the PyTorch community with **at least one year** of experience in:"
-        - label: "Organizing events (virtual/in-person)."
-        - label: "Speaking at AI/ML conferences."
-        - label: "Mentoring others in PyTorch."
-        - label: "Creating technical content (e.g., blogs, videos, tutorials)."
-
-  - type: textarea
-    id: nominee-expectations
-    attributes:
-      label: "🏆 How Would the Nominee Contribute as an Ambassador?"
-      description: "Explain how the nominee would engage with the PyTorch community, help the initiative thrive, and their plans for hosting events, mentoring, or knowledge-sharing."
-      placeholder: "Provide a detailed explanation of the nominee's potential impact."
-      render: markdown
-
-  - type: markdown
-    attributes:
-      value: "## 🔗 Additional Information (Optional)"
-
-  - type: textarea
-    id: additional-info
-    attributes:
-      label: "Any additional details you'd like to share?"
-      description: "Provide any extra information about the nominee or links to their work (blogs, conference talks, educational resources, etc.)."
-      placeholder: "Enter additional information here."
-      render: markdown
-
-  - type: markdown
-    attributes:
-      value: |
-        ## 🗳️ Next Steps
-
-        Once you submit this nomination, you will receive an **automatic comment with next steps**.  
-        A team member will review your submission and update the status accordingly.
-
-        **📌 Track the status of your nomination:**  
-        - Check the **label** assigned to this issue to see its current review status.  
-        - Labels may include:  
-          - `pending-review` ⏳ → Your nomination is waiting for review.  
-          - `needs-more-info` 📢 → Additional details are required.  
-          - `approved` ✅ → Your nomination has been accepted.  
-          - `rejected` ❌ → Your nomination was not approved.  
-
-        **💬 Have Questions?**  
-        If you have questions, submit a [Feedback Issue](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=feedback.yml).
+#  - type: markdown
+#    attributes:
+#      value: |
+#        > 📝 **Note:** Please fill out the above field with the name of your nominee replacing `<Nominee Name>`.
+#
+#  - type: markdown
+#    attributes:
+#      value: |
+#        # 🎖 PyTorch Ambassador Nomination Request
+#
+#        Thank you for your interest in the **PyTorch Ambassador Program**!  
+#        Before submitting a nomination, please ensure you have **read the** [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md)  
+#        and that the nominee meets the eligibility criteria outlined below.
+#
+#  - type: markdown
+#    attributes:
+#      value: "## ✅ Are You Nominating Yourself or Someone Else?"
+#
+#  - type: checkboxes
+#    id: nomination-type
+#    attributes:
+#      label: "Select one:"
+#      options:
+#        - label: "I am **nominating myself** for the PyTorch Ambassador Program."
+#        - label: "I am **nominating someone else** to become a PyTorch Ambassador."
+#
+#  - type: markdown
+#    attributes:
+#      value: "## ✅ Pre-Submission Checklist"
+#
+#  - type: checkboxes
+#    id: checklist
+#    attributes:
+#      label: "Please confirm that the nominee meets the following requirements:"
+#      options:
+#        - label: "The nominee is **18 years of age or older**."
+#        - label: "The nominee **agrees to abide by the [PyTorch Code of Conduct](https://github.com/pytorch-fdn/Foundation/blob/main/PyTorch%20Foundation%20Code%20of%20Conduct.md)**."
+#        - label: "The nominee **agrees to comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)**."
+#        - label: "The nominee meets **at least one** of the qualifications listed in the [PyTorch Ambassador Program Requirements](https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md)."
+#
+#  - type: markdown
+#    attributes:
+#      value: "## 📞 Contact Information"
+#
+#  - type: input
+#    id: nominee-name
+#    attributes:
+#      label: "Nominee Name"
+#      placeholder: "Enter the full name of the nominee."
+#
+#  - type: input
+#    id: nominee-email
+#    attributes:
+#      label: "Nominee Email"
+#      placeholder: "Enter nominee's email address."
+#
+#  - type: input
+#    id: nominee-github
+#    attributes:
+#      label: "Nominee's GitHub or GitLab Handle"
+#      placeholder: "Enter their GitHub or GitLab username."
+#
+#  - type: input
+#    id: nominee-organization
+#    attributes:
+#      label: "(Optional) Organization / Affiliation"
+#      placeholder: "Enter the nominee's organization (if applicable)."
+#
+#  - type: input
+#    id: nominee-location
+#    attributes:
+#      label: "City, State/Province, Country"
+#      placeholder: "e.g., Lagos, Nigeria or San Francisco, CA, USA"
+#
+#  - type: markdown
+#    attributes:
+#      value: "### **Nominator Information (If Different from Nominee)**"
+#
+#  - type: input
+#    id: your-name
+#    attributes:
+#      label: "Your Name"
+#      placeholder: "Enter your name (if you are nominating someone else)."
+#
+#  - type: input
+#    id: your-email
+#    attributes:
+#      label: "Your Email (Optional)"
+#      placeholder: "Enter your email address."
+#
+#  - type: markdown
+#    attributes:
+#      value: "## 🔹 Nominee's Contributions to PyTorch"
+#
+#  - type: checkboxes
+#    id: nominee-contributions
+#    attributes:
+#      label: "How has the nominee contributed to PyTorch?"
+#      options:
+#        - label: "An active contributor to PyTorch repositories (e.g., commits, PRs, discussions)."
+#        - label: "A speaker at PyTorch events or workshops."
+#        - label: "A PyTorch user group organizer or meetup host."
+#        - label: "A researcher or educator using PyTorch in academic work or training."
+#        - label: "An active leader in the PyTorch community with **at least one year** of experience in:"
+#        - label: "Organizing events (virtual/in-person)."
+#        - label: "Speaking at AI/ML conferences."
+#        - label: "Mentoring others in PyTorch."
+#        - label: "Creating technical content (e.g., blogs, videos, tutorials)."
+#
+#  - type: textarea
+#    id: nominee-expectations
+#    attributes:
+#      label: "🏆 How Would the Nominee Contribute as an Ambassador?"
+#      description: "Explain how the nominee would engage with the PyTorch community, help the initiative thrive, and their plans for hosting events, mentoring, or knowledge-sharing."
+#      placeholder: "Provide a detailed explanation of the nominee's potential impact."
+#      render: markdown
+#
+#  - type: markdown
+#    attributes:
+#      value: "## 🔗 Additional Information (Optional)"
+#
+#  - type: textarea
+#    id: additional-info
+#    attributes:
+#      label: "Any additional details you'd like to share?"
+#      description: "Provide any extra information about the nominee or links to their work (blogs, conference talks, educational resources, etc.)."
+#      placeholder: "Enter additional information here."
+#      render: markdown
+#
+#  - type: markdown
+#    attributes:
+#      value: |
+#        ## 🗳️ Next Steps
+#
+#        Once you submit this nomination, you will receive an **automatic comment with next steps**.  
+#        A team member will review your submission and update the status accordingly.
+#
+#        **📌 Track the status of your nomination:**  
+#        - Check the **label** assigned to this issue to see its current review status.  
+#        - Labels may include:  
+#          - `pending-review` ⏳ → Your nomination is waiting for review.  
+#          - `needs-more-info` 📢 → Additional details are required.  
+#          - `approved` ✅ → Your nomination has been accepted.  
+#          - `rejected` ❌ → Your nomination was not approved.  
+#
+#        **💬 Have Questions?**  
+#        If you have questions, submit a [Feedback Issue](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=feedback.yml).
