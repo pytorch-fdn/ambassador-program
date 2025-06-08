@@ -19,6 +19,14 @@ body:
 
         — The PyTorch Foundation Team 🧡
 
+  - type: input
+    id: disabled-field
+    attributes:
+      label: "Submissions are closed"
+      description: "This form is currently disabled."
+      placeholder: "Try again next cycle."
+      disabled: true
+
 #  - type: markdown
 #    attributes:
 #      value: |
