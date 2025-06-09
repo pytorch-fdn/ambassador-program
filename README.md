@@ -1,7 +1,7 @@
 
 ![PyTorch Ecosystem](https://raw.githubusercontent.com/pytorch/pytorch/0d4cedaa47c7ee22042eb24e87eb3cfe95502404/docs/source/_static/img/pytorch-logo-dark.svg)
 
- # PyTorch Ambassadors Program
+# PyTorch Ambassadors Program
 
 Welcome to the official repository for the **PyTorch Ambassador Program**.
 
@@ -16,11 +16,12 @@ Learn more about the responsibilities, benefits, and eligibility criteria:
 
 ---
 
-## 📝 Submit a Nomination
+## 🚫 Nominations Closed
 
-If you know someone who would make a great PyTorch Ambassador—or if you're nominating yourself—use the form below:
+The current round of the PyTorch Ambassador Program has now closed (as of **June 7**).  
+Thank you to everyone who submitted nominations!  
 
-**→ [Submit a Nomination](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=nominate-a-pytorch-ambassador.yml)**
+Please check back here or on [pytorch.org](https://pytorch.org) for future announcements regarding the next cycle.
 
 ---
 
@@ -30,7 +31,7 @@ If you know someone who would make a great PyTorch Ambassador—or if you're nom
 Developers, researchers, educators, and advocates who are actively involved in the PyTorch community and meet the eligibility criteria.
 
 ### Can I nominate myself?
-Yes. Self-nominations are encouraged if you meet the requirements and are passionate about community leadership.
+Yes. Self-nominations are encouraged during active nomination windows if you meet the requirements and are passionate about community leadership.
 
 ### What happens after I submit a nomination?
 Your submission will be reviewed by the PyTorch Foundation team. Qualified nominees may be contacted for further discussion and onboarding.
