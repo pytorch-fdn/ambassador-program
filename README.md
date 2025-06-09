@@ -21,7 +21,7 @@ Learn more about the responsibilities, benefits, and eligibility criteria:
 The current round of the PyTorch Ambassador Program has now closed (as of **June 7**).  
 Thank you to everyone who submitted nominations!  
 
-Please check back here or on [pytorch.org](https://pytorch.org) for future announcements regarding the next cycle.
+Please check back here or on [pytorch.org](https://pytorch.org/programs/ambassadors/) for future announcements regarding the next cycle.
 
 ---
 
