@@ -1,9 +1,106 @@
 # PyTorch Ambassador Applications Summary
 
-**Total Applications**: 169
+**Total Applications**: 266
 
 | Issue # | Nominee Name | Email | Organization | Location |
 |--------|--------------|------|--------------|----------|
+| 300 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | Tunis,Tunisia |
+| 299 | Anish Thapaliya | thapaliyanish123@gmail.com | Fusemachines Nepal | Kathmandu, Nepal |
+| 298 | _No response_ | _No response_ | _No response_ | _No response_ |
+| 297 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | Tunisia |
+| 296 | Karla Angelica Doctor Mauricio | ka.doctormauricio@gmail.com | _No response_ | León, Guanajuato, México |
+| 295 | ghassen fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | Tunisie |
+| 294 | ghassen fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | Tunisie |
+| 293 | Nour Majdoub | nourelhoudamajdoub1@gmail.com | _No response_ | Sousse -Tunisia |
+| 292 | Carlos Helsner Menacho Guerra | menachocarlos5@gmail.com | Universidad Católica Boliviana San Pablo | La Paz, Bolivia |
+| 291 | Ghassen fatnassi | Ghassen.fatnassi@supcom.tn | Sup'com | Tunisia |
+| 290 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | Higher School of Communication of Tunis | El Ghazela, Ariana, Tunisia |
+| 289 | Alejandro Núñez Arroyo | ale.nunez.arroyo@gmail.com | Fogsphere | Sucre, Chuquisaca, Bolivia |
+| 288 | Abdou Aziz DIOP | abdouaziz@gmail.com | Abdou Aziz DIOP | Dakar , Senegal |
+| 287 | Anurag Bihani | anuragbihani@gmail.com | Schlumberger | Houston, TX, USA |
+| 286 | Orestis Antonis Makris | oamakris@gmail.com | Master University of Patras / Chair of ACM Student Chapter University of Patras | Patras, Greece |
+| 285 | Alexey Gruzdev | a.s.gruzdev@yandex.ru | _No response_ | Nizhny Novgorod |
+| 284 | Aayusha Adhikari | ayushaadhikari222@gmail.com | _No response_ | Pokhara, Gandaki province, Nepal |
+| 283 | Dhia Naouali | dhia12naouali@gmail.com | _No response_ | Tunisia, Monastir |
+| 282 | Dhia Naouali | dhia12naouali@gmail.com | _No response_ | Monastir, Tunisia |
+| 281 | Phuriwat Angkoondittaphong | phuriwat.boat@gmail.com | _No response_ | Bangkok, Thailand |
+| 280 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | Tunisia |
+| 279 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | Higher School of Communication SUP'COM | Ghazela,Ariana,Tunis,Tunisia |
+| 278 | Ghassen Fatnassi | ghassen.fatnassi@supcom.tn | _No response_ | tunis, Tunisia |
+| 277 | Akash Agrawal | Akash.Agrawal@fujitsu.com | Fujitsu Research of India Pvt. Limited | Bengaluru, Karnataka, India |
+| 276 | Dhia Naouali | dhia12naouali@gmail.com | _No response_ | Tunisia,monastir |
+| 275 | Steven Pousty | _No response_ | Red Hat | Santa Cruz, California, USA |
+| 274 | Kir Zharov | kir@elementally.co.uk | London PyTorch Meetup | London, United Kingdom |
+| 273 | ABDULSALAM YAZID BANDE | abdulsalambande@gmail.com | _No response_ | Istanbul, Turkey |
+| 272 | Parichay Das | dasparic@gmail.com | _No response_ | Kolkata, West Bengal, India or West Bengal, India |
+| 271 | Kevin Wang | kevin.wang777777@gmail.com | AMD, Queen's University | Markham, Ontario, Canada |
+| 270 | Kevin Wang | kevin.wang777777@gmail.com | _No response_ | Markham, Canada |
+| 269 | Giorgio Armani Magno | giorgioarmanimagno07@gmail.com | _No response_ | Pasay City, National Capital Region, Philippines |
+| 268 | Assoc. Prof. Dr. Eyup Cinar | dreyupcinar@gmail.com | Eskisehir Osmangazi University | Eskisehir, Turkey |
+| 267 | Kevin Wang | kevin.wang777777@gmail.com | AMD, Queen's University | Markham, Canada |
+| 266 | Eduardo Ulises Moya-Sánchez | eduardom@latinxinai.org | Gobierno de Jalisco | Guadalajara, Jalisco, Mexico |
+| 265 | BYAOMBE Dieudonne | dieudobyaombemw@gmail.com | Vietnam National University | Vietnam, Hanoi |
+| 264 | Naeem Khoshnevis | naeem_khoshnevis@harvard.edu | Harvard University (Kempner Institute) | Cambridge, MA, USA |
+| 263 | Dhia Naouali | dhia12naouali@gmail.com | _No response_ | Monastir, Tunisia |
+| 262 | Kennedy Uzoechi | normankenny54@gmail.com | _No response_ | Lagos, Nigeria |
+| 261 | Luis Fernando Solis Navarro | l214616@dac.unicamp.br | AI Engineer & Co-Founder | Campinas/Sao Paulo, Brazil |
+| 260 | James Victor Ojodunwene | jamvic30@gmail.com | _No response_ | Lagos, Nigeria |
+| 259 | Derrick Edem Sosoo | edem@derricksosoo.com | _No response_ | Accra, Ghana |
+| 258 | Hussain Salih | hussainsalih.github@gmail.com | Freelancer | Iraq , Karbala |
+| 257 | Temidayo Gabriel | temidayogabriel8@gmail.com | _No response_ | Lagos |
+| 256 | Paul Dowling | Paul@kxsb.org | KXSB.org | UK |
+| 255 | Dhia naouali | dhia12naouali@gmail.com | Higher Institute of mathematics and computer sciences of monastir | Monastir, Tunisia |
+| 254 | Braulio Otavalo | braulio.otavalo@gmail.com | Awana, OA7GeoAI | Quito, Pichincha, Ecuador |
+| 253 | Sahdev Zala | spzala@us.ibm.com | IBM | Raleigh, NC, USA |
+| 252 | Zaynul Abedin Miah | azaynul3@gmail.com | Brac University | Dhaka, Bangladesh |
+| 251 | Nimisha Sukhwani | nimishasukhwani@gmail.com | _No response_ | Göttingen, Lower Saxony, Germany |
+| 250 | _No response_ | _No response_ | _No response_ | _No response_ |
+| 249 | David vonThenen | davidvonthenen@gmail.com | Netapp | Los Angeles, CA, United States |
+| 248 | Aditya Kumar | adityasingh.ce92@gmail.com | Revvity | Pune, Maharashtra |
+| 247 | Ankita Guha | ankitaguha256@gmail.com | Freudenberg e-Power System | Auburn Hills, Michigan, USA |
+| 246 | Fady Nabil | fady.nabel10@gmail.com | _No response_ | Cairo |
+| 245 | Lucas Braz | lucasbraz17.crypto@gmail.com | Legacy GG | São Paulo, São Paulo, Brazil |
+| 244 | Abdulhayyu Abubakar | abdulhayyuabubakar630@gmail.com | _No response_ | Niger state, Nigeria |
+| 243 | Nura Sufiyanu | nooraddynsufyan@gmail.com | _No response_ | Katsina, Nigeria |
+| 242 | Soran Ghaderi | soran.gdr.cs@gmail.com | _No response_ | Colchester, UK |
+| 241 | Omkar Kabde | omkarkabde@gmail.com | Chaitanya Bharathi Institute of Technology | Hyderabad, Telangana, India |
+| 240 | Norman Lam | normanlam@anlyvis.fun | Anlyvis Limited | Hong Kong |
+| 239 | keyush Nisar | Nisarkeyush3@gmail.com | _No response_ | Mumbai, Maharashtra, India |
+| 238 | Wachiou BOURAIMA | ibrahim@pytogo.org | Python Togo community | Lome, Togo |
+| 237 | Wachiou BOURAIMA | ibrahim@pytogo.org | Python Togo community | Lome, Togo |
+| 236 | Wachiou BOURAIMA | ibrahim@pytogo.org | Python Togo community | Lome, Togo |
+| 235 | Ismail Malik Feranmi | feranmimalik2@gmail.com | _No response_ | Nigeria |
+| 234 | Ediomo Udoekere | udoekereediomo@gmail.com | Avalanche | Lagos, Nigeria |
+| 233 | Vishesh yadav | sciencely98@gmail.com | NVIDIA | Seoni, Madhya Pradesh, india |
+| 232 | Najib Chowdhury | najibchy.work@gmail.com | Rajshahi University of Engineering & Technology | Rajshahi |
+| 231 | Joseph Efai | josephefai@gmail.com | _No response_ | _No response_ |
+| 230 | David Winner | dwinner933@gmail.com | _No response_ | Lagos, Nigeria |
+| 229 | Talib Sayyed | talibsayyed1999@gmail.com | CoreFlex Solutions | Maharashtra |
+| 228 | PrettyFave | okoriefavour527@gmail.com | _No response_ | Nigeria |
+| 227 | Ahsan Umar | codewithdark90@gmail.com | _No response_ | Peshawar, Pakistan |
+| 226 | Ying-Jung Chen | yingjungcd@gmail.com | _No response_ | Cupertino, CA |
+| 225 | Hyogeun Oh | ohg3417@gmail.com | GenON | Seoul, Korea |
+| 224 | Pacifique Kwaba Mugisho | pacymugisho@gmail.com | _No response_ | Kigali, Rwanda |
+| 223 | Alireza Hosseini | arhosseini77@ut.ac.ir | School of Electrical and Computer Engineering, University of Tehran | Tehran, Iran |
+| 222 | Shrutakeerti Datta | 242somadatta@gmail.com | _No response_ | Kolkata, West Bengal, India |
+| 221 | Sangofweb3 | ikpangesangvictor@gmail.com | _No response_ | Akwa ibom, Lagos |
+| 220 | Hrudu Shibu | hrudushibu.tech@gmail.com | Axcess.io | Bengaluru, India |
+| 219 | Derbew Felasman | derbew@dbu.edu.et | _No response_ | Addis Ababa, Ethiopia |
+| 218 | Asif Ameer | asif370@gmail.com | FAST National University of Computer and Emerging Sciences | Lahore, Pakistan |
+| 217 | Saagara Manju Baiju | saagaramb@gmail.com | _No response_ | Trivandrum, Kerala, India |
+| 216 | Menan Velayuthan | vmenan95@gmail.com | University of Moratuwa | Colombo, Western Province, Sri Lanka |
+| 215 | Varala Nandu Swapnik | swapnikvarala@gmail.com | IIT Kharagpur | India |
+| 214 | Onics Jacob | jacobawajioniro@gmail.com | _No response_ | _No response_ |
+| 213 | Mukhammad Fahlevi Ali Rafsanjani | rozakalfi@gmail.com | Insignia.co.id | Bandung, West Java, Indonesia |
+| 212 | Omosuyi Oluwafemi Patrick | omosuyioluwafemi1@gmail.com | - | Lagos , Nigeria |
+| 211 | Akilsurya Sivakumar | akilsurya20399@gmail.com | _No response_ | Scottsdale |
+| 210 | Nurulla Matyakubov | dr.matyakubov@gmail.com | _No response_ | Istanbul/Türkiye |
+| 209 | Kelvin Kipkogei Rotich | kelvinkooga@gmail.com | CTO, BrandMoran | Nairobi, Kenya |
+| 208 | Ed Miller | ed@hypraptive.com | Arm and BearID Project | San Jose, CA, USA |
+| 207 | Tan Pei Seng | goldentanpeiseng@hotmail.com | Vitrox Corporation Berhad | Penang, Malaysia |
+| 206 | Benjamin Consolvo | benjamin.consolvo@gmail.com | Intel | Houston, Texas, USA |
+| 205 | Koki Mitsunami | koki.mitsunami@arm.com | Arm | Cambridge, UK |
+| 204 | Kalina Boshnakova | kalinab@graphcore.ai | _No response_ | Bristol, UK |
 | 203 | Kunal Kumar Mishra | kunalmishravats@gmail.com | Motherson Technology Service Limited | New Delhi,Delhi,India |
 | 202 | Kunal Kumar Mishra | kunalmishravats@gmail.com | Motherson Technology Service Limited | New Delhi,Delhi,India |
 | 201 | Kunal Kumar Mishra | kunalmishravats@gmail.com | Motherson Technology Service Limited | New Delhi,Delhi,India |
