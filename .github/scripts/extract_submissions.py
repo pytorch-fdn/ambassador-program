@@ -5,7 +5,7 @@ from github import Github
 
 # Load token and repo name from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")  # e.g., 'pytorch-fdn/foundation-programs-management'
+GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")  # e.g., 'pytorch-fdn/ambassador-program'
 LABEL_FILTER = "ambassador"  # Label used to filter ambassador submissions
 
 # Authenticate with GitHub
@@ -15,9 +15,9 @@ repo = g.get_repo(GITHUB_REPOSITORY)
 # Fetch issues with the given label
 issues = repo.get_issues(state="all", labels=[LABEL_FILTER])
 
-# Ensure output directory exists
-os.makedirs("output", exist_ok=True)
-output_file = "output/ambassador_submissions.csv"
+# Ensure the 'ambassador' directory exists
+os.makedirs("ambassador", exist_ok=True)
+output_file = "ambassador/ambassador_submissions.csv"
 
 # Define CSV headers
 headers = [
