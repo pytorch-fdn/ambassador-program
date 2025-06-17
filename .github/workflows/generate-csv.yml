@@ -26,7 +26,7 @@ jobs:
         run: python .github/scripts/extract_submissions.py
 
       - name: 📤 Upload CSV as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ambassador-submissions
           path: ambassador/ambassador_submissions.csv
