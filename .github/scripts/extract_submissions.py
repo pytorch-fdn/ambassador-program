@@ -97,11 +97,13 @@ for row in unique_rows:
     name_parts = full_name.split()
     first_name = name_parts[0] if len(name_parts) > 0 else ""
     last_name = name_parts[-1] if len(name_parts) > 1 else ""
-    reviewer_row = [issue_number, first_name, last_name] + [""] * 6
+    issue_url = row[-1]  # "Issue URL" is the last column in the deduped row
+    issue_link = f"[View Issue]({issue_url})"
+    reviewer_row = [issue_number, first_name, last_name, issue_link] + [""] * 6
     reviewer_rows.append(reviewer_row)
 
 with open(reviewer_file, "w", newline="", encoding="utf-8") as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, quoting=csv.QUOTE_ALL)
     writer.writerow(reviewer_headers)
     writer.writerows(reviewer_rows)
 
