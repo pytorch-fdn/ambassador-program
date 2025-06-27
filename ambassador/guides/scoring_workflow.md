@@ -6,119 +6,104 @@ This document outlines the **scoring system** used to evaluate nominations for t
 
 ## 📌 Purpose
 
-The scoring workflow enables reviewers to evaluate nominee submissions using a **1–5 scale** via GitHub issue comments. It supports a structured review process by:
+The scoring workflow enables reviewers to evaluate nominee submissions using a **1–5 scale** recorded in an internal scoring sheet. It supports a structured review process by:
 
-- Acknowledging valid scores immediately
-- Accepting only one score per reviewer
-- Allowing a review coordination phase
-- Calculating average scores
-- Applying a final decision (`approved` or `rejected`)
-- Closing rejected issues
-- Adding a `scoring-complete` label for tracking
+- Collecting reviewer input consistently  
+- Encouraging transparent explanations for scores  
+- Supporting program managers in making informed decisions  
+- Logging final decisions back to GitHub for recordkeeping  
+- Closing rejected issues and preparing approved ones for next steps
 
 ---
 
 ## 🔁 Overview of the Scoring Flow
 
-| Phase | Labels Used |
-|-------|-------------|
-| Nomination submitted | `pending-review` |
-| Review begins (manual trigger) | `under-review`, `scoring-in-progress` |
-| Review finalized | `approved` / `rejected`, `scoring-complete` |
+| Phase                   | Labels Used                     |
+|-------------------------|----------------------------------|
+| Nomination submitted    | `pending-review`                |
+| Review begins (manual)  | `under-review`, `scoring-in-progress` |
+| Review finalized        | `approved` / `rejected`, `scoring-complete` |
 
 ---
 
-## 🧾 Step 1: Submitting a Score
+## 🧾 Step 1: Scoring in the Reviewer Sheet
 
-Reviewers comment directly on a nomination issue using this format:
+Each reviewer enters their score in the **shared reviewer spreadsheet** under the relevant column (Reviewer 1–6). Scores must be integers between **1 and 5**.
 
-Score: X
+### 🔢 Score Guide
 
-Where `X` is an integer from **1 to 5**. The comment is **not case-sensitive**.
+| Score | Description                            |
+|-------|----------------------------------------|
+| 1     | Not ready for the program              |
+| 2     | Below expectations                     |
+| 3     | Meets expectations                     |
+| 4     | Strong candidate                       |
+| 5     | Exceptional — ideal ambassador         |
 
-✅ Only the **first valid score per reviewer** is counted.  
-⚠️ A warning will appear if additional scores are submitted by the same user.
-
----
-
-## ✅ Step 2: Acknowledgement Comment
-
-When a valid score is submitted, the bot responds with:
-
-📝 Score received from @reviewer: X
-⏳ Final decision will be calculated and posted after all reviewers have submitted or in approximately 2 hours.
-🚨 Only your first score is counted. Please discuss with other reviewers before submitting.
-
-
-This encourages team coordination **before** scoring and reinforces the single-score policy.
+✅ Reviewers must include a brief explanation in the “Notes” column.  
+This explanation helps ensure nominees receive constructive, thoughtful feedback.
 
 ---
 
-## 🧮 Step 3: Finalizing the Score
+## ✅ Step 2: Manual Review & Decision
 
-The finalization step is **manually triggered** by a reviewer or maintainer. It:
+Once all reviewers have scored:
 
-1. Gathers all valid `Score: X` comments
-2. Filters out duplicate scores (only first per user)
-3. Calculates the **average score**
-4. Applies the final label:
+1. The **Program Manager** (or ED) reviews the total input  
+2. They determine whether the nominee should be `approved` or `rejected`  
+3. The final decision is typed as a comment on the GitHub issue:
+   - `approved` → nominee progresses to the next stage
+   - `rejected` → issue is closed, with a thank-you message and link to community hub
 
-| Average Score | Outcome |
-|---------------|---------|
-| ≥ 3.0         | ✅ `approved` |
-| < 3.0         | ❌ `rejected` |
-
-5. Adds the `scoring-complete` label  
-6. Removes temporary labels: `pending-review`, `under-review`, `scoring-in-progress`  
-7. Closes the issue if it is rejected
+💬 Example decision comment:
+approved
+Great work — nominee will proceed to the interview and onboarding process.
 
 ---
 
-### 💬 Example Summary Comment
+## 🛠 Step 3: Run the Manual Workflow
 
-🧮 Final average score from 3 reviewer(s): 4.33
-👥 Reviewed by: @alice, @bob, @carol
-📌 Final decision: APPROVED
+A GitHub workflow is **manually triggered** to process all open nominations that have been commented on with `approved` or `rejected`.
 
----
-
-## 🛠 Workflow Files Involved
-
-- `.github/workflows/acknowledge-score.yml`  
-  Acknowledges and limits reviewer scores
-
-- `.github/workflows/finalize-scoring.yml`  
-  Calculates score average and applies final decision
-
-- `.github/workflows/mark-under-review.yml`  
-  Manually removes `pending-review` and adds `under-review`, `scoring-in-progress`
+The workflow will:
+- Apply the appropriate label (`approved` or `rejected`)
+- Remove temporary labels (`pending-review`, `under-review`, etc.)
+- Close the issue if it is rejected
+- Add a summary comment to the issue
+- Generate a CSV (`ambassador/decision_summary.csv`) with issue numbers, decisions, and reviewers
+- Commit the summary CSV to the repo
 
 ---
 
-## 🧪 How to Test the Workflow
+## ✅ Example Summary Comment Posted by Bot
 
-1. Create a test nomination issue with the `nomination` label
-2. Trigger the manual **under-review** workflow
-3. Submit `Score: X` comments from different users
-4. Trigger **Finalize Scoring** manually
-5. Confirm:
-   - Decision label (`approved`/`rejected`) is added
-   - `scoring-complete` label is added
-   - Summary comment is posted
-   - Temporary review labels are removed
-   - Rejected issues are closed
+🧮 Final decision: APPROVED
+🔎 Reviewer notes are available in the internal scoring sheet.
+📩 Next steps will be shared with the nominee by the program team.
+
+---
+
+## 🧪 How to Use the Workflow
+
+1. Ensure all scores are filled in the reviewer sheet  
+2. Comment `approved` or `rejected` on each nomination issue  
+3. Trigger the **Finalize Decisions** workflow in the GitHub Actions tab  
+4. Verify:
+   - Issues are updated and/or closed
+   - Comments are posted
+   - CSV is committed to `/ambassador/`
 
 ---
 
 ## 🚧 Future Enhancements
 
-- Per-issue review deadlines
-- Reviewer coordination UI
-- Score override logic with audit trail
-- Discord or email alerts when scoring is finalized
+- Reviewer dashboard (UI)
+- Auto-reminders for pending reviews
+- Notification alerts for nominees
+- Bulk export to onboarding pipeline
 
 ---
 
 ## 🙋 Questions?
 
-If you need help using or maintaining these workflows, contact a maintainer or open an issue in this repository.
+If you need help using or maintaining these workflows, contact the program team or email
