@@ -1,109 +1,95 @@
 # 🧮 Scoring Workflow: PyTorch Ambassador Program
 
-This document outlines the **scoring system** used to evaluate nominations for the PyTorch Ambassador Program. It is intended for **reviewers, maintainers, and workflow administrators** who participate in or manage the review process.
+This document outlines the scoring and decision process used to evaluate nominations for the PyTorch Ambassador Program. It is intended for:
+
+- ✅ Reviewers who provide scores and notes
+- ✅ Program managers who finalize decisions and run GitHub workflows
 
 ---
 
-## 📌 Purpose
+## 📌 Overview
 
-The scoring workflow enables reviewers to evaluate nominee submissions using a **1–5 scale** recorded in an internal scoring sheet. It supports a structured review process by:
-
-- Collecting reviewer input consistently  
-- Encouraging transparent explanations for scores  
-- Supporting program managers in making informed decisions  
-- Logging final decisions back to GitHub for recordkeeping  
-- Closing rejected issues and preparing approved ones for next steps
+Nominations are reviewed using a **1–5 score system** captured in a shared scoring spreadsheet. After scores are reviewed, the Program Manager manually applies final decisions via GitHub comments and a workflow.
 
 ---
 
-## 🔁 Overview of the Scoring Flow
+## 👥 Reviewer Responsibilities
 
-| Phase                   | Labels Used                     |
-|-------------------------|----------------------------------|
-| Nomination submitted    | `pending-review`                |
-| Review begins (manual)  | `under-review`, `scoring-in-progress` |
-| Review finalized        | `approved` / `rejected`, `scoring-complete` |
+### Step 1: Score the Nominee
 
----
+Each reviewer should:
 
-## 🧾 Step 1: Scoring in the Reviewer Sheet
+1. Open the relevant row in the **reviewer tracking sheet**
+2. Add a score between **1 and 5**
+3. Include a **brief explanation** in the notes column
 
-Each reviewer enters their score in the **shared reviewer spreadsheet** under the relevant column (Reviewer 1–6). Scores must be integers between **1 and 5**.
+### Scoring Guide:
 
-### 🔢 Score Guide
+| Score | Meaning                             |
+|-------|-------------------------------------|
+| 1     | Not ready for the program           |
+| 2     | Below expectations                  |
+| 3     | Meets expectations                  |
+| 4     | Strong candidate                    |
+| 5     | Exceptional — ideal ambassador      |
 
-| Score | Description                            |
-|-------|----------------------------------------|
-| 1     | Not ready for the program              |
-| 2     | Below expectations                     |
-| 3     | Meets expectations                     |
-| 4     | Strong candidate                       |
-| 5     | Exceptional — ideal ambassador         |
-
-✅ Reviewers must include a brief explanation in the “Notes” column.  
-This explanation helps ensure nominees receive constructive, thoughtful feedback.
+📝 Thoughtful comments are important — they help nominees understand the decision and provide transparency.
 
 ---
 
-## ✅ Step 2: Manual Review & Decision
+## 🛠 Program Manager Workflow
 
-Once all reviewers have scored:
+### Step 2: Review Scores & Post Final Decision
 
-1. The **Program Manager** (or ED) reviews the total input  
-2. They determine whether the nominee should be `approved` or `rejected`  
-3. The final decision is typed as a comment on the GitHub issue:
-   - `approved` → nominee progresses to the next stage
-   - `rejected` → issue is closed, with a thank-you message and link to community hub
+Once all reviewers have submitted their scores:
 
-💬 Example decision comment:
+1. Review the nominee’s row in the spreadsheet
+2. Post a comment on their GitHub issue with either:
+
+   - `approved` — if they are ready for the next step
+   - `rejected` — if they do not meet current criteria
+
+Example:
+
 approved
-Great work — nominee will proceed to the interview and onboarding process.
+The nominee meets the scoring threshold and will move forward to the interview phase.
+
+
+> Note: Comment is **not case sensitive** and no scores need to be posted on GitHub.
 
 ---
 
-## 🛠 Step 3: Run the Manual Workflow
+### Step 3: Trigger the Finalization Workflow (Manual)
 
-A GitHub workflow is **manually triggered** to process all open nominations that have been commented on with `approved` or `rejected`.
+Once decisions are posted:
 
-The workflow will:
-- Apply the appropriate label (`approved` or `rejected`)
-- Remove temporary labels (`pending-review`, `under-review`, etc.)
-- Close the issue if it is rejected
-- Add a summary comment to the issue
-- Generate a CSV (`ambassador/decision_summary.csv`) with issue numbers, decisions, and reviewers
-- Commit the summary CSV to the repo
+- Trigger the `Finalize Reviewer Decisions` workflow in the GitHub Actions tab.
 
----
+This will:
 
-## ✅ Example Summary Comment Posted by Bot
-
-🧮 Final decision: APPROVED
-🔎 Reviewer notes are available in the internal scoring sheet.
-📩 Next steps will be shared with the nominee by the program team.
+- ✅ Add the `approved` or `rejected` label
+- ✅ Remove the `pending-review` label (if present)
+- ✅ Close rejected issues automatically
+- ✅ Post a confirmation comment on each issue
+- ✅ Create and commit a CSV summary at `ambassador/decision_summary.csv`
 
 ---
 
-## 🧪 How to Use the Workflow
+## ✅ Example Comment Added by Workflow
 
-1. Ensure all scores are filled in the reviewer sheet  
-2. Comment `approved` or `rejected` on each nomination issue  
-3. Trigger the **Finalize Decisions** workflow in the GitHub Actions tab  
-4. Verify:
-   - Issues are updated and/or closed
-   - Comments are posted
-   - CSV is committed to `/ambassador/`
+For an approved issue:
 
----
+✅ Thank you! This submission has been approved. We’ll contact you shortly with next steps.
 
-## 🚧 Future Enhancements
 
-- Reviewer dashboard (UI)
-- Auto-reminders for pending reviews
-- Notification alerts for nominees
-- Bulk export to onboarding pipeline
+For a rejected issue:
+
+Thank you for your submission. After careful review, your application has been rejected.
+We appreciate your interest and encourage you to stay involved with the PyTorch community: https://pytorch.org/community-hub/
+
 
 ---
 
 ## 🙋 Questions?
 
-If you need help using or maintaining these workflows, contact the program team or email
+For any issues or help, please email [ambassadors@pytorch.org](mailto:ambassadors@pytorch.org) or tag the program manager in GitHub.
