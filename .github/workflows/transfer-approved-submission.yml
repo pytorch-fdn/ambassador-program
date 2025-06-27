@@ -1,29 +1,52 @@
 name: "Transfer Approved Submission to Private Repo"
+
 on:
-  issues:
-    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to transfer"
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   transfer-submission:
-    if: github.event.label.name == 'approved'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
       - name: Transfer Issue to Private Repo
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           script: |
-            const issue = context.payload.issue;
+            const issue_number = parseInt(core.getInput("issue_number"));
             const repoOwner = context.repo.owner;
             const publicRepo = context.repo.repo;
             const privateRepo = "foundation-programs-management";
             const assignee = "reginankenchor";
 
+            const issue = await github.rest.issues.get({
+              owner: repoOwner,
+              repo: publicRepo,
+              issue_number
+            });
+
+            const hasApprovedLabel = issue.data.labels.some(l => l.name.toLowerCase() === "approved");
+
+            if (!hasApprovedLabel) {
+              throw new Error(`Issue #${issue_number} does not have an 'approved' label. Aborting transfer.`);
+            }
+
             const bodyContent = [
               "📝 Submission Transferred from Public Repository",
               "",
               "----------------------------------------",
-              issue.body,
+              issue.data.body,
               "----------------------------------------",
               `🔔 @${assignee} — this submission has been approved and is now ready for program-level follow-up.`
             ].join("\n\n");
@@ -31,7 +54,7 @@ jobs:
             const newIssue = await github.rest.issues.create({
               owner: repoOwner,
               repo: privateRepo,
-              title: issue.title,
+              title: issue.data.title,
               body: bodyContent,
               assignees: [assignee]
             });
@@ -47,13 +70,13 @@ jobs:
             await github.rest.issues.createComment({
               owner: repoOwner,
               repo: publicRepo,
-              issue_number: issue.number,
+              issue_number,
               body: confirmation
             });
 
             await github.rest.issues.update({
               owner: repoOwner,
               repo: publicRepo,
-              issue_number: issue.number,
+              issue_number,
               state: "closed"
             });
