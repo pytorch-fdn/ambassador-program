@@ -87,8 +87,8 @@ with open(duplicates_file, "w", newline="", encoding="utf-8") as f:
 
 # Create reviewer tracking sheet
 reviewer_file = "ambassador/ambassador_reviewer_sheet.csv"
-reviewer_headers = ["Issue #", "First Name", "Last Name", "Reviewer 1", "Reviewer 2",
-                    "Reviewer 3", "Reviewer 4", "Reviewer 5", "Reviewer 6"]
+reviewer_headers = ["Issue #", "First Name", "Last Name", "Issue Link",
+                    "Reviewer 1", "Reviewer 2", "Reviewer 3", "Reviewer 4", "Reviewer 5", "Reviewer 6"]
 
 reviewer_rows = []
 for row in unique_rows:
