@@ -1,7 +1,7 @@
 # 👥 Reviewer Guide: PyTorch Ambassador Program
 
 Welcome — and thank you for supporting the review process for the **PyTorch Ambassador Program**! 🎉  
-This guide walks you through how to evaluate nominations using our score-based system and help nominees receive thoughtful, consistent feedback.
+This guide walks you through how to evaluate nominations and help nominees receive thoughtful, consistent feedback.
 
 ---
 
@@ -9,10 +9,10 @@ This guide walks you through how to evaluate nominations using our score-based s
 
 As a reviewer, your job is to:
 
-1. Identify active nominations
-2. Review the nominee's contributions and impact
-3. Submit a score from **1 to 5** with a short explanation
-4. Allow the system to calculate the average and apply a final outcome
+1. Identify active nominations  
+2. Review the nominee’s contributions and readiness  
+3. Leave a comment with either **`approved`** or **`rejected`** and an optional explanation  
+4. Once all reviews are in, the program manager runs a workflow to finalize decisions
 
 ---
 
@@ -23,12 +23,10 @@ Visit the GitHub issues page:
 
 Look for issues labeled:
 
-- `nomination`
-- `under-review`
-- `scoring-in-progress`
 - `ambassador`
+- `pending-review`
 
-These indicate the submission is ready for review and scoring.
+These are ready for you to review.
 
 ---
 
@@ -36,114 +34,107 @@ These indicate the submission is ready for review and scoring.
 
 Carefully read the nomination issue. Consider:
 
-- The nominee’s contributions to PyTorch or its ecosystem
-- Community engagement (e.g., events, mentorship, education)
-- Future goals and plans as an ambassador
+- The nominee’s contributions to PyTorch or its ecosystem  
+- Community engagement (e.g., events, mentorship, education)  
+- Future goals and plans as an ambassador  
 - Any linked profiles or supporting materials
 
 ---
 
-## 🧮 Step 3: Submit Your Score with a Short Explanation
+## ✅ Step 3: Submit Your Recommendation
 
-Comment directly on the issue using the format:
+Comment directly on the issue using one of the two decisions:
 
-Score: X
-<brief explanation>
+- `approved` — if you support the nominee  
+- `rejected` — if you believe the nominee is not a fit at this time
 
-Where `X` is your score between **1 and 5**, based on the nominee’s impact and readiness.
+Optionally, add a short explanation to support your choice.
 
-| Score | Meaning |
-|-------|---------|
-| 1 | Not ready for the program |
-| 2 | Below expectations |
-| 3 | Meets expectations |
-| 4 | Strong candidate |
-| 5 | Exceptional — ideal ambassador
+### ✅ Example: Approval
 
-**✅ Every score should be accompanied by a short explanation.**  
-This ensures the nominee receives fair, transparent feedback.
+approved
+The nominee has hosted two workshops, contributed to tutorials, and is active in the community forums. Strong candidate.
 
----
+shell
+Copy
+Edit
 
-### ✅ Example of a Good Score Comment
+### ❌ Example: Rejection
 
-Score: 4
-The nominee has made solid contributions to PyTorch tutorials and hosted multiple community events. They are active in forums and have helped onboard new contributors. Would love to see more long-term planning around ambassador goals.
+rejected
+While the nominee is enthusiastic, there’s limited contribution history. Would suggest reapplying after 6 months of deeper involvement.
 
----
-
-### ❌ What Not to Do
-
-- Don't comment without the `Score: X` format
-- Don’t submit multiple scores — only the first is counted
-- Don’t score without a reason
-
-**Invalid Examples (ignored):**
-
-5 stars! 🌟
-Rated 4!
+yaml
+Copy
+Edit
 
 ---
 
-## ⚙️ Step 4: What Happens Next
+### 🚫 What Not to Do
 
-Once all reviewers have submitted their scores, the scoring automation will be triggered to calculate the final decision.
-
-The system:
-
-1. Collects the **first valid score** per reviewer
-2. Calculates the **average score**
-3. Applies the result:
-
-| Average Score | Status |
-|---------------|--------|
-| ≥ 3.0 | ✅ `approved` |
-| < 3.0 | ❌ `rejected` (and closed) |
-
-4. Adds the `scoring-complete` label
-5. Removes temporary labels (`under-review`, `scoring-in-progress`)
-6. Posts a summary comment listing:
-   - Reviewer usernames
-   - Average score
-   - Final outcome
-
-📝 The system does **not use the explanation in the calculation**, but nominees will see your comments — so thoughtful feedback matters.
+- Don’t use scores like `score: 4` — those are no longer valid  
+- Don’t leave vague comments like “+1”  
+- Don’t submit both approved and rejected — pick one
 
 ---
 
-## ✅ After the Final Score
+## ⚙️ Step 4: What Happens After Reviews
 
-- **Approved nominations** are marked `approved`, and onboarding begins
-- **Rejected nominations** are marked `rejected` and closed
+After reviewers have submitted their decisions, a **manual GitHub Action** is run to process them:
+
+1. The system checks for the most recent decision comment from each issue  
+2. If any comment includes **`approved`** or **`rejected`** (case-insensitive), it is processed  
+3. It:
+   - Adds the `approved` or `rejected` label  
+   - Removes the `pending-review` label  
+   - Comments on the issue with the outcome  
+   - Closes the issue if rejected  
+   - Adds a row in `decision_summary.csv` for tracking
 
 ---
 
-## 💬 Frequently Asked Questions
+## 📨 What Nominees See
 
-### 🔁 What if someone submits a nomination twice?
+Each nominee will receive a comment like:
 
-The program manager will merge or close duplicates. Only review the nomination labeled `under-review`.
+- ✅ **Approved:**
+
+  > 🎉 Congratulations! Your application has been **approved**. We’ll follow up with next steps shortly via email or GitHub.
+
+- ❌ **Rejected:**
+
+  > Thank you for your submission. After careful review, your application has been **rejected**. We encourage you to stay involved: [pytorch.org/community-hub](https://pytorch.org/community-hub)
 
 ---
+
+## 🙋 Frequently Asked Questions
+
+### 🔁 What if someone submits twice?
+
+The program manager will detect and remove duplicates. Only review the **latest** version.
 
 ### 👤 Can I review anonymously?
 
-No — scores must be posted from your GitHub account. If privacy is important, coordinate with the committee and have a representative submit on behalf of the group.
-
----
+No. Reviews must be posted from your GitHub account so we can track accountability and prevent duplicates.
 
 ### 🤝 Can I coordinate with other reviewers?
 
-Yes — please do!  
-We encourage you to:
-- Discuss nominees as a group before scoring
-- Share context, questions, or doubts in the issue thread or offline
-- Align on how you interpret each score range
+Yes — coordination is encouraged.  
+Feel free to discuss nominees on Slack, GitHub, or privately before commenting.
 
 ---
 
-## 🙋 Need Help?
+## 🧠 Reviewer Tips
 
-For help or questions, please email us at **[ambassadors@pytorch.org](mailto:ambassadors@pytorch.org)**.
+- Use the **reviewer tracking sheet** to manage who’s reviewing what  
+- Focus on **impact**, **fit**, and **readiness**  
+- Keep your comments constructive — even when rejecting
 
-Thanks again for helping build a fair, transparent, and inspiring ambassador community for PyTorch! 🚀
+---
+
+## 📫 Need Help?
+
+For questions, reach out to:  
+📧 **[ambassadors@pytorch.org](mailto:ambassadors@pytorch.org)**
+
+Thanks again for supporting a fair and inspiring review process! 🚀
