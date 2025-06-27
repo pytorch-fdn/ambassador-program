@@ -1,0 +1,142 @@
+name: "Finalize All Reviewer Decisions"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize-decisions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Process all open ambassador issues
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require("fs");
+            const path = require("path");
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const processedIssues = [];
+
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner,
+                repo,
+                state: "open",
+                labels: "ambassador",
+                per_page: 100,
+              }
+            );
+
+            for (const issue of issues) {
+              const issue_number = issue.number;
+              const existingLabels = issue.labels.map(label => label.name.toLowerCase());
+
+              if (existingLabels.includes("approved") || existingLabels.includes("rejected")) {
+                console.log(`Skipping issue #${issue_number} — already labeled.`);
+                continue;
+              }
+
+              const comments = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number,
+                per_page: 100,
+              });
+
+              const decisionComment = [...comments.data].reverse().find(comment => {
+                const text = comment.body.toLowerCase();
+                return text.includes("approved") || text.includes("rejected");
+              });
+
+              if (!decisionComment) {
+                console.log(`No decision comment found for issue #${issue_number}`);
+                continue;
+              }
+
+              const body = decisionComment.body.toLowerCase();
+              const commenter = decisionComment.user.login;
+              const isApproved = body.includes("approved");
+              const isRejected = body.includes("rejected");
+              const label = isApproved ? "approved" : isRejected ? "rejected" : null;
+              if (!label) continue;
+
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: [label],
+              });
+
+              if (existingLabels.includes("pending-review")) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number,
+                    name: "pending-review",
+                  });
+                  console.log(`Removed 'pending-review' from issue #${issue_number}`);
+                } catch (e) {
+                  console.log(`Could not remove 'pending-review' from issue #${issue_number}:`, e.message);
+                }
+              }
+
+              let nomineeMessage = "";
+              if (label === "approved") {
+                nomineeMessage = `🎉 Congratulations! Your application has been **approved**. We’ll follow up with next steps shortly via email or GitHub.`;
+              } else {
+                nomineeMessage = `Thank you for your submission. After careful review, your application has been **rejected**. We appreciate your interest and encourage you to stay involved with the PyTorch community: [https://pytorch.org/community-hub/](https://pytorch.org/community-hub/)`;
+              }
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `🔔 **Final decision detected from @${commenter}**\n\n> **${label.toUpperCase()}**\n\n${nomineeMessage}`,
+              });
+
+              if (label === "rejected") {
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number,
+                  state: "closed",
+                });
+              }
+
+              processedIssues.push({
+                issue: issue_number,
+                decision: label,
+                commenter,
+              });
+
+              console.log(`Processed issue #${issue_number}: ${label.toUpperCase()}`);
+            }
+
+            // Write summary CSV
+            const summaryDir = "ambassador";
+            const summaryPath = path.join(summaryDir, "decision_summary.csv");
+            const summaryRows = [["Issue #", "Decision", "Commenter"]];
+            for (const item of processedIssues) {
+              summaryRows.push([item.issue, item.decision, item.commenter]);
+            }
+            fs.mkdirSync(summaryDir, { recursive: true });
+            fs.writeFileSync(summaryPath, summaryRows.map(row => row.join(",")).join("\n"));
+            console.log(`📝 Decision summary written to ${summaryPath}`);
+
+      - name: Commit decision summary CSV
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add ambassador/decision_summary.csv
+          git commit -m "Add decision summary CSV"
+          git push
