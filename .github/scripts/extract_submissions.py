@@ -6,7 +6,7 @@ from github import Github
 # Load token and repo name from environment variables
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")  # e.g., 'pytorch-fdn/ambassador-program'
-LABEL_FILTER = "ambassador"  # Label used to filter ambassador submissions
+LABEL_FILTER = "ambassador"
 
 # Authenticate with GitHub
 g = Github(GITHUB_TOKEN)
@@ -17,13 +17,12 @@ issues = repo.get_issues(state="all", labels=[LABEL_FILTER])
 
 # Ensure the 'ambassador' directory exists
 os.makedirs("ambassador", exist_ok=True)
-output_file = "ambassador/ambassador_submissions.csv"
 
-# Define CSV headers
+# Define base headers (excluding reviewer/duplicate fields)
 headers = [
     "Issue #", "Nominee Name", "Nominee Email", "GitHub Handle", "Location", "Organization",
     "Nominator Name", "Nominator Email", "Contributions", "Ambassador Pitch", "Extra Notes",
-    "Issue URL", "Reviewer Score", "Reviewer Notes", "Duplicate"
+    "Issue URL"
 ]
 
 # Helper function to extract field content by label
@@ -52,30 +51,60 @@ for issue in issues:
     row = [
         issue.number, nominee_name, nominee_email, github_handle, location, organization,
         nominator_name, nominator_email, contributions, pitch, notes,
-        issue.html_url, "", "", ""  # placeholders for Reviewer Score, Notes, and Duplicate
+        issue.html_url
     ]
     rows.append(row)
 
-# Detect duplicates by nominee email
-email_index = {}
-duplicates = set()
+# Deduplicate by nominee email (keep last)
+email_to_last_index = {}
+for i, row in enumerate(rows):
+    email = row[2].strip().lower()
+    email_to_last_index[email] = i  # Last occurrence
+
+unique_rows = []
+duplicates_only = []
 
 for i, row in enumerate(rows):
-    email = row[2].strip().lower()  # Nominee Email
-    if email in email_index:
-        duplicates.add(i)
-        duplicates.add(email_index[email])
+    email = row[2].strip().lower()
+    if email_to_last_index[email] == i:
+        unique_rows.append(row)
     else:
-        email_index[email] = i
+        duplicates_only.append(row)
 
-# Mark duplicates in the last column
-for i, row in enumerate(rows):
-    row[-1] = "Yes" if i in duplicates else "No"
-
-# Write to CSV
-with open(output_file, "w", newline="", encoding="utf-8") as f:
+# Save deduplicated entries
+deduped_file = "ambassador/ambassador_submissions_deduped.csv"
+with open(deduped_file, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     writer.writerow(headers)
-    writer.writerows(rows)
+    writer.writerows(unique_rows)
 
-print(f"✅ CSV exported with {len(rows)} submissions → {output_file}")
+# Save removed duplicates
+duplicates_file = "ambassador/ambassador_duplicates_removed.csv"
+with open(duplicates_file, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(headers)
+    writer.writerows(duplicates_only)
+
+# Create reviewer tracking sheet
+reviewer_file = "ambassador/ambassador_reviewer_sheet.csv"
+reviewer_headers = ["Issue #", "First Name", "Last Name", "Reviewer 1", "Reviewer 2",
+                    "Reviewer 3", "Reviewer 4", "Reviewer 5", "Reviewer 6"]
+
+reviewer_rows = []
+for row in unique_rows:
+    issue_number = row[0]
+    full_name = row[1].strip()
+    name_parts = full_name.split()
+    first_name = name_parts[0] if len(name_parts) > 0 else ""
+    last_name = name_parts[-1] if len(name_parts) > 1 else ""
+    reviewer_row = [issue_number, first_name, last_name] + [""] * 6
+    reviewer_rows.append(reviewer_row)
+
+with open(reviewer_file, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(reviewer_headers)
+    writer.writerows(reviewer_rows)
+
+print(f"✅ Deduplicated submissions → {deduped_file}")
+print(f"✅ Removed duplicates → {duplicates_file}")
+print(f"✅ Reviewer tracking sheet → {reviewer_file}")
