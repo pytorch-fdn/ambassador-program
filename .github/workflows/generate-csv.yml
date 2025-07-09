@@ -22,14 +22,11 @@ jobs:
       - name: 📦 Install Python dependencies
         run: pip install PyGithub
 
-      - name: 🧠 Run extraction script
+      - name: 🧠 Run extraction + reviewer script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python .github/scripts/extract_submissions.py
-
-      - name: 🧮 Generate reviewer sheets
-        run: python .github/scripts/generate_reviewer_sheets.py
 
       - name: ✅ Commit and Push CSVs to repo
         run: |
