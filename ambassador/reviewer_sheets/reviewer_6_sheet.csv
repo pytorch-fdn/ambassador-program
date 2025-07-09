@@ -1,4 +1,4 @@
-Submission ID,First Name,Last Name,Reviewer,Submission Summary,Technical Expertise (1–5),Community Engagement and Evangelism (1–5),Online Influence and Reach (1–5),Alignment and Values (1–5),Additional Bonus Criteria (1–5),Credibility (1–5),Final Score (1–5),Reviewer Comments
+Submission ID,First Name,Last Name,Reviewer,Submission Summary,Demonstrated knowledge and practical experience with PyTorch,"Familiarity with foundation-hosted projects (vLLM, DeepSpeed)","Made commits, PRs, issues filed, and code reviews across PyTorch ecosystem","Evidence of participation in community discussions, RFCs, GitHub projects",Maintainer or leadership role in open source projects,"Authored technical blog posts, whitepapers, tutorials, or case studies",Published academic research papers or conference publications,"Organized or led community events (meetups, study groups, etc.)","Participated in major ML/AI events (e.g., NeurIPS, PyTorch Conf, ICML)","Delivered talks, webinars, or workshops on PyTorch-related topics",Communicates complex concepts clearly to diverse audiences,Provided recordings or links to past presentations,"Mentored students, junior developers, or researchers",Developed or taught ML/DL/distributed systems curriculum,Active on social media or blogs focused on ML/AI/dev topics,Consistently promotes PyTorch and ecosystem tools,High follower/subscriber count or engagement (>10k followers or >100k views),Ability to spark discussion and grow awareness online,Supports open-source principles and inclusive collaboration,Advocates for responsible AI and ethical ML,Clearly articulates why they want to be an ambassador,Proposed initiatives align with PyTorch Foundation’s mission,"Contributed to other ML ecosystems (e.g., HuggingFace)",Integrated tools across ML infrastructure landscape,Represents underrepresented regions or groups,Demonstrated innovation or novel use of PyTorch,Has references from known community members,Final Score (auto-calculated from YES responses),Reviewer Comments
 296,Karla,Mauricio,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -18,27 +18,23 @@ Additional Notes:
 https://www.linkedin.com/in/karla-doctor/
 https://karladoctormauricio.github.io/IA_KarlaDoctorMauricio.github.io/experience.html
 https://medium.com/@ka.doctormauricio
-```",,,,,,,,
-287,Anurag,Bihani,Reviewer 6,"Contributions:
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+288,Abdou,DIOP,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-https://www.linkedin.com/in/anuragbihani/
-https://adplist.org/mentors/anurag-bihani
-https://topmate.io/anuragbihani
-```",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 285,Alexey,Gruzdev,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -54,27 +50,9 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-278,Ghassen,Fatnassi,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-he’s a final year engineering student in a top engineering school with a wide network of ML Engineers and practitioners
-```",,,,,,,,
-272,Parichay,Das,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+277,Akash,Agrawal,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
@@ -89,16 +67,35 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-To explore my blogs, conference presentations, and educational contributions, kindly visit the following link:",,,,,,,,
-265,BYAOMBE,Dieudonne,Reviewer 6,"Contributions:
+There are several avenues where I have contributed/represented PyTorch or the AI community in general. Some of these include:",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+267,Kevin,Wang,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+LinkedIn: https://www.linkedin.com/in/kevin-wang-9b1650226/
+Github: https://github.com/aiejvn
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+259,Derrick,Sosoo,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [ ] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
+- [ ] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
 - [ ] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
@@ -106,32 +103,8 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-Fraîchement diplômé d'un Master 2 en systèmes intelligents, je réalise actuellement un stage où j'approfondis mes compétences en PyTorch, notamment pour des applications en réseaux de neurones spiking (SNN) et IA neuromorphique. Mon parcours académique au Vietnam et mes recherches actuelles m'ont permis d'acquérir une expertise pointue dans l'implémentation et l'optimisation de modèles bio-inspirés. Fort de cette expérience, je souhaite mettre à profit mes connaissances pour animer la communauté PyTorch l à travers des ateliers pratiques et des retours d'expérience sur ces architectures innovantes.
-```",,,,,,,,
-261,Luis,Navarro,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-Youtube channel: https://www.youtube.com/@lfsolisnavarro
-linkedin page: https://www.linkedin.com/in/luisfernandosolisnavarro/
-tiktok channel:  https://www.tiktok.com/@lfsolisnavarro
-Udemy courses: https://beacons.ai/lfsolisnavarro/udemycourses
-CV LINK: https://docs.google.com/document/d/1Yklb1UIkr84NL1ThhOigJ0Q1BOvmZuokI4IKxgTSidY/edit?usp=sharing
-Medium blog: https://medium.com/@lfsolisnavarro
-Google Scholar: https://scholar.google.com/citations?user=B4msnUgAAAAJ&hl=pt-BR
-```",,,,,,,,
+https://www.linkedin.com/in/derrickedemsosoo
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 258,Hussain,Salih,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [x] A speaker at PyTorch events or workshops.
@@ -147,7 +120,25 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+255,Dhia,naouali,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+i believe this opportunity would present a great portal to further emerge with the global pytorch community and have another way to contribute and get others starting their open source journey !
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 254,Braulio,Otavalo,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [x] A speaker at PyTorch events or workshops.
@@ -167,23 +158,26 @@ Additional Notes:
 I bring over a decade of hands-on experience in machine learning and a strong academic background in AI and computer vision. As AI Tech Lead at Awana, I mentor a team that delivers ML solutions for U.S.-based clients while also leading the AI Skills Accelerator, a program I designed to empower Latin American developers with practical, end-to-end ML training.
 I have strong expertise in PyTorch for deep learning, computer vision, and geospatial AI. At Awana, I lead and teach modules on Deep Learning, Foundation Models, and Generative AI, all built using PyTorch as the core framework. I’ve worked on real-world projects that apply PyTorch to tasks such as satellite imagery analysis using TorchGeo, transfer learning, and model optimization for production.
 My teaching efforts through the AI Skills Accelerator have helped  Latin American developers gain practical experience with PyTorch. I’m deeply passionate about making advanced AI education accessible, especially for underrepresented groups, and PyTorch plays a central role in that mission.
-```",,,,,,,,
-251,Nimisha,Sukhwani,Reviewer 6,"Contributions:
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+252,Zaynul,Miah,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown
+As the Gitkraken Ambassador, only AWS cloud club captain, Microsoft Learn Gold Student Ambassador and Co-organizer of Machine Learning, AI, NLP and Deep Learing Community Bangladesh (previously TensorFlow User Group Bangladesh part of Google AI Community), Azure Tech Group Bangladesh, Fabric User Community Bangladesh, The AI, ML Community(part of Global AI Community)  When I started community work I saw so many students get enthusiasm when I share them the oppotunities I got from program but many students are not wiling to work for it due to their academics pressure.  So I was the only person here who had to step up and don't give up on this community building process and I did that and grew over 50,000 members on different facebook tech communities sharing opporunities and growth to them: https://www.facebook.com/azaynul123/ When I joined the Google AI community group TensorFlow User Group Bangladesh as organizer there weren't so much activity but after joining this community we were able to win grandmaster award 2 times and it was first time for Bangladeshi community to have taken 92+ events in a single year. We also organized ML Olympiad 2023, 2024 , Keras Community Day 2023 physically in Brac University, 3 of our community members also won global awards from google for taking highest events: https://www.linkedin.com/posts/zaynul-abedin-miah_vertexai-google-machinelearning-activity-7292131729782280192-8rRc?utm_source=share&utm_medium=member_desktop&rcm=ACoAACJvR6sBLMfFJjZ96ahnmku97wrMGgU6eIM . I was the only person in Bangladesh got featured 4 times by Google: June: https://lnkd.in/g6W5FVJv ,
+April: https://lnkd.in/gB5bb5_U , https://medium.com/google-developer-experts/nov-ml-community-highlights-and-achievements-03a78e9e1449 , https://l.facebook.com/l.php?u=https%3A%2F%2Fmedium.com%2Fgoogle-developer-experts%2Fjan-2025-ai-community-activity-highlights-and-achievements-64c233e7a194%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExSjUyMW5OeE52aFpCZWhpMwEeOTIFl3kfYUpdtQbeQou2cvfvk3gWS8j0Q9syVJRJdHbNp5BbpZSqJOHKgyI_aem_X-KMnGxlHezy-gn4kZSapg&h=AT0upLN1j_59jKo21WNSAOL0rD8O2LNT71a5O8M9Xs4w9bvKUNeiZnPcqZKAac-yDIE-LMtif4SzMKNlabDlUda2KK9KU-nTx1hANKEtV2xF0NksId2vVTnrlDmPhwUHNvfWXPo33CzFv2UU&__tn__=-UK*F . Also I took ml paper reading club session recently one by myself and other with supervisor on her research paper which is titled:  Video Analytics for Activity Profiling, Fall & Unstable Motion Detection and it got massive response on Facebook within 2 days it got 2.7K views and after this event many student started doing research work under her supervision: https://youtube.com/playlist?list=PLHGDyeOCXVQfDHoouVp7YF_LEbdjh8JGz&si=A7xqiG55myR6HjIE ,  https://www.facebook.com/bdaiml . Contributed to kubernetes and got over 30+ PR approved, member of kubernetes org and kubernetes sigs. Got Dan Kohn Scholarship by Linux Foundation for Kubecon India 2024: https://www.linkedin.com/posts/zaynul-abedin-miah_opensource-kubernetescommunity-techjourney-activity-7261637965020307458-GGZz?utm_source=share&utm_medium=member_desktop&rcm=ACoAACJvR6sBLMfFJjZ96ahnmku97wrMGgU6eIM .
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 246,Fady,Nabil,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -199,46 +193,28 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-244,Abdulhayyu,Abubakar,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+243,Nura,Sufiyanu,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [x] A speaker at PyTorch events or workshops.
 - [x] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-No
-```",,,,,,,,
-240,Norman,Lam,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+239,keyush,Nisar,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown",,,,,,,,
-234,Ediomo,Udoekere,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
+- [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
@@ -249,10 +225,24 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-https://linktr.ee/acquiliq?utm_source=linktree_profile_share&ltsid=2251391b-023b-4318-b0c1-b903ac60b029
-```",,,,,,,,
-230,David,Winner,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+235,Ismail,Feranmi,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+228,PrettyFave,,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
@@ -267,24 +257,25 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-226,Ying-Jung,Chen,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```markdown
+I've read through the project and I'll say it's amazing with my in-depth knowledge with web3 and the decentralization I'll help promote and develope the project with content creation, graphic design moderation in my local language and also translate articles.
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+227,Ahsan,Umar,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-Ying-Jung Chen is not only a highly skilled AI engineer and researcher but also a passionate educator and open-source contributor. She actively engages with the global AI community through:",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 224,Pacifique,Mugisho,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -301,16 +292,16 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-I am particularly passionate about using PyTorch to democratize AI for engineering and sustainability-focused solutions in the Global South. Coming from DR Congo and currently based in Rwanda, I have firsthand experience with the gap in AI education and access to modern tools in underserved regions. This drives my mission to make AI more inclusive.",,,,,,,,
-219,Derbew,Felasman,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
+I am particularly passionate about using PyTorch to democratize AI for engineering and sustainability-focused solutions in the Global South. Coming from DR Congo and currently based in Rwanda, I have firsthand experience with the gap in AI education and access to modern tools in underserved regions. This drives my mission to make AI more inclusive.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+221,Sangofweb3,,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [x] A speaker at PyTorch events or workshops.
+- [x] A PyTorch user group organizer or meetup host.
+- [ ] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
+- [x] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
+- [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
@@ -318,21 +309,29 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-As a PyTorch Ambassador, I would actively promote the adoption and effective use of PyTorch within my academic, professional, and online communities. Drawing from my background as a university lecturer and content creator, I would contribute in the following ways:
-	1.	Community Education and Engagement
-I plan to organize regular workshops, webinars, and hands-on labs on PyTorch fundamentals, deep learning, and generative AI applications. These events will be tailored for students, researchers, and developers, especially in underrepresented regions like East Africa, to help them build practical skills using PyTorch.
-	2.	Content Creation and Localization
-I will create high-quality educational content—tutorials, videos, blog posts, and code walkthroughs—focusing on real-world use cases of PyTorch. Where relevant, I’ll localize this content into regional languages to broaden accessibility and engagement.
-	3.	Mentorship and Collaboration
-I will mentor aspiring ML practitioners through bootcamps and open-source contribution initiatives, encouraging them to use and contribute to the PyTorch ecosystem. I’ll also foster collaborations between academia and industry by showcasing PyTorch-powered projects and research.
-	4.	Advocacy and Representation
-I will represent PyTorch at conferences, AI community meetups, and educational panels, advocating for ethical, inclusive, and impactful AI development using PyTorch. I’m committed to bridging the knowledge gap in AI education and showcasing PyTorch as a powerful and approachable framework for learners at all levels.",,,,,,,,
-215,Varala,Swapnik,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+https://x.com/sangofweb3",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+217,Saagara,Baiju,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+211,Akilsurya,Sivakumar,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [x] A PyTorch user group organizer or meetup host.
+- [ ] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
@@ -342,39 +341,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-213,Mukhammad,Rafsanjani,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown",,,,,,,,
-210,Nurulla,Matyakubov,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 206,Benjamin,Consolvo,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [x] A speaker at PyTorch events or workshops.
@@ -392,7 +359,23 @@ Ambassador Pitch:
 Additional Notes:
 ```markdown
 Here are some examples of my talks on PyTorch: https://www.youtube.com/watch?v=TPp_Zyco6X4, https://www.youtube.com/watch?v=zvk3Rr-OjU0, and https://www.youtube.com/watch?v=LVZWm5GFvAw. And here is a blog on the PyTorch website with my work: https://pytorch.org/blog/dinosaurs-to-seismic-imaging/. I was a part of ""Achieving Sustainability Goals with PyTorch and Intel AI"" here: https://pytorch.org/blog/achieving-sustainability-goals/.
-```",,,,,,,,
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+204,Kalina,Boshnakova,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [ ] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 200,Murilo,Gustineli,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -412,7 +395,7 @@ Additional Notes:
 Murilo is a Senior AI Software Engineer at Intel and is currently pursuing a master's in CS at Georgia Tech. He is passionate about deep learning, information retrieval, and biodiversity research. He also maintains a blog and open-source projects at:
 murilogustineli.com
 github.com/murilogustineli
-```",,,,,,,,
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 194,Usamah,Zaheer,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -429,31 +412,8 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-You can check out some of my work on GitHub.com/usamahz, especially around ML systems, robotics, and deployment workflows. I’ve worked at Dyson Robotics on real-time edge perception systems and now at Arm, where I focus on PyTorch models for Arm CPUs and NPUs along with other frameworks such as OneDNN, plus more.",,,,,,,,
-189,Junghwan,Park,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-[Resources about PyTorch Korea User Group]
-* PyTorch Korea main website: https://pytorch.kr
-* PyTorch Korean Tutorials: https://tutorials.pytorch.kr
-* PyTorch Blog Translations: https://pytorch.kr/blog
-* Hands-on PyTorch (WIP): https://hands-on.pytorch.kr
-* PyTorch Discussion Community: https://discuss.pytorch.kr
-* YouTube Channel with Community Meetup Videos: https://youtube.com/@pytorchkr",,,,,,,,
-185,sakigokul,m,Reviewer 6,"Contributions:
+You can check out some of my work on GitHub.com/usamahz, especially around ML systems, robotics, and deployment workflows. I’ve worked at Dyson Robotics on real-time edge perception systems and now at Arm, where I focus on PyTorch models for Arm CPUs and NPUs along with other frameworks such as OneDNN, plus more.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+183,Dr,Kapoor,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
@@ -469,7 +429,7 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-Founder and CTO of CyberAran-cybersecurity company, and Hacbug a cybersecurity and software training academy, with over five years of hands-on experience in software development and cybersecurity. Passionate about Machine Learning, I successfully completed my M.Sc. project on ""Cardiovascular Disease Prediction using Support Vector Machine.""",,,,,,,,
+Retured YouTube Channel (started March 2025): https://www.youtube.com/@Retured",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 181,Gaurav,Sarkar,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -487,7 +447,7 @@ Ambassador Pitch:
 Additional Notes:
 ```markdown
 I am going to publish my course on Deep learning with pytorch with one of the leading platform for data science. I have fixed bugs and contributed in open source in pytorch codebase. Also contributed a model in huggingface optimum repository. I constantly share my views and learning on Pytorch. Recently I have submitted a research paper in Neurips 2025 on new activation function. I have delivered number of talks in different companies like Adani, Mahindra, MIT-Bangalore, Google Developer Student Club etc.
-```",,,,,,,,
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 179,Usamah,Zaheer,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -504,7 +464,25 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-As an Ambassador, I would:",,,,,,,,
+As an Ambassador, I would:",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+176,Trần,Cường,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [x] A speaker at PyTorch events or workshops.
+- [x] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+Nothing
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 173,Alpha,Coma,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -521,23 +499,40 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-Hi, All. I'm Alpha, a 3rd-year Computer Science Scholar at FEU Institute of Technology, an AI Engineer at a US-based AI startup, Deep Learning Engineer at MicroMarc Research (Thesis), an Author at FreeCodeCamp, and a GitHub Campus Expert Trainee.",,,,,,,,
-169,Madan,Y,Reviewer 6,"Contributions:
+Hi, All. I'm Alpha, a 3rd-year Computer Science Scholar at FEU Institute of Technology, an AI Engineer at a US-based AI startup, Deep Learning Engineer at MicroMarc Research (Thesis), an Author at FreeCodeCamp, and a GitHub Campus Expert Trainee.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+167,Yoshitomo,Matsubara,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+I am a research scientist with strong passion of open source/science. [Most of my papers](https://yoshitomo-matsubara.net/publications/) are published with [code](https://github.com/yoshitomo-matsubara) and/or [artifacts](https://huggingface.co/yoshitomo-matsubara) for reproducibility and helping research communities build on my work.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+166,Chris,Kid,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [ ] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 162,Mirza,Abbas,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -553,28 +548,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-161,Jiho,Kim,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-- PyTorch Korea User Group Community Operations Committee : https://pytorch.kr/
-- PyTorch Official Blog Posting: https://pytorch.org/blog/pt-korea-user-group-recap/?utm_campaign=4079123-PyTorch%20Blog%20Post%20Promotion&utm_content=332053430&utm_medium=social&utm_source=linkedin&hss_channel=lcp-78618366
-- PyTorch Korea Tutorials Contribution: https://github.com/PyTorchKorea/tutorials-kr
-- LinkedIn: https://www.linkedin.com/in/jih0/
-```",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 159,Jieke,Choo,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -594,13 +568,13 @@ Additional Notes:
 GitHub: https://github.com/jiekechoo
 Blog: https://yiqisoft.cn/blogs/
 EdgeX Foundry TSC: https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11667441/Technical+Steering+Committee+TSC
-```",,,,,,,,
-156,Ugama,Kelechi,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+155,Victor,Ribeiro,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
 - [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
@@ -610,8 +584,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-The nominee is a passionate advocate for open source and AI accessibility. In addition to HER work with PyTorch, SHE have contributed to several community driven initiatives focused on democratizing machine learning knowledge.",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 152,Zesheng,Zong,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [x] A speaker at PyTorch events or workshops.
@@ -627,7 +600,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 149,TALMEEZ,FUAAD,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -644,7 +617,24 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-https://www.linkedin.com/in/itstalmeez/",,,,,,,,
+https://www.linkedin.com/in/itstalmeez/",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+145,Ezekiel,Mathias,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [ ] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+Twitter: https://x.com/Mathias_don001?t=-dWdvWodA1HUeinfraDsXw&s=09",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 143,Hossain,Kabir,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -660,14 +650,14 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-140,Aladdin,Persson,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+138,Haq,Malik,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
+- [x] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
+- [x] Organizing events (virtual/in-person).
 - [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
@@ -676,15 +666,16 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-139,Mukharbek,Organokov,Reviewer 6,"Contributions:
+```markdown
+https://haq-nawaz-malik.github.io/pt/",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+135,Sadhana,Panthi,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
 
@@ -692,7 +683,8 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown
+IEEE WIE- https://www.instagram.com/ieee.wie.pul/",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 131,Kim,Lopez,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -708,24 +700,8 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-126,Trisan,Wagle,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown",,,,,,,,
-125,Emre,Kurtoglu,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+124,Mustafa,AbdulRazek,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
@@ -740,13 +716,29 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-123,Karn,Watcharasupat,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+122,Shoaib,Aslam,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+119,Arun,Bhandari,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [x] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [x] Organizing events (virtual/in-person).
 - [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
@@ -756,31 +748,14 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-120,Giulio,Russo,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+116,Sandin,Maheeshakya,Reviewer 6,"Contributions:
+- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-My last published work: https://link.springer.com/chapter/10.1007/978-3-031-87660-8_19",,,,,,,,
-115,Muhammad,Hamid,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
+- [x] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
 - [ ] Mentoring others in PyTorch.
 - [ ] Creating technical content (e.g., blogs, videos, tutorials).
@@ -789,7 +764,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 113,Saroj,Dahal,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -807,7 +782,7 @@ Ambassador Pitch:
 Additional Notes:
 ```markdown
 This link shows the tech events that I was involved in over the years :
-https://sarojdahal.com/events",,,,,,,,
+https://sarojdahal.com/events",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 109,Vash,Puno,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -823,7 +798,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 105,Harini,Anand,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -846,25 +821,24 @@ Additional Notes:
 2. Workshop I held as part of my college flagship hackathon - https://www.youtube.com/live/QfcJnBBuk7k?si=ngvFouK_aV_4Jm-E
 3. Invited for a podcast to talk about my community building story - https://youtu.be/v-kxWYz_VR8?si=6y7VtEXl9wvvWrVC
 - My newsletter - https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7271142545974272000
-```",,,,,,,,
-103,Varanasi,Akhil,Reviewer 6,"Contributions:
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+102,Muhammad,Shaukat,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
+- [ ] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown
-Additional Details About Myself",,,,,,,,
-99,Prajwal,Shrestha,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+98,Herumb,Shandilya,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
@@ -873,13 +847,14 @@ Additional Details About Myself",,,,,,,,
 - [x] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
 
 Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown
+I've been writing blogs and conducting educational cohorts for ~5 years now. It was in 2020 that I along with some passionate folks started ""Build With Us"" Cohorts at Crework. Here we chose a small set of peers divide them into teams and helped them build real-world products rather than simple PoC projects. We had weekly reading and implementation sessions on various topics revolving around various topics but implementations centering around PyTorch.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 94,NOMTHANDAZO,TSHUMA,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -897,45 +872,8 @@ Ambassador Pitch:
 Additional Notes:
 ```markdown
 NOMTHANDAZO TSHUMA
-```",,,,,,,,
-91,Alperen,ÜNLÜ,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-https://pytorch.org/blog/pytorch-docathon-h2-2023-wrap
-https://pytorch.org/blog/pytorch-docathon-h2-2024-wrap-up
-```",,,,,,,,
-88,Umair,Inayat,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-I am also Microsoft student ambassador. https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://pk.linkedin.com/in/umairinayat&ved=2ahUKEwiswMqsqJeNAxVe3QIHHcFOEFsQjjh6BAgpEAE&usg=AOvVaw2oZ5PvjGWzr0MBqajsTod4
-```",,,,,,,,
-83,Ahmad,Anis,Reviewer 6,"Contributions:
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+92,Pratik,Korat,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
@@ -951,15 +889,16 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-Hi, I am Ahmad, I am a Deep Learning engineer at [Roll.ai](https://roll.ai), Research Collaborator at Data Provenance Initiative at MIT Media Lab and Community Lead at Cohere Labs Community where I have hosted over 50 sessions. Here are some of my relevant links that showcases my community and volunteer work:",,,,,,,,
-80,JESUS,MEDRANO,Reviewer 6,"Contributions:
+In addition to my teaching and community involvement, I actively conduct research using PyTorch. Most recently, I submitted a research paper addressing bias and fairness challenges in federated learning, specifically applied to the healthcare sector. The work leverages PyTorch to implement distributed model training with fairness-aware optimization strategies, showcasing how the framework can be used to tackle critical real-world issues in sensitive domains like healthcare. This further reflects my commitment to applying PyTorch not just for performance, but also for ethical and responsible AI.
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+89,Sami,Adnan,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [ ] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
+- [x] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
 - [ ] Creating technical content (e.g., blogs, videos, tutorials).
 
@@ -967,7 +906,43 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown
+In 2024, I organized and delivered the [Oxford Human-centred AI Design Bootcamp](https://www.hcaibootcamp.site) where multiple stakeholders took part in training and designing AI/ML solutions. I intend to organize further such events in partnership with the PyTorch Foundation in my role as PyTorch Ambassador. The goal of the bootcamp events is to train participants on AI/ML and design innovation methods to empower them to co-design solutions for real-world challenges. This role will help me utilize the support from the Foundation to bring PyTorch to the community of practice in the healthcare field. Thank you for the opportunity.
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+84,Lazhar,Bouacha,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+81,Andrey,Cheptsov,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [ ] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown
+About me: https://x.com/andrey_cheptsov
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 75,Alexandru,Aslău,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -984,7 +959,7 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-Lists of some links for projects (for more projects please check the github https://github.com/AslauAlexandru): https://github.com/AslauAlexandru/Week-3-Headstarter-Accelerator-Project-3-Brain-Tumor-Classification-with-Neural-Networks https://github.com/AslauAlexandru/Week-1-Headstarter-Accelerator-Project-1-Customer-Churn-Prediction-with-Machine-Learning https://github.com/AslauAlexandru/Week-2-Headstarter-Accelerator-Bonus-Project-Credit-Card-Fraud-Detection-with-ML https://github.com/AslauAlexandru/Week-5-Headstarter-Accelerator-Project-5-Web-app-for-Codebase-RAG I have unpublished paper in medical image segmantation I developed a new architecture in Deep Learning the name is MADoubleResUnet++, this architecture is combination of Unet, DoubleU-Net, ResUnet and attention mechanism (such as SqeezNet and so on). I use this architecture for segmanting polyps. I have experience in python and I use tensorflow and keras, some pytorch, some pytorch lightning, sklearn, matplotlib, seaborn and so on. Programming Languages: Python, TypeScript/JavaScript, Java, SQL, PHP, C/C++, C# and Matlab (First I use almost all programming languages in Bachelor's degree and in Master's degree and second I use Python (Scikit-learn , TensorFlow, Langchain and many more) and TypeScript/JavaScript in personal projects, Headstarter Accelerator, non-research internships and so on. Software: Scikit-learn , TensorFlow, Langchain, JupyterNotebook, Google Colab, Kaggle Notebook, Pandas, Seaborn, Matplotlib, Numpy, Pytorch Lightning (some), Pytorch (some), Groq, Transformers, Ngrok, google-generativeai, OpenAI (with Groq Api Key), Streamlit and Gradio.",,,,,,,,
+Lists of some links for projects (for more projects please check the github https://github.com/AslauAlexandru): https://github.com/AslauAlexandru/Week-3-Headstarter-Accelerator-Project-3-Brain-Tumor-Classification-with-Neural-Networks https://github.com/AslauAlexandru/Week-1-Headstarter-Accelerator-Project-1-Customer-Churn-Prediction-with-Machine-Learning https://github.com/AslauAlexandru/Week-2-Headstarter-Accelerator-Bonus-Project-Credit-Card-Fraud-Detection-with-ML https://github.com/AslauAlexandru/Week-5-Headstarter-Accelerator-Project-5-Web-app-for-Codebase-RAG I have unpublished paper in medical image segmantation I developed a new architecture in Deep Learning the name is MADoubleResUnet++, this architecture is combination of Unet, DoubleU-Net, ResUnet and attention mechanism (such as SqeezNet and so on). I use this architecture for segmanting polyps. I have experience in python and I use tensorflow and keras, some pytorch, some pytorch lightning, sklearn, matplotlib, seaborn and so on. Programming Languages: Python, TypeScript/JavaScript, Java, SQL, PHP, C/C++, C# and Matlab (First I use almost all programming languages in Bachelor's degree and in Master's degree and second I use Python (Scikit-learn , TensorFlow, Langchain and many more) and TypeScript/JavaScript in personal projects, Headstarter Accelerator, non-research internships and so on. Software: Scikit-learn , TensorFlow, Langchain, JupyterNotebook, Google Colab, Kaggle Notebook, Pandas, Seaborn, Matplotlib, Numpy, Pytorch Lightning (some), Pytorch (some), Groq, Transformers, Ngrok, google-generativeai, OpenAI (with Groq Api Key), Streamlit and Gradio.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 74,Jyoti,Sahoo,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1002,30 +977,12 @@ Ambassador Pitch:
 Additional Notes:
 ```markdown
 Nothing extra, just wanted to built a Machine learning and AI community long back from 3 years and today I got this opportunity. I would like to thank Pytorch for providing such a good opportunity to users all over the world.
-```",,,,,,,,
-71,Donny,Greenberg,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [x] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-Donny was previously the product lead for PyTorch at Meta, supporting the AI community across research, production, OSS, and enterprise. Notable projects include TorchRec, the open-sourcing of Meta's large-scale recommendations infra, TorchArrow & TorchData, PyTorch's next generation of data APIs, and unifying training infrastructure at Meta. Now he is co-founder and CEO of Runhouse, whose flagship product is called ""Kubetorch"" - or bringing ML workloads to Kubernetes.
-```",,,,,,,,
-66,Lucky,Hassan,Reviewer 6,"Contributions:
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+68,SIDOW,SIDOW,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] A researcher or educator using PyTorch in academic work or training.
 - [ ] An active leader in the PyTorch community with **at least one year** of experience in:
 - [x] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
@@ -1037,17 +994,18 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-While I am not yet a PyTorch expert or an active contributor to the framework, I see this opportunity as a powerful step forward, not just for me, but for my entire community. In many parts of Nigeria and across Africa, access to hands-on support and mentorship in artificial intelligence and machine learning is still very limited. I want to change that.
-Becoming a PyTorch Ambassador would give me the chance to learn more deeply, grow my skills, and bring that knowledge home in ways that make a real difference. I want to be the person who sparks that first “aha” moment for a student who is just hearing about machine learning for the first time. I want to show them that this technology is not just for Silicon Valley, it is for us, too.
-This program would give me the tools, network, and platform to advocate for PyTorch meaningfully, build a stronger AI community in my region and beyond,  creating pathways for others to explore and contribute to this field. I am passionate, willing to learn, and deeply committed to making sure no one is left behind as this technology shapes the future..
-```",,,,,,,,
-62,Ahmet,SERÇE,Reviewer 6,"Contributions:
+https://github.com/sidowxyz
+https://www.linkedin.com/in/sidowxyz/
+https://aisomalia.ai/team/
+https://githubcampus.expert/sidowxyz
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+67,Amir,Bhattarai,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
 - [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [x] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
@@ -1056,9 +1014,56 @@ Ambassador Pitch:
 
 
 Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+64,Abdul,Khan,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [ ] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
 ```markdown
-I like to read and research about anything I came across. I'm able to communicate my ideas clearly in English and will work hard to deliver. I'm also knowledgeable in variety of areas as an EEE graduate, combining theory with practice.
-```",,,,,,,,
+I am a lab instructor at FAST NUCES Islamabad. Here is my profile URL:",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+58,Hamza,Gbada,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [ ] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [ ] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+52,Aditya,Thakuri,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+- [ ] A speaker at PyTorch events or workshops.
+- [ ] A PyTorch user group organizer or meetup host.
+- [x] A researcher or educator using PyTorch in academic work or training.
+- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
+- [x] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
+- [x] Mentoring others in PyTorch.
+- [x] Creating technical content (e.g., blogs, videos, tutorials).
+
+Ambassador Pitch:
+
+
+Additional Notes:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 51,Kevin,Vega,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1074,14 +1079,14 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-48,Justin,Goheen,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+49,Mazen,Alotaibi,Reviewer 6,"Contributions:
+- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
+- [x] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
 - [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
+- [ ] Organizing events (virtual/in-person).
 - [ ] Speaking at AI/ML conferences.
 - [x] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
@@ -1091,8 +1096,8 @@ Ambassador Pitch:
 
 Additional Notes:
 ```markdown
-I am a prior Developer Advocate and have contributed to several ecosystem repositories.
-```",,,,,,,,
+I have been mainly contributing to PyTorch Discord Community for the past 3 years by answering questions, help others to contribute to PyTorch repos, and share educational resources. Because of my contributions, I have been awarded PyTorch Ambassador Award 2023
+```",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 46,Jonathan,Fernandes,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1111,30 +1116,7 @@ Additional Notes:
 ```markdown
 https://www.linkedin.com/learning/instructors/jonathan-fernandes
 https://pydata.org/london2019/schedule/presentation/60/fundamentals-of-image-classification-using-pytorch/
-https://2017.pyconuk.org/sessions/workshops/an-introduction-to-convolutional-neural-networks/",,,,,,,,
-40,Krishna,Kalyan,Reviewer 6,"Contributions:
-- [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [x] A PyTorch user group organizer or meetup host.
-- [x] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [ ] Organizing events (virtual/in-person).
-- [x] Speaking at AI/ML conferences.
-- [ ] Mentoring others in PyTorch.
-- [x] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown
-My Pull Requests
-[PyTorch Audio](https://github.com/pytorch/audio/pulls?q=is%3Apr+is%3Aclosed+author%3Akrishnakalyan3)
-[PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning/pulls?q=is%3Apr+author%3Akrishnakalyan3+is%3Aclosed)
-[PyTorch](https://github.com/pytorch/pytorch/pulls?q=is%3Apr+author%3Akrishnakalyan3+is%3Aclosed)
-[PyTorch Benchmark](https://github.com/pytorch/benchmark/pull/17)
-[Laion](https://github.com/LAION-AI/audio-dataset/pulls?q=is%3Apr+is%3Aclosed+author%3Akrishnakalyan3)
-```",,,,,,,,
+https://2017.pyconuk.org/sessions/workshops/an-introduction-to-convolutional-neural-networks/",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 39,Md,Shad,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1150,7 +1132,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 38,Collin,Wilson,Reviewer 6,"Contributions:
 - [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1166,31 +1148,15 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
-37,Sagi,Bharadwaj,Reviewer 6,"Contributions:
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+36,Ameer,Hadi,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
+- [x] A speaker at PyTorch events or workshops.
 - [x] A PyTorch user group organizer or meetup host.
 - [x] A researcher or educator using PyTorch in academic work or training.
-- [ ] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
-- [x] Mentoring others in PyTorch.
-- [ ] Creating technical content (e.g., blogs, videos, tutorials).
-
-Ambassador Pitch:
-
-
-Additional Notes:
-```markdown",,,,,,,,
-33,shashanka,br,Reviewer 6,"Contributions:
-- [ ] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
-- [ ] A speaker at PyTorch events or workshops.
-- [ ] A PyTorch user group organizer or meetup host.
-- [ ] A researcher or educator using PyTorch in academic work or training.
 - [x] An active leader in the PyTorch community with **at least one year** of experience in:
-- [x] Organizing events (virtual/in-person).
-- [ ] Speaking at AI/ML conferences.
+- [ ] Organizing events (virtual/in-person).
+- [x] Speaking at AI/ML conferences.
 - [ ] Mentoring others in PyTorch.
 - [x] Creating technical content (e.g., blogs, videos, tutorials).
 
@@ -1198,7 +1164,7 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 31,Irakli,Salia,Reviewer 6,"Contributions:
 - [x] An active contributor to PyTorch repositories (e.g., commits, PRs, discussions).
 - [ ] A speaker at PyTorch events or workshops.
@@ -1214,4 +1180,4 @@ Ambassador Pitch:
 
 
 Additional Notes:
-```markdown",,,,,,,,
+```markdown",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
