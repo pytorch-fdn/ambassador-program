@@ -94,26 +94,14 @@ reviewers = [f"Reviewer {i}" for i in range(1, 8)]
 
 # Define scoring rubric columns
 scoring_fields = [
-    "PyTorch Experience (1-5)",
-    "Foundation Tools Familiarity (1-5)",
-    "Code Contributions (1-5)",
-    "Community Participation (1-5)",
-    "Maintainer Role (Y/N)",
-    "Technical Content (1-5)",
-    "Academic Publications (Y/N)",
-    "Event Leadership (1-5)",
-    "Public Speaking (1-5)",
-    "Mentorship (1-5)",
-    "Online Presence (1-5)",
-    "Community Metrics (1-5)",
-    "Foundation Values Alignment (1-5)",
-    "Motivation & Vision (1-5)",
-    "Bonus: Cross-Ecosystem (Y/N)",
-    "Bonus: Diversity (Y/N)",
-    "Bonus: Innovation (Y/N)",
-    "Community References (Y/N)",
-    "Comments",
-    "Total Score"
+    "Technical Expertise (1–5)",
+    "Community Engagement and Evangelism (1–5)",
+    "Online Influence and Reach (1–5)",
+    "Alignment and Values (1–5)",
+    "Additional Bonus Criteria (1–5)",
+    "Credibility (1–5)",
+    "Final Score (1–5)",         # Reviewer must manually enter this
+    "Reviewer Comments"          # Open text field for qualitative feedback
 ]
 
 # Output folder
