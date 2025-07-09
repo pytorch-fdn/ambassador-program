@@ -1,7 +1,93 @@
-import csv
 import os
+import csv
+import re
 import random
 from collections import defaultdict
+from github import Github
+
+# Load token and repo name from environment variables
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
+LABEL_FILTER = "ambassador"
+
+# Authenticate with GitHub
+g = Github(GITHUB_TOKEN)
+repo = g.get_repo(GITHUB_REPOSITORY)
+
+# Fetch issues with the given label
+issues = repo.get_issues(state="all", labels=[LABEL_FILTER])
+
+# Ensure the 'ambassador' directory exists
+os.makedirs("ambassador", exist_ok=True)
+
+# Define base headers
+headers = [
+    "Issue #", "Nominee Name", "Nominee Email", "GitHub Handle", "Location", "Organization",
+    "Nominator Name", "Nominator Email", "Contributions", "Ambassador Pitch", "Extra Notes",
+    "Issue URL"
+]
+
+def extract_field(text, label):
+    pattern = rf"{label}\n(.+?)(\n\n|\Z)"
+    match = re.search(pattern, text, re.DOTALL)
+    return match.group(1).strip() if match else ""
+
+rows = []
+for issue in issues:
+    body = issue.body or ""
+
+    nominee_name = extract_field(body, "Nominee Name")
+    nominee_email = extract_field(body, "Nominee Email")
+    github_handle = extract_field(body, "Nominee's GitHub or GitLab Handle")
+    location = extract_field(body, "City, State/Province, Country")
+    organization = extract_field(body, "Organization / Affiliation")
+    nominator_name = extract_field(body, "Your Name")
+    nominator_email = extract_field(body, "Your Email")
+    contributions = extract_field(body, "How has the nominee contributed to PyTorch\\?")
+    pitch = extract_field(body, "\\ud83c\\udfc6 How Would the Nominee Contribute as an Ambassador\\?")
+    notes = extract_field(body, "Any additional details you'd like to share\\?")
+
+    row = [
+        issue.number, nominee_name, nominee_email, github_handle, location, organization,
+        nominator_name, nominator_email, contributions, pitch, notes,
+        issue.html_url
+    ]
+    rows.append(row)
+
+# Deduplicate by nominee email
+email_to_last_index = {}
+for i, row in enumerate(rows):
+    email = row[2].strip().lower()
+    email_to_last_index[email] = i
+
+unique_rows = []
+duplicates_only = []
+
+for i, row in enumerate(rows):
+    email = row[2].strip().lower()
+    if email_to_last_index[email] == i:
+        unique_rows.append(row)
+    else:
+        duplicates_only.append(row)
+
+# Save deduplicated entries
+deduped_file = "ambassador/ambassador_submissions_deduped.csv"
+with open(deduped_file, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(headers)
+    writer.writerows(unique_rows)
+
+# Save removed duplicates
+duplicates_file = "ambassador/ambassador_duplicates_removed.csv"
+with open(duplicates_file, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(headers)
+    writer.writerows(duplicates_only)
+
+print(f"✅ Deduplicated submissions → {deduped_file}")
+print(f"✅ Removed duplicates → {duplicates_file}")
+
+# === START Reviewer Sheet Generation ===
 
 # Define reviewer list
 reviewers = [f"Reviewer {i}" for i in range(1, 8)]
@@ -41,20 +127,16 @@ with open("ambassador/ambassador_submissions_deduped.csv", newline='', encoding=
 
 # Prepare expanded data per reviewer
 reviewer_data = defaultdict(list)
-
-# Assign 2 reviewers per submission
 assignments = []
 reviewer_counts = defaultdict(int)
 
 for submission in submissions:
-    # Assign 2 reviewers with the least current load
     sorted_reviewers = sorted(reviewers, key=lambda r: reviewer_counts[r])
-    assigned = random.sample(sorted_reviewers[:4], 2)  # Random from least-burdened 4
+    assigned = random.sample(sorted_reviewers[:4], 2)
     for reviewer in assigned:
         reviewer_counts[reviewer] += 1
         assignments.append((submission, reviewer))
 
-# Process each submission-reviewer pair
 for submission, reviewer in assignments:
     name_parts = submission["Nominee Name"].split()
     first_name = name_parts[0] if len(name_parts) > 0 else ""
@@ -76,7 +158,6 @@ Additional Notes:
         "Submission Summary": summary
     }
 
-    # Add empty scoring fields
     for field in scoring_fields:
         row[field] = ""
 
