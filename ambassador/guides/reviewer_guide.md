@@ -1,140 +1,88 @@
-# 👥 Reviewer Guide: PyTorch Ambassador Program
+# 🔍 Reviewer Guide – PyTorch Ambassador Program
 
-Welcome — and thank you for supporting the review process for the **PyTorch Ambassador Program**! 🎉  
-This guide walks you through how to evaluate nominations and help nominees receive thoughtful, consistent feedback.
+Welcome! This guide outlines the review process for the **PyTorch Ambassador Program**.  
+Reviewers help ensure our ambassadors represent the values, diversity, and excellence of the PyTorch community.
 
----
-
-## 📌 Your Role as a Reviewer
-
-As a reviewer, your job is to:
-
-1. Identify active nominations  
-2. Review the nominee’s contributions and readiness  
-3. Leave a comment with either **`approved`** or **`rejected`** and an optional explanation  
-4. Once all reviews are in, the program manager runs a workflow to finalize decisions
+> 💡 This document reflects the **general process**. Some details (e.g., review format or timeline) may vary per cycle.
 
 ---
 
-## 🔍 Step 1: Find Nominations
+## 🧭 Purpose of the Review Process
 
-Visit the GitHub issues page:  
-👉 [View all nominations](https://github.com/pytorch-fdn/ambassador-program/issues)
+The PyTorch Ambassador Program aims to recognize individuals who:
+- Contribute meaningfully to the PyTorch ecosystem
+- Support open-source and community-first development
+- Engage in education, advocacy, or leadership around PyTorch
 
-Look for issues labeled:
-
-- `ambassador`
-- `pending-review`
-
-These are ready for you to review.
+Reviewers evaluate nominations to help select ambassadors who align with this mission.
 
 ---
 
-## 📝 Step 2: Evaluate the Nominee
+## 📦 What Reviewers Evaluate
 
-Carefully read the nomination issue. Consider:
+Reviewers assess nominees based on:
 
-- The nominee’s contributions to PyTorch or its ecosystem  
-- Community engagement (e.g., events, mentorship, education)  
-- Future goals and plans as an ambassador  
-- Any linked profiles or supporting materials
+- **Technical expertise** with PyTorch and its ecosystem
+- **Community engagement** through events, education, mentoring, or organizing
+- **Thought leadership** via writing, talks, research, or advocacy
+- **Alignment with PyTorch Foundation values** (inclusion, responsible AI, open collaboration)
+- **Credibility and references**
+- **Online influence or reach**, where relevant
 
----
-
-## ✅ Step 3: Submit Your Recommendation
-
-Comment directly on the issue using one of the two decisions:
-
-- `approved` — if you support the nominee  
-- `rejected` — if you believe the nominee is not a fit at this time
-
-Optionally, add a short explanation to support your choice.
-
-### ✅ Example: Approval
-
-approved
-The nominee has hosted two workshops, contributed to tutorials, and is active in the community forums. Strong candidate.
-
-shell
-Copy
-Edit
-
-### ❌ Example: Rejection
-
-rejected
-While the nominee is enthusiastic, there’s limited contribution history. Would suggest reapplying after 6 months of deeper involvement.
-
-yaml
-Copy
-Edit
+Each cycle provides a rubric or form to guide evaluations.
 
 ---
 
-### 🚫 What Not to Do
+## ✍️ Review Methods
 
-- Don’t use scores like `score: 4` — those are no longer valid  
-- Don’t leave vague comments like “+1”  
-- Don’t submit both approved and rejected — pick one
+Depending on the cycle, reviews may be conducted via:
 
----
+- **GitHub comments** on nomination issues  
+- **Private reviewer spreadsheets** (assigned individually)  
+- **Online forms or scoring tools**  
 
-## ⚙️ Step 4: What Happens After Reviews
-
-After reviewers have submitted their decisions, a **manual GitHub Action** is run to process them:
-
-1. The system checks for the most recent decision comment from each issue  
-2. If any comment includes **`approved`** or **`rejected`** (case-insensitive), it is processed  
-3. It:
-   - Adds the `approved` or `rejected` label  
-   - Removes the `pending-review` label  
-   - Comments on the issue with the outcome  
-   - Closes the issue if rejected  
-   - Adds a row in `decision_summary.csv` for tracking
+Reviewers typically:
+- Score nominees across several categories
+- Provide a **Final Recommendation**
+- Leave brief comments or notes to explain the decision
 
 ---
 
-## 📨 What Nominees See
+## ✅ Review Outcomes
 
-Each nominee will receive a comment like:
+Each nominee is reviewed by **at least 2 reviewers**.  
+The program team compiles all input and makes a final decision based on:
 
-- ✅ **Approved:**
+- Reviewer scores
+- Comments and notes
+- Diversity and program needs
 
-  > 🎉 Congratulations! Your application has been **approved**. We’ll follow up with next steps shortly via email or GitHub.
-
-- ❌ **Rejected:**
-
-  > Thank you for your submission. After careful review, your application has been **rejected**. We encourage you to stay involved: [pytorch.org/community-hub](https://pytorch.org/community-hub)
-
----
-
-## 🙋 Frequently Asked Questions
-
-### 🔁 What if someone submits twice?
-
-The program manager will detect and remove duplicates. Only review the **latest** version.
-
-### 👤 Can I review anonymously?
-
-No. Reviews must be posted from your GitHub account so we can track accountability and prevent duplicates.
-
-### 🤝 Can I coordinate with other reviewers?
-
-Yes — coordination is encouraged.  
-Feel free to discuss nominees on Slack, GitHub, or privately before commenting.
+Decisions are communicated to nominees via GitHub and/or email.
 
 ---
 
-## 🧠 Reviewer Tips
+## 📌 Reviewer Expectations
 
-- Use the **reviewer tracking sheet** to manage who’s reviewing what  
-- Focus on **impact**, **fit**, and **readiness**  
-- Keep your comments constructive — even when rejecting
+Reviewers are expected to:
+
+- Be objective and fair
+- Use the full scoring scale when appropriate
+- Provide brief but helpful feedback
+- Recuse themselves if they have a conflict of interest
 
 ---
 
-## 📫 Need Help?
+## 🤝 Reviewer Conduct
 
-For questions, reach out to:  
-📧 **[ambassadors@pytorch.org](mailto:ambassadors@pytorch.org)**
+We ask reviewers to uphold the values of the PyTorch Foundation:
 
-Thanks again for supporting a fair and inspiring review process! 🚀
+- **Respect and inclusion**
+- **Transparency and fairness**
+- **Commitment to open source**
+
+Questions, concerns, or feedback?  
+📧 Reach the program team at **[ambassadors@pytorch.org](mailto:ambassadors@pytorch.org)**
+
+---
+
+Thank you for supporting a thriving, global PyTorch community! 🚀
