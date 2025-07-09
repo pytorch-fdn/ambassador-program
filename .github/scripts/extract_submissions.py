@@ -94,14 +94,58 @@ reviewers = [f"Reviewer {i}" for i in range(1, 8)]
 
 # Define scoring rubric columns
 scoring_fields = [
-    "Technical Expertise (1–5)",
-    "Community Engagement and Evangelism (1–5)",
-    "Online Influence and Reach (1–5)",
-    "Alignment and Values (1–5)",
-    "Additional Bonus Criteria (1–5)",
-    "Credibility (1–5)",
-    "Final Score (1–5)",         # Reviewer must manually enter this
-    "Reviewer Comments"          # Open text field for qualitative feedback
+    # Technical Expertise
+    "Demonstrated knowledge and practical experience with PyTorch",
+    "Familiarity with foundation-hosted projects (vLLM, DeepSpeed)",
+
+    # Open Source Contributions
+    "Made commits, PRs, issues filed, and code reviews across PyTorch ecosystem",
+    "Evidence of participation in community discussions, RFCs, GitHub projects",
+    "Maintainer or leadership role in open source projects",
+
+    # Thought Leadership and Technical Writing
+    "Authored technical blog posts, whitepapers, tutorials, or case studies",
+    "Published academic research papers or conference publications",
+
+    # Community Engagement and Evangelism
+    "Organized or led community events (meetups, study groups, etc.)",
+    "Participated in major ML/AI events (e.g., NeurIPS, PyTorch Conf, ICML)",
+    "Delivered talks, webinars, or workshops on PyTorch-related topics",
+    "Communicates complex concepts clearly to diverse audiences",
+    "Provided recordings or links to past presentations",
+
+    # Mentorship and Education
+    "Mentored students, junior developers, or researchers",
+    "Developed or taught ML/DL/distributed systems curriculum",
+
+    # Online Influence and Reach
+    "Active on social media or blogs focused on ML/AI/dev topics",
+    "Consistently promotes PyTorch and ecosystem tools",
+
+    # Community Impact Metrics
+    "High follower/subscriber count or engagement (>10k followers or >100k views)",
+    "Ability to spark discussion and grow awareness online",
+
+    # Alignment and Values
+    "Supports open-source principles and inclusive collaboration",
+    "Advocates for responsible AI and ethical ML",
+
+    # Motivation and Vision
+    "Clearly articulates why they want to be an ambassador",
+    "Proposed initiatives align with PyTorch Foundation’s mission",
+
+    # Bonus Criteria
+    "Contributed to other ML ecosystems (e.g., HuggingFace)",
+    "Integrated tools across ML infrastructure landscape",
+    "Represents underrepresented regions or groups",
+    "Demonstrated innovation or novel use of PyTorch",
+
+    # Credibility
+    "Has references from known community members",
+
+    # Final input
+    "Final Score (auto-calculated from YES responses)",
+    "Reviewer Comments"
 ]
 
 # Output folder
