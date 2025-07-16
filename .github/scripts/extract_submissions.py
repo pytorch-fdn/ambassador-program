@@ -1,22 +1,20 @@
 import os
 import csv
-import re
 import random
 from collections import defaultdict
-from github import Github
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 
-# === Load Submissions ===
+# Load deduplicated submissions
 with open("ambassador/ambassador_submissions_deduped.csv", newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     submissions = list(reader)
 
-# === Define Reviewers ===
+# Define reviewers
 reviewers = [f"Reviewer {i}" for i in range(1, 8)]
 
-# === Scoring Rubric ===
+# Define the rubric
 rubric = [
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Demonstrated knowledge and practical experience with PyTorch, including model building, traininga and deployment?"),
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Familiarity with foundation-hosted projects, vLLM, DeepSpeed?"),
@@ -47,14 +45,13 @@ rubric = [
     ("Credibility", "Community References", "References from other known community members?")
 ]
 
-# === Output Folder ===
+# Output directory
 excel_output_folder = "ambassador/reviewer_sheets_excel"
 os.makedirs(excel_output_folder, exist_ok=True)
 
-# === Assign Reviewers ===
-reviewer_data = defaultdict(list)
-reviewer_counts = defaultdict(int)
+# Assign reviewers
 assignments = []
+reviewer_counts = defaultdict(int)
 
 for submission in submissions:
     sorted_reviewers = sorted(reviewers, key=lambda r: reviewer_counts[r])
@@ -63,7 +60,7 @@ for submission in submissions:
         reviewer_counts[reviewer] += 1
         assignments.append((submission, reviewer))
 
-# === Generate Excel Reviewer Sheets ===
+# Generate reviewer sheets
 for reviewer in reviewers:
     wb = Workbook()
     ws = wb.active
@@ -97,6 +94,8 @@ Additional Notes:
 
         start_row = row_idx
 
+        # Rubric rows
+        current_category = None
         for category, subcat, question in rubric:
             ws.append([
                 issue_id, first_name, last_name, summary,
@@ -104,27 +103,30 @@ Additional Notes:
             ])
             row_idx += 1
 
-        end_row = row_idx - 1
+            current_category = category
 
-        # Merge ID, names, and summary
+        # Category score rows (blank)
+        category_set = set(cat for cat, _, _ in rubric)
+        for cat in category_set:
+            ws.append([
+                issue_id, first_name, last_name, summary,
+                "", cat, "", "Category Total", ""
+            ])
+            row_idx += 1
+
+        # Final score row (blank)
+        ws.append([
+            issue_id, first_name, last_name, summary,
+            "", "Final Score", "", "Overall Total", ""
+        ])
+        row_idx += 1
+
+        # Merge shared cells
+        end_row = row_idx - 1
         for col in [1, 2, 3, 4]:  # A-D
             ws.merge_cells(start_row=start_row, end_row=end_row, start_column=col, end_column=col)
             cell = ws.cell(row=start_row, column=col)
             cell.alignment = Alignment(vertical="top", wrap_text=True)
-
-        # Add Category Summary
-        category_groups = defaultdict(list)
-        for idx, (cat, _, _) in enumerate(rubric):
-            category_groups[cat].append(start_row + idx)
-
-        for cat, rows in category_groups.items():
-            formula = f'=SUMPRODUCT((I{rows[0]}:I{rows[-1]}="Yes")*1)'
-            ws.append([issue_id, first_name, last_name, "", "", cat, "Total Yes", f"{len(rows)} questions", formula])
-            row_idx += 1
-
-        total_formula = f'=SUMPRODUCT((I{start_row}:I{end_row}="Yes")*1)'
-        ws.append([issue_id, first_name, last_name, "", "", "Final Score", "", f"{end_row - start_row + 1} questions", total_formula])
-        row_idx += 2
 
     # Autofit columns
     for col in ws.columns:
@@ -135,7 +137,7 @@ Additional Notes:
                 max_len = max(max_len, len(str(cell.value)))
         ws.column_dimensions[col_letter].width = min(max_len + 4, 50)
 
-    # Save Excel
+    # Save the sheet
     filename = f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx"
     wb.save(os.path.join(excel_output_folder, filename))
 
