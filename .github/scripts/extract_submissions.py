@@ -8,7 +8,15 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 
-# Reviewer scoring structure
+# === Load Submissions ===
+with open("ambassador/ambassador_submissions_deduped.csv", newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    submissions = list(reader)
+
+# === Define Reviewers ===
+reviewers = [f"Reviewer {i}" for i in range(1, 8)]
+
+# === Scoring Rubric ===
 rubric = [
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Demonstrated knowledge and practical experience with PyTorch, including model building, traininga and deployment?"),
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Familiarity with foundation-hosted projects, vLLM, DeepSpeed?"),
@@ -39,11 +47,11 @@ rubric = [
     ("Credibility", "Community References", "References from other known community members?")
 ]
 
-# Output folder
+# === Output Folder ===
 excel_output_folder = "ambassador/reviewer_sheets_excel"
 os.makedirs(excel_output_folder, exist_ok=True)
 
-# Group assignments per reviewer (same as before)
+# === Assign Reviewers ===
 reviewer_data = defaultdict(list)
 reviewer_counts = defaultdict(int)
 assignments = []
@@ -55,6 +63,7 @@ for submission in submissions:
         reviewer_counts[reviewer] += 1
         assignments.append((submission, reviewer))
 
+# === Generate Excel Reviewer Sheets ===
 for reviewer in reviewers:
     wb = Workbook()
     ws = wb.active
@@ -97,13 +106,13 @@ Additional Notes:
 
         end_row = row_idx - 1
 
-        # Merge cells for ID, name, summary across rubric block
-        for col in [1, 2, 3, 4]:  # A, B, C, D
+        # Merge ID, names, and summary
+        for col in [1, 2, 3, 4]:  # A-D
             ws.merge_cells(start_row=start_row, end_row=end_row, start_column=col, end_column=col)
             cell = ws.cell(row=start_row, column=col)
             cell.alignment = Alignment(vertical="top", wrap_text=True)
 
-        # Add summary section
+        # Add Category Summary
         category_groups = defaultdict(list)
         for idx, (cat, _, _) in enumerate(rubric):
             category_groups[cat].append(start_row + idx)
@@ -117,7 +126,7 @@ Additional Notes:
         ws.append([issue_id, first_name, last_name, "", "", "Final Score", "", f"{end_row - start_row + 1} questions", total_formula])
         row_idx += 2
 
-    # Autofit column width
+    # Autofit columns
     for col in ws.columns:
         max_len = 0
         col_letter = get_column_letter(col[0].column)
@@ -126,9 +135,8 @@ Additional Notes:
                 max_len = max(max_len, len(str(cell.value)))
         ws.column_dimensions[col_letter].width = min(max_len + 4, 50)
 
-    # Save file
+    # Save Excel
     filename = f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx"
     wb.save(os.path.join(excel_output_folder, filename))
 
 print("✅ Reviewer Excel sheets generated in 'ambassador/reviewer_sheets_excel/'")
-
