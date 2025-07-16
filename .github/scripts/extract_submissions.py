@@ -12,10 +12,8 @@ with open("ambassador/ambassador_submissions_deduped.csv", newline='', encoding=
     reader = csv.DictReader(f)
     submissions = list(reader)
 
-# Define reviewers
 reviewers = [f"Reviewer {i}" for i in range(1, 8)]
 
-# Full rubric
 rubric = [
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Demonstrated knowledge and practical experience with PyTorch, including model building, traininga and deployment?"),
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Familiarity with foundation-hosted projects, vLLM, DeepSpeed?"),
@@ -46,11 +44,11 @@ rubric = [
     ("Credibility", "Community References", "References from other known community members?")
 ]
 
-# Output directory
-output_dir = "ambassador/reviewer_sheets_excel"
-os.makedirs(output_dir, exist_ok=True)
+# Output folder
+output_folder = "ambassador/reviewer_sheets_excel"
+os.makedirs(output_folder, exist_ok=True)
 
-# Reviewer assignment logic
+# Assign reviewers
 assignments = []
 reviewer_counts = defaultdict(int)
 for submission in submissions:
@@ -60,38 +58,37 @@ for submission in submissions:
         reviewer_counts[reviewer] += 1
         assignments.append((submission, reviewer))
 
-# Generate sheets per reviewer
+# Generate Excel workbooks
 for reviewer in reviewers:
     wb = Workbook()
-    ws_review = wb.active
-    ws_review.title = "Review Sheet"
+    ws = wb.active
+    ws.title = "Review Sheet"
+    summary_ws = wb.create_sheet("Score Summary")
 
-    ws_summary = wb.create_sheet("Score Summary")
-
-    # === 1. Review Sheet ===
+    # Header for review sheet
     headers = [
         "Submission ID", "First Name", "Last Name", "Submission Summary",
-        "Reviewer's Comment", "Category", "Subcategory", "Question", "Score"
+        "Reviewer's Comment", "Category", "Subcategory", "Question", "Score", "Category Total / Final Score"
     ]
-    ws_review.append(headers)
-    for col in range(1, len(headers) + 1):
-        ws_review.cell(row=1, column=col).font = Font(bold=True)
+    ws.append(headers)
+    for i, h in enumerate(headers, 1):
+        ws.cell(row=1, column=i).font = Font(bold=True)
 
+    # Data validation
     dv = DataValidation(type="list", formula1='"Yes,No,N/A"', allow_blank=True)
-    ws_review.add_data_validation(dv)
+    ws.add_data_validation(dv)
 
+    score_tracker = []
     row_idx = 2
-    summary_data = []
 
     for submission, assigned_reviewer in assignments:
         if assigned_reviewer != reviewer:
             continue
 
-        sub_id = submission["Issue #"]
-        full_name = submission["Nominee Name"].strip()
-        parts = full_name.split()
-        first_name = parts[0] if parts else ""
-        last_name = parts[-1] if len(parts) > 1 else ""
+        issue_id = submission["Issue #"]
+        name_parts = submission["Nominee Name"].split()
+        first_name = name_parts[0] if name_parts else ""
+        last_name = name_parts[-1] if len(name_parts) > 1 else ""
         summary = f"""Contributions:\n{submission.get("Contributions", "").strip()}
 
 Ambassador Pitch:\n{submission.get("Ambassador Pitch", "").strip()}
@@ -102,48 +99,45 @@ Additional Notes:\n{submission.get("Extra Notes", "").strip()}"""
         category_rows = defaultdict(list)
 
         for category, subcat, question in rubric:
-            ws_review.append([
-                sub_id, first_name, last_name, summary,
-                "", category, subcat, question, ""
+            ws.append([
+                issue_id, first_name, last_name, summary, "", category, subcat, question, "", ""
             ])
             category_rows[category].append(row_idx)
             row_idx += 1
 
-        # Merge Submission Info columns
-        for col in [1, 2, 3, 4]:
-            ws_review.merge_cells(start_row=start_row, end_row=row_idx - 1, start_column=col, end_column=col)
-            ws_review.cell(row=start_row, column=col).alignment = Alignment(vertical="top", wrap_text=True)
+        score_tracker.append((issue_id, first_name, last_name, category_rows))
 
-        # Apply dropdowns to Score column
-        for score_row in range(start_row, row_idx):
-            dv.add(ws_review[f"I{score_row}"])
+        # Merge columns A-D
+        for col in range(1, 5):
+            ws.merge_cells(start_row=start_row, end_row=row_idx - 1, start_column=col, end_column=col)
+            ws.cell(row=start_row, column=col).alignment = Alignment(vertical="top", wrap_text=True)
 
-        summary_row = [sub_id, first_name, last_name, reviewer]
-        for category in sorted(category_rows.keys()):
-            cells = [f"I{r}" for r in category_rows[category]]
-            formula = f'=SUMPRODUCT(--({",".join(cells)}="Yes"))'
-            summary_row.append(formula)
+        # Add dropdowns
+        for r in range(start_row, row_idx):
+            dv.add(ws[f"I{r}"])
 
-        final_score_formula = f'=SUM({get_column_letter(5)}{len(summary_data)+2}:{get_column_letter(4+len(category_rows))}{len(summary_data)+2})'
-        summary_row.append(final_score_formula)
-        summary_data.append(summary_row)
+    # Score Summary Sheet
+    summary_ws.append(["Submission ID", "First Name", "Last Name"] + list({cat for cat, _, _ in rubric}) + ["Final Score"])
+    for sid, fname, lname, cat_map in score_tracker:
+        score_cells = []
+        for cat in list({cat for cat, _, _ in rubric}):
+            rows = cat_map.get(cat, [])
+            if rows:
+                score_cells.append(f'SUMPRODUCT(--(\'Review Sheet\'!I{rows[0]}:I{rows[-1]}="Yes"))')
+            else:
+                score_cells.append("0")
+        total_formula = f"SUM({', '.join(score_cells)})"
+        summary_ws.append([sid, fname, lname] + score_cells + [f"={total_formula}"])
 
-    # === 2. Score Summary Sheet ===
-    score_headers = ["Submission ID", "First Name", "Last Name", "Reviewer"]
-    score_headers += sorted(set(cat for cat, _, _ in rubric))
-    score_headers += ["Final Score"]
-    ws_summary.append(score_headers)
-    for row in summary_data:
-        ws_summary.append(row)
+    # Adjust column widths
+    for sheet in [ws, summary_ws]:
+        for col in sheet.columns:
+            length = max(len(str(cell.value)) if cell.value else 0 for cell in col)
+            col_letter = get_column_letter(col[0].column)
+            sheet.column_dimensions[col_letter].width = min(length + 5, 50)
 
-    for col in ws_review.columns:
-        length = max(len(str(cell.value)) if cell.value else 0 for cell in col)
-        ws_review.column_dimensions[get_column_letter(col[0].column)].width = min(length + 4, 50)
-    for col in ws_summary.columns:
-        length = max(len(str(cell.value)) if cell.value else 0 for cell in col)
-        ws_summary.column_dimensions[get_column_letter(col[0].column)].width = min(length + 4, 40)
-
-    filename = os.path.join(output_dir, f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
+    # Save file
+    filename = os.path.join(output_folder, f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
     wb.save(filename)
 
-print("✅ Reviewer sheets and summary tabs generated.")
+print("✅ Reviewer sheets and score summary sheets generated.")
