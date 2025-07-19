@@ -22,6 +22,10 @@ jobs:
       - name: 📦 Install Python dependencies
         run: pip install requests openpyxl
 
+      - name: 📦 Install Python dependencies
+        run: |
+            pip install requests openpyxl PyGithub
+
       - name: 🧠 Run extraction + reviewer script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
