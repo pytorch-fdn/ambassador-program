@@ -20,7 +20,7 @@ jobs:
           python-version: '3.10'
 
       - name: 📦 Install Python dependencies
-        run: pip install PyGithub openpyxl
+        run: pip install requests openpyxl
 
       - name: 🧠 Run extraction + reviewer script
         env:
