@@ -20,11 +20,8 @@ jobs:
           python-version: '3.10'
 
       - name: 📦 Install Python dependencies
-        run: pip install requests openpyxl
-
-      - name: 📦 Install Python dependencies
         run: |
-            pip install requests openpyxl PyGithub
+          pip install PyGithub openpyxl
 
       - name: 🧠 Run extraction + reviewer script
         env:
@@ -36,6 +33,6 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add ambassador/*.csv ambassador/reviewer_sheets_excel/*.xlsx
+          git add ambassador/*.csv ambassador/*.xlsx ambassador/reviewer_sheets_excel/*.xlsx || true
           git commit -m "Update Ambassador Submissions and Reviewer Sheets (CSV + Excel)" || echo "Nothing to commit"
           git push
