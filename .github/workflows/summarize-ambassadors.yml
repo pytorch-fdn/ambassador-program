@@ -1,4 +1,4 @@
-name: Summarize Ambassador Applications
+name: Extract and Deduplicate Ambassador Applications
 
 on:
   workflow_dispatch:  # Manual trigger only
@@ -8,27 +8,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Install Dependencies
+      - name: 📦 Install Dependencies
         run: pip install PyGithub openpyxl
 
-      - name: Run Summary Script
+      - name: 🧠 Run Extraction + Deduplication Script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python .github/scripts/summarize_applications.py
 
-      - name: Commit and Push Summary
+      - name: ✅ Commit and Push Results
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add ambassador/SUMMARY.md ambassador/SUMMARY.csv
-          git commit -m "Update Ambassador Application Summary" || echo "No changes to commit"
+          git add ambassador/output_step1/*.csv ambassador/output_step1/*.xlsx
+          git commit -m "Update extracted and deduplicated ambassador application data" || echo "No changes to commit"
           git push
