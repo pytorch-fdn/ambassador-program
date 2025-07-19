@@ -53,16 +53,17 @@ deduped = list(latest_submissions.values())
 duplicates = [s for s in submissions if s not in deduped]
 
 # Ensure output folder
-os.makedirs("ambassador", exist_ok=True)
+output_folder = "ambassador/output_step1"
+os.makedirs(output_folder, exist_ok=True)
 
 # Save full submission CSV
-with open("ambassador/ambassador_submissions_full.csv", "w", newline='', encoding="utf-8") as f:
+with open(os.path.join(output_folder, "ambassador_submissions_full.csv"), "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=submissions[0].keys())
     writer.writeheader()
     writer.writerows(submissions)
 
 # Save deduplicated CSV
-with open("ambassador/ambassador_submissions_deduped.csv", "w", newline='', encoding="utf-8") as f:
+with open(os.path.join(output_folder, "ambassador_submissions_deduped.csv"), "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=deduped[0].keys())
     writer.writeheader()
     writer.writerows(deduped)
@@ -75,7 +76,7 @@ if duplicates:
     ws.append(list(duplicates[0].keys()))
     for d in duplicates:
         ws.append([d.get(k, "") for k in ws[1]])
-    wb.save("ambassador/duplicates_removed.xlsx")
-    print(f"🗂️ Duplicates written to ambassador/duplicates_removed.xlsx")
+    wb.save(os.path.join(output_folder, "duplicates_removed.xlsx"))
+    print(f"🗂️ Duplicates written to {output_folder}/duplicates_removed.xlsx")
 
 print("✅ Step 1 complete: Extraction + Deduplication done.")
