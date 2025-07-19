@@ -2,27 +2,25 @@ import os
 import csv
 import re
 from github import Github
-from openpyxl import Workbook
 
-# Get GitHub token and repository name
+# Step 0: Setup environment
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
 
-# Authenticate
+# Step 1: Authenticate GitHub
 g = Github(GITHUB_TOKEN)
 repo = g.get_repo(GITHUB_REPOSITORY)
 
 print("📥 Fetching GitHub issues...")
 issues = list(repo.get_issues(state='all', labels=['ambassador']))
-
 print(f"🔍 Total issues fetched: {len(issues)}")
 
-# Helper to extract a label's value from issue body
+# Helper: Extract value from GitHub issue template body
 def extract(label, body):
     match = re.search(rf"{label}\s*\n\s*(.+)", body)
     return match.group(1).strip() if match else ""
 
-# Extract all relevant data
+# Step 2: Extract submission data
 submissions = []
 for issue in issues:
     body = issue.body or ""
@@ -42,41 +40,52 @@ for issue in issues:
 
 print("🧹 Deduplicating...")
 
-# Deduplication logic: use email if present, fallback to name
+# Step 3: Deduplicate — keep latest per email/name
 latest_submissions = {}
+seen_keys = set()
+
 for entry in sorted(submissions, key=lambda x: x["Issue #"], reverse=True):
     key = entry["Nominee Email"].lower() if entry["Nominee Email"] else entry["Nominee Name"].lower()
     if key not in latest_submissions:
         latest_submissions[key] = entry
+        seen_keys.add(key)
 
 deduped = list(latest_submissions.values())
-duplicates = [s for s in submissions if s not in deduped]
 
-# Ensure output folder
-output_folder = "ambassador/output_step1"
-os.makedirs(output_folder, exist_ok=True)
+# Step 4: Track duplicates
+duplicates = []
+seen_keys_copy = seen_keys.copy()  # prevent modifying original while checking
+for entry in submissions:
+    key = entry["Nominee Email"].lower() if entry["Nominee Email"] else entry["Nominee Name"].lower()
+    if key in seen_keys_copy:
+        seen_keys_copy.remove(key)  # keep only the first seen (i.e., latest)
+    else:
+        duplicates.append(entry)
 
-# Save full submission CSV
-with open(os.path.join(output_folder, "ambassador_submissions_full.csv"), "w", newline='', encoding="utf-8") as f:
+# Step 5: Ensure output directory exists
+output_dir = "ambassador/output_step1"
+os.makedirs(output_dir, exist_ok=True)
+
+# Step 6: Write full submissions
+with open(os.path.join(output_dir, "ambassador_submissions_full.csv"), "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=submissions[0].keys())
     writer.writeheader()
     writer.writerows(submissions)
 
-# Save deduplicated CSV
-with open(os.path.join(output_folder, "ambassador_submissions_deduped.csv"), "w", newline='', encoding="utf-8") as f:
+# Step 7: Write deduplicated submissions
+with open(os.path.join(output_dir, "ambassador_submissions_deduped.csv"), "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=deduped[0].keys())
     writer.writeheader()
     writer.writerows(deduped)
 
-# Save duplicates to Excel
+# Step 8: Write duplicates removed
 if duplicates:
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Duplicates Removed"
-    ws.append(list(duplicates[0].keys()))
-    for d in duplicates:
-        ws.append([d.get(k, "") for k in ws[1]])
-    wb.save(os.path.join(output_folder, "duplicates_removed.xlsx"))
-    print(f"🗂️ Duplicates written to {output_folder}/duplicates_removed.xlsx")
+    with open(os.path.join(output_dir, "duplicates_removed.csv"), "w", newline='', encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=duplicates[0].keys())
+        writer.writeheader()
+        writer.writerows(duplicates)
+    print(f"🗂️ Duplicates written to {output_dir}/duplicates_removed.csv")
+else:
+    print("✅ No duplicates found.")
 
 print("✅ Step 1 complete: Extraction + Deduplication done.")
