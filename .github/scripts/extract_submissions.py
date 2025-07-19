@@ -1,79 +1,101 @@
 import os
-import re
+import csv
 import random
-import requests
-from collections import defaultdict
 from datetime import datetime
+from collections import defaultdict
+from github import Github
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-# Set your GitHub repo details
-REPO = "pytorch-fdn/ambassador-program"
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-HEADERS = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
-API_URL = f"https://api.github.com/repos/{REPO}/issues?state=all&labels=closed&per_page=100"
+# Load GitHub issues
+print("📥 Fetching GitHub issues...")
+GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
+GITHUB_REPO = os.environ["GITHUB_REPOSITORY"]
+REPO = Github(GITHUB_TOKEN).get_repo(GITHUB_REPO)
 
-# Output directories
-os.makedirs("ambassador/reviewer_sheets_excel", exist_ok=True)
-
-# Helper to extract structured data from the issue body
-def extract_submission(issue):
-    body = issue["body"]
-    def extract(label):  # Flexible line extractor
-        pattern = rf"\*\*{re.escape(label)}\*\*\s*\n([\s\S]*?)(?:\n\*\*|$)"
-        match = re.search(pattern, body, re.IGNORECASE)
-        return match.group(1).strip() if match else ""
-
-    return {
-        "Issue #": str(issue["number"]),
-        "Nominee Name": extract("Nominee Name"),
-        "Nominee Email": extract("Nominee Email"),
-        "GitHub Handle": extract("Nominee's GitHub or GitLab Handle"),
-        "Organization": extract("Organization / Affiliation"),
-        "Location": extract("City, State/Province, Country"),
-        "Nominator Name": extract("Your Name"),
-        "Nominator Email": extract("Your Email"),
-        "Contributions": extract("How has the nominee contributed to PyTorch?"),
-        "Ambassador Pitch": extract("How Would the Nominee Contribute as an Ambassador?"),
-        "Extra Notes": extract("Any additional details you'd like to share?"),
-        "Created At": issue["created_at"]
+issues = REPO.get_issues(state="all", labels=["closed"])
+submissions_raw = []
+for issue in issues:
+    if not issue.body or "[Nomination]" not in issue.title:
+        continue
+    submission = {
+        "Issue #": issue.number,
+        "Nominee Name": "",
+        "Nominee GitHub": "",
+        "Nominee Email": "",
+        "Organization": "",
+        "Location": "",
+        "Nominator Name": "",
+        "Nominator Email": "",
+        "Nominee Contributions": "",
+        "Ambassador Pitch": "",
+        "Additional Info": "",
+        "Created At": issue.created_at.strftime("%Y-%m-%d %H:%M:%S")
     }
 
-# Step 1: Fetch and parse issues
-print("📥 Fetching GitHub issues...")
-all_issues = []
-page = 1
-while True:
-    response = requests.get(f"{API_URL}&page={page}", headers=HEADERS)
-    data = response.json()
-    if not data or "message" in data:
-        break
-    all_issues.extend(data)
-    page += 1
+    # Extract fields
+    lines = issue.body.splitlines()
+    current_key = ""
+    for line in lines:
+        if "**Nominee Name**" in line:
+            current_key = "Nominee Name"
+        elif "**Nominee Email**" in line:
+            current_key = "Nominee Email"
+        elif "**GitHub or GitLab Handle**" in line:
+            current_key = "Nominee GitHub"
+        elif "**Organization / Affiliation**" in line:
+            current_key = "Organization"
+        elif "**City, State/Province, Country**" in line:
+            current_key = "Location"
+        elif "**Your Name**" in line:
+            current_key = "Nominator Name"
+        elif "**Your Email (Optional)**" in line:
+            current_key = "Nominator Email"
+        elif "**How has the nominee contributed**" in line:
+            current_key = "Nominee Contributions"
+        elif "**How Would the Nominee Contribute as an Ambassador?**" in line:
+            current_key = "Ambassador Pitch"
+        elif "**Any additional details you'd like to share?**" in line:
+            current_key = "Additional Info"
+        elif line.strip() and current_key:
+            submission[current_key] += line.strip() + "\n"
 
-submissions_raw = [extract_submission(issue) for issue in all_issues if "Nominee Name" in issue["body"]]
+    submissions_raw.append(submission)
 
-# Step 2: Deduplicate by nominee name, keeping latest
+# Deduplicate by GitHub handle (latest entry kept)
 print("🧹 Deduplicating...")
-deduped, duplicates = {}, []
-for sub in submissions_raw:
-    key = sub["Nominee Name"].strip().lower()
-    dt = datetime.strptime(sub["Created At"], "%Y-%m-%dT%H:%M:%SZ")
-    if key not in deduped or dt > datetime.strptime(deduped[key]["Created At"], "%Y-%m-%dT%H:%M:%SZ"):
-        if key in deduped:
-            duplicates.append(deduped[key])
-        deduped[key] = sub
+seen = {}
+duplicates = []
+for s in sorted(submissions_raw, key=lambda x: x["Created At"]):
+    key = s["Nominee GitHub"].strip().lower()
+    if key in seen:
+        duplicates.append(s)
     else:
-        duplicates.append(sub)
+        seen[key] = s
 
-submissions = list(deduped.values())
+submissions = list(seen.values())
 
-# Step 3: Reviewer logic
-reviewers = [f"Reviewer {i}" for i in range(1, 8)]
+# Save deduplicated CSV
+os.makedirs("ambassador", exist_ok=True)
+csv_path = "ambassador/ambassador_submissions_deduped.csv"
+with open(csv_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.DictWriter(f, fieldnames=list(submissions[0].keys()))
+    writer.writeheader()
+    writer.writerows(submissions)
 
-# Updated rubric including all categories from the latest file
+# Save duplicates separately
+if duplicates:
+    dup_wb = Workbook()
+    ws = dup_wb.active
+    ws.title = "Duplicates Removed"
+    ws.append(list(duplicates[0].keys()))
+    for d in duplicates:
+        ws.append([d.get(k, "") for k in ws[1]])
+    dup_wb.save("ambassador/duplicates_removed.xlsx")
+
+# Rubric
 rubric = [
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Demonstrated knowledge and practical experience with PyTorch, including model building, traininga and deployment?"),
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Familiarity with foundation-hosted projects, vLLM, DeepSpeed?"),
@@ -96,28 +118,24 @@ rubric = [
     ("Alignment and Values", "Alignment with PyTorch Foundation Values", "Commitment to open source principles, community-first development, and inclusive collaboration?"),
     ("Alignment and Values", "Alignment with PyTorch Foundation Values", "Advocacy for responsible AI development and ethical machine learning practices?"),
     ("Motivation and Vision", "Vision", "Clear articulation of why they want to be an Ambassador and what they hope to accomplish?"),
-    ("Motivation and Vision", "Vision", "Proposed goals or initiatives that align with the mission of the PyTorch Foundation?"),
-    ("Additional Bonus Criteria", "Cross-Community Collaboration", "Contributions or bridges to other relevant ecosystems (e.g., HuggingFace?)"),
-    ("Additional Bonus Criteria", "Cross-Community Collaboration", "Integration work across tools or libraries within the AI/ML infrastructure landscape?"),
-    ("Additional Bonus Criteria", "Geographic and Demographic Diversity", "Representation from underrepresented regions or groups to foster inclusivity and global outreach?"),
-    ("Additional Bonus Criteria", "Innovation and Pioneering Work", "Early adoption or novel application of PyTorch or its ecosystem tools in industry, research, or startups?"),
-    ("Credibility", "Community References", "References from other known community members?")
+    ("Motivation and Vision", "Vision", "Proposed goals or initiatives that align with the mission of the PyTorch Foundation?")
 ]
 
-summary_categories = []
-for cat, _, _ in rubric:
-    if cat not in summary_categories:
-        summary_categories.append(cat)
+summary_categories = list(dict.fromkeys(cat for cat, _, _ in rubric))
+reviewers = [f"Reviewer {i}" for i in range(1, 8)]
+output_folder = "ambassador/reviewer_sheets_excel"
+os.makedirs(output_folder, exist_ok=True)
 
+# Assign reviewers evenly
 assignments = []
 reviewer_counts = defaultdict(int)
-for sub in submissions:
+for submission in submissions:
     assigned = random.sample(sorted(reviewers, key=lambda r: reviewer_counts[r])[:4], 2)
-    for r in assigned:
-        reviewer_counts[r] += 1
-        assignments.append((sub, r))
+    for reviewer in assigned:
+        reviewer_counts[reviewer] += 1
+        assignments.append((submission, reviewer))
 
-# Step 4: Generate reviewer sheets
+# Generate reviewer workbooks
 for reviewer in reviewers:
     wb = Workbook()
     ws = wb.active
@@ -129,91 +147,78 @@ for reviewer in reviewers:
         "Reviewer's Comment", "Category", "Subcategory", "Question", "Score"
     ]
     ws.append(headers)
-    for c in range(1, len(headers)+1):
-        ws.cell(row=1, column=c).font = Font(bold=True)
+    for col in range(1, len(headers)+1):
+        ws.cell(row=1, column=col).font = Font(bold=True)
 
     dv = DataValidation(type="list", formula1='"Yes,No,N/A"', allow_blank=True)
     ws.add_data_validation(dv)
 
     row_idx = 2
-    ranges = []
+    candidate_ranges = []
 
-    for sub, r in assignments:
-        if r != reviewer:
+    for submission, assigned_reviewer in assignments:
+        if assigned_reviewer != reviewer:
             continue
-        sid = sub["Issue #"]
-        name_parts = sub["Nominee Name"].split()
-        fname = name_parts[0]
-        lname = name_parts[-1] if len(name_parts) > 1 else ""
-        summary = f"""
-GitHub: {sub.get("GitHub Handle", "")}
-Org: {sub.get("Organization", "")}
-Location: {sub.get("Location", "")}
 
-Contributions:
-{sub.get("Contributions", "")}
+        sid = submission["Issue #"]
+        name = submission["Nominee Name"].split()
+        fname = name[0]
+        lname = name[-1] if len(name) > 1 else ""
 
-Ambassador Pitch:
-{sub.get("Ambassador Pitch", "")}
+        # Submission Summary includes all fields except first 3
+        summary = f"""GitHub: {submission.get("Nominee GitHub", "")}
+Email: {submission.get("Nominee Email", "")}
+Organization: {submission.get("Organization", "")}
+Location: {submission.get("Location", "")}
+Nominator: {submission.get("Nominator Name", "")}
+Nominator Email: {submission.get("Nominator Email", "")}
 
-Additional Info:
-{sub.get("Extra Notes", "")}
-""".strip()
+Contributions:\n{submission.get("Nominee Contributions", "")}
+Ambassador Pitch:\n{submission.get("Ambassador Pitch", "")}
+Additional Info:\n{submission.get("Additional Info", "")}"""
 
         start = row_idx
         for cat, subcat, question in rubric:
             ws.append([sid, fname, lname, summary, "", cat, subcat, question, ""])
             row_idx += 1
         end = row_idx - 1
-        ranges.append((sid, fname, lname, start, end))
+        candidate_ranges.append((sid, fname, lname, start, end))
 
-        for col in [1, 2, 3, 4, 5]:  # Merge key fields
+        for col in [1, 2, 3, 4, 5]:  # Merge ID, First, Last, Summary, Reviewer Comment
             ws.merge_cells(start_row=start, end_row=end, start_column=col, end_column=col)
-            ws.cell(row=start, column=col).alignment = Alignment(vertical="top", wrap_text=True)
-        for r in range(start, end+1):
+            cell = ws.cell(row=start, column=col)
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+
+        for r in range(start, end + 1):
             dv.add(ws[f"I{r}"])
 
-    # Autofit columns
     for col in ws.columns:
-        max_len = max((len(str(c.value)) if c.value else 0) for c in col)
-        ws.column_dimensions[get_column_letter(col[0].column)].width = min(max_len + 5, 60)
+        max_len = max((len(str(cell.value)) if cell.value else 0) for cell in col)
+        ws.column_dimensions[get_column_letter(col[0].column)].width = min(max_len + 5, 50)
 
-    # Score Summary
     summary_ws.append(["Submission ID", "First Name", "Last Name"] + summary_categories + ["Final Score"])
     for col in range(1, summary_ws.max_column + 1):
         summary_ws.cell(row=1, column=col).font = Font(bold=True)
 
-    for sid, fname, lname, start, end in ranges:
-        cat_rows = defaultdict(list)
+    for sid, fname, lname, start, end in candidate_ranges:
+        category_rows = defaultdict(list)
         for r in range(start, end + 1):
             cat = ws.cell(row=r, column=6).value
-            cat_rows[cat].append(r)
+            category_rows[cat].append(r)
 
         formulas = []
         for cat in summary_categories:
-            if cat in cat_rows:
-                rows = cat_rows[cat]
+            if cat in category_rows:
+                rows = category_rows[cat]
                 formulas.append(f'=SUMPRODUCT(--(\'Review Sheet\'!I{rows[0]}:I{rows[-1]}="Yes"))')
             else:
                 formulas.append("0")
+
         row_number = summary_ws.max_row + 1
-        final_formula = f"=SUM({','.join([f'{get_column_letter(i+4)}{row_number}' for i in range(len(formulas))])})"
-        summary_ws.append([sid, fname, lname] + formulas + [final_formula])
+        total_formula = f"=SUM({','.join([f'{get_column_letter(i+4)}{row_number}' for i in range(len(formulas))])})"
+        summary_ws.append([sid, fname, lname] + formulas + [total_formula])
 
-    wb.save(f"ambassador/reviewer_sheets_excel/{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
+    filename = os.path.join(output_folder, f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
+    wb.save(filename)
 
-# Step 5: Save duplicates separately
-dup_wb = Workbook()
-ws = dup_wb.active
-ws.title = "Duplicates Removed"
-
-if duplicates:
-    ws.append(list(duplicates[0].keys()))
-    for d in duplicates:
-        ws.append([d.get(k, "") for k in ws[1]])
-else:
-    ws.append(["No duplicates found"])
-
-dup_wb.save("ambassador/duplicates_removed.xlsx")
-
-print("✅ All reviewer sheets and duplicates file generated.")
+print("✅ All reviewer sheets generated successfully.")
