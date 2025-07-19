@@ -206,9 +206,14 @@ Additional Info:
 dup_wb = Workbook()
 ws = dup_wb.active
 ws.title = "Duplicates Removed"
-ws.append(list(duplicates[0].keys()))
-for d in duplicates:
-    ws.append([d.get(k, "") for k in ws[1]])
+
+if duplicates:
+    ws.append(list(duplicates[0].keys()))
+    for d in duplicates:
+        ws.append([d.get(k, "") for k in ws[1]])
+else:
+    ws.append(["No duplicates found"])
+
 dup_wb.save("ambassador/duplicates_removed.xlsx")
 
 print("✅ All reviewer sheets and duplicates file generated.")
