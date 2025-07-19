@@ -17,12 +17,12 @@ jobs:
           python-version: '3.x'
 
       - name: Install Dependencies
-        run: pip install PyGithub
+        run: pip install PyGithub openpyxl
 
       - name: Run Summary Script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: pytorch-fdn/ambassador-program
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: python .github/scripts/summarize_applications.py
 
       - name: Commit and Push Summary
@@ -30,5 +30,5 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add ambassador/SUMMARY.md ambassador/SUMMARY.csv
-          git commit -m "Update Ambassador Application Summary"
+          git commit -m "Update Ambassador Application Summary" || echo "No changes to commit"
           git push
