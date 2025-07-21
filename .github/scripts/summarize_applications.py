@@ -18,63 +18,66 @@ print(f"✅ Total submissions found: {len(issues)}")
 
 # Helper to extract text fields
 def extract(label, body):
-    match = re.search(rf"{label}\s*\n+(.+?)(\n\S|\Z)", body, re.DOTALL)
+    pattern = rf"{re.escape(label)}\s*\n+(.+?)(\n\S|\Z)"
+    match = re.search(pattern, body, re.DOTALL)
     return match.group(1).strip() if match else ""
 
-# Helper to extract all checkbox lines
+# Extract all checkboxes
 def extract_checkboxes(body):
-    matches = re.findall(r"- \[x\] (.+)", body, flags=re.IGNORECASE)
-    return "; ".join(matches) if matches else ""
+    boxes = re.findall(r"- \[.?] .+", body)
+    return "\n".join(boxes) if boxes else ""
 
 # Build submissions list
 submissions = []
 for issue in issues:
     body = issue.body or ""
 
+    contributions = extract_checkboxes(body)
+    ambassador_plan = extract("How Would the Nominee Contribute as an Ambassador?", body)
+    additional_info = extract("Any additional details you'd like to share?", body)
+
+    summary = f"""Contributions:
+{contributions}
+
+How Would the Nominee Contribute as an Ambassador?
+{ambassador_plan}
+
+Additional Notes:
+{additional_info}
+"""
+
     entry = {
         "Issue #": issue.number,
         "Nominee Name": extract("Nominee Name", body),
         "Nominee Email": extract("Nominee Email", body),
         "GitHub Handle": extract("Nominee's GitHub or GitLab Handle", body),
-        "Submission Summary": (
-            f"""🏆 Ambassador Contribution Plan:
-{extract("🏆 How Would the Nominee Contribute as an Ambassador?", body)}
-
-🔗 Additional Information:
-{extract("Any additional details you'd like to share?", body)}
-
-✅ Contribution Highlights:
-{extract_checkboxes(body)}"""
-        )
+        "Submission Summary": summary.strip()
     }
     submissions.append(entry)
 
-# Deduplication logic: prefer latest submission by email or name
+# Deduplicate by email or name (most recent kept)
 latest_submissions = {}
 for entry in sorted(submissions, key=lambda x: x["Issue #"], reverse=True):
-    key = entry["Nominee Email"].lower() if entry["Nominee Email"] else entry["Nominee Name"].lower()
+    key = (entry["Nominee Email"] or entry["Nominee Name"]).lower()
     if key not in latest_submissions:
         latest_submissions[key] = entry
 
 deduped = list(latest_submissions.values())
 duplicates = [s for s in submissions if s not in deduped]
 
-# Ensure output folder
+# Save outputs
 os.makedirs("ambassador", exist_ok=True)
 
-# Write full submission CSV
 with open("ambassador/submissions_all_raw.csv", "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=submissions[0].keys())
     writer.writeheader()
     writer.writerows(submissions)
 
-# Write deduplicated CSV
 with open("ambassador/submissions_deduplicated.csv", "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=deduped[0].keys())
     writer.writeheader()
     writer.writerows(deduped)
 
-# Write duplicates to Excel
 if duplicates:
     wb = Workbook()
     ws = wb.active
@@ -83,6 +86,5 @@ if duplicates:
     for row in duplicates:
         ws.append([row.get(k, "") for k in duplicates[0].keys()])
     wb.save("ambassador/submissions_duplicates_removed.xlsx")
-    print("🗂️ Duplicates written to ambassador/submissions_duplicates_removed.xlsx")
 
-print("✅ Extraction and deduplication complete.")
+print("✅ Done. Files generated in 'ambassador/' folder.")
