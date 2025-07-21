@@ -36,10 +36,15 @@ for issue in issues:
         "Nominee Name": extract("Nominee Name", body),
         "Nominee Email": extract("Nominee Email", body),
         "GitHub Handle": extract("Nominee's GitHub or GitLab Handle", body),
-             "Submission Summary": (
-            f"🏆 Ambassador Contribution Plan:\n{extract('🏆 How Would the Nominee Contribute as an Ambassador?', body)}\n\n"
-            f"🔗 Additional Information:\n{extract(\"Any additional details you'd like to share?\", body)}\n\n"
-            f"✅ Contribution Highlights:\n{extract_checkboxes(body)}"
+        "Submission Summary": (
+            f"""🏆 Ambassador Contribution Plan:
+{extract("🏆 How Would the Nominee Contribute as an Ambassador?", body)}
+
+🔗 Additional Information:
+{extract("Any additional details you'd like to share?", body)}
+
+✅ Contribution Highlights:
+{extract_checkboxes(body)}"""
         )
     }
     submissions.append(entry)
@@ -74,7 +79,7 @@ if duplicates:
     wb = Workbook()
     ws = wb.active
     ws.title = "Duplicates Removed"
-    ws.append(list(duplicates[0].keys()))  # ✅ Fixed here
+    ws.append(list(duplicates[0].keys()))
     for row in duplicates:
         ws.append([row.get(k, "") for k in duplicates[0].keys()])
     wb.save("ambassador/submissions_duplicates_removed.xlsx")
