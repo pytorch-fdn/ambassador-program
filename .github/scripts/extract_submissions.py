@@ -9,7 +9,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 import pandas as pd
 
 # Load deduplicated submissions
-submissions_path = "ambassador/output_step1/ambassador_submissions_deduped.csv"
+submissions_path = "ambassador/ambassador_submissions_deduped.csv"
 contrib_path = "ambassador/contribution_details.csv"
 
 submissions = pd.read_csv(submissions_path).to_dict(orient="records")
