@@ -36,9 +36,9 @@ for issue in issues:
         "Nominee Name": extract("Nominee Name", body),
         "Nominee Email": extract("Nominee Email", body),
         "GitHub Handle": extract("Nominee's GitHub or GitLab Handle", body),
-        "Submission Summary": (
+             "Submission Summary": (
             f"🏆 Ambassador Contribution Plan:\n{extract('🏆 How Would the Nominee Contribute as an Ambassador?', body)}\n\n"
-            f"🔗 Additional Information:\n{extract('Any additional details you\\'d like to share?', body)}\n\n"
+            f"🔗 Additional Information:\n{extract(\"Any additional details you'd like to share?\", body)}\n\n"
             f"✅ Contribution Highlights:\n{extract_checkboxes(body)}"
         )
     }
