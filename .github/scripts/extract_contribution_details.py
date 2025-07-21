@@ -15,11 +15,20 @@ print("🔍 Fetching open GitHub issues with 'ambassador' label...")
 issues = list(repo.get_issues(state="open", labels=["ambassador"]))
 print(f"✅ Found {len(issues)} issues")
 
-# Define helper function to extract field content by label
+# Updated extract function that handles markdown code blocks
 def extract(label, body):
-    pattern = rf"{re.escape(label)}\s*\n+(.+?)(\n\S|\Z)"
-    match = re.search(pattern, body, re.DOTALL)
-    return match.group(1).strip() if match else ""
+    # Try to extract content inside markdown code block first
+    pattern_md = rf"{re.escape(label)}\s*\n+```(?:markdown)?\n(.*?)\n```"
+    match_md = re.search(pattern_md, body, re.DOTALL)
+
+    if match_md:
+        return match_md.group(1).strip()
+
+    # Fallback to plain text if no code block is found
+    pattern_txt = rf"{re.escape(label)}\s*\n+(.+?)(\n\S|\Z)"
+    match_txt = re.search(pattern_txt, body, re.DOTALL)
+
+    return match_txt.group(1).strip() if match_txt else ""
 
 # Create output list
 output_rows = []
