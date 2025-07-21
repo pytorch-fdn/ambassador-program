@@ -1,7 +1,7 @@
 name: Extract and Deduplicate Ambassador Applications
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
 
 jobs:
   summarize:
@@ -17,7 +17,7 @@ jobs:
           python-version: '3.x'
 
       - name: 📦 Install Dependencies
-        run: pip install PyGithub
+        run: pip install PyGithub openpyxl
 
       - name: 🧠 Run Extraction + Deduplication Script
         env:
@@ -29,6 +29,6 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git add ambassador/submissions_all.csv ambassador/submissions_deduped.csv ambassador/submissions_duplicates.csv || true
+          git add ambassador/submissions_all_raw.csv ambassador/submissions_deduplicated.csv ambassador/submissions_duplicates_removed.xlsx || true
           git commit -m "Update extracted and deduplicated ambassador application data" || echo "No changes to commit"
           git push
