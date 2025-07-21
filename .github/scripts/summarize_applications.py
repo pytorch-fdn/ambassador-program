@@ -2,9 +2,8 @@ import os
 import csv
 import re
 from github import Github
-from openpyxl import Workbook
 
-# Get GitHub token and repository name
+# Load secrets
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
 
@@ -12,76 +11,92 @@ GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
 g = Github(GITHUB_TOKEN)
 repo = g.get_repo(GITHUB_REPOSITORY)
 
-print("📥 Fetching open GitHub issues labeled 'ambassador'...")
-issues = list(repo.get_issues(state='open', labels=['ambassador']))
-print(f"🔍 Total open issues fetched: {len(issues)}")
+print("🔍 Fetching ambassador issues (open only)...")
+issues = repo.get_issues(state="open", labels=["ambassador"])
 
-# Helper to extract a field from the issue body
-def extract(label, body):
-    match = re.search(rf"{re.escape(label)}\s*\n\s*(.+)", body)
+submissions = []
+
+def extract_value(label, body):
+    match = re.search(rf"{label}\s*\n\s*(.+?)(?:\n|$)", body)
     return match.group(1).strip() if match else ""
 
-# Extract structured data from each issue
-submissions = []
+def extract_checkboxes(body):
+    boxes = re.findall(r"- \[x\] (.+)", body, re.IGNORECASE)
+    return "\n".join(f"- {b.strip()}" for b in boxes)
+
 for issue in issues:
     body = issue.body or ""
-    entry = {
+
+    nominee_name = extract_value("Nominee Name", body)
+    nominee_email = extract_value("Nominee Email", body)
+    github_handle = extract_value("Nominee's GitHub or GitLab Handle", body)
+    organization = extract_value("Organization / Affiliation", body)
+    location = extract_value("City, State/Province, Country", body)
+    nominator_name = extract_value("Your Name", body)
+    nominator_email = extract_value("Your Email", body)
+    ambassador_pitch = extract_value("🏆 How Would the Nominee Contribute as an Ambassador?", body)
+    additional_info = extract_value("Any additional details you'd like to share?", body)
+    contributions = extract_checkboxes(body)
+
+    # Compose the Submission Summary
+    summary_parts = []
+    if github_handle:
+        summary_parts.append(f"GitHub Handle: {github_handle}")
+    if contributions:
+        summary_parts.append(f"Contributions:\n{contributions}")
+    if ambassador_pitch:
+        summary_parts.append(f"Ambassador Pitch:\n{ambassador_pitch}")
+    if additional_info:
+        summary_parts.append(f"Additional Info:\n{additional_info}")
+
+    submission_summary = "\n\n".join(summary_parts)
+
+    submissions.append({
         "Issue #": issue.number,
-        "Nominee Name": extract("Nominee Name", body),
-        "Nominee Email": extract("Nominee Email", body),
-        "GitHub Handle": extract("Nominee's GitHub or GitLab Handle", body),
-        "Organization": extract("(Optional) Organization / Affiliation", body),
-        "Location": extract("City, State/Province, Country", body),
-        "Your Name": extract("Your Name", body),
-        "Your Email": extract("Your Email (Optional)", body),
-        "Submission Summary": "\n\n".join([
-            f"Nominee Self/Nominated: {extract('Select one:', body)}",
-            f"Requirements Acknowledged: {extract('Please confirm that the nominee meets the following requirements:', body)}",
-            f"Contributions: {extract('How has the nominee contributed to PyTorch?', body)}",
-            f"Ambassador Pitch: {extract('🏆 How Would the Nominee Contribute as an Ambassador?', body)}",
-            f"Additional Info: {extract('Any additional details you\'d like to share?', body)}"
-        ])
-    }
-    submissions.append(entry)
+        "Nominee Name": nominee_name,
+        "Nominee Email": nominee_email,
+        "Organization": organization,
+        "Location": location,
+        "Nominator Name": nominator_name,
+        "Nominator Email": nominator_email,
+        "Submission Summary": submission_summary
+    })
 
-print("🧹 Deduplicating by email or name...")
+print(f"📄 Total submissions found: {len(submissions)}")
+print("🧹 Deduplicating...")
 
-# Deduplication logic: keep latest (by issue #), use email if available
-latest_submissions = {}
+# Deduplicate by email, fallback to name
+deduped = {}
 for entry in sorted(submissions, key=lambda x: x["Issue #"], reverse=True):
     key = entry["Nominee Email"].lower() if entry["Nominee Email"] else entry["Nominee Name"].lower()
-    if key and key not in latest_submissions:
-        latest_submissions[key] = entry
+    if key not in deduped:
+        deduped[key] = entry
 
-deduped = list(latest_submissions.values())
-duplicates = [s for s in submissions if s not in deduped]
+deduped_list = list(deduped.values())
+duplicates = [s for s in submissions if s not in deduped_list]
 
-# Ensure output folder
+# Save results
 os.makedirs("ambassador", exist_ok=True)
 
-# Write raw submissions
-with open("ambassador/submissions_all_raw.csv", "w", newline='', encoding="utf-8") as f:
+with open("ambassador/submissions_all.csv", "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=submissions[0].keys())
     writer.writeheader()
     writer.writerows(submissions)
 
-# Write deduplicated submissions
-with open("ambassador/submissions_deduplicated.csv", "w", newline='', encoding="utf-8") as f:
-    writer = csv.DictWriter(f, fieldnames=deduped[0].keys())
+with open("ambassador/submissions_deduped.csv", "w", newline='', encoding="utf-8") as f:
+    writer = csv.DictWriter(f, fieldnames=deduped_list[0].keys())
     writer.writeheader()
-    writer.writerows(deduped)
+    writer.writerows(deduped_list)
 
-# Write duplicates to Excel if any
 if duplicates:
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Duplicates Removed"
-    ws.append(list(duplicates[0].keys()))
-    for d in duplicates:
-        ws.append([d.get(k, "") for k in ws[1]])
-    wb.save("ambassador/submissions_duplicates_removed.xlsx")
-    print("🗂️ Duplicates written to ambassador/submissions_duplicates_removed.xlsx")
-else:
-    print("✅ No duplicates found.")
+    with open("ambassador/submissions_duplicates.csv", "w", newline='', encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=duplicates[0].keys())
+        writer.writeheader()
+        writer.writerows(duplicates)
 
-print("🎉 Done: Data extracted and files saved.")
+print("✅ Extraction and deduplication complete.")
+print("📁 Files created in ambassador/:")
+print("  - submissions_all.csv")
+print("  - submissions_deduped.csv")
+if duplicates:
+    print("  - submissions_duplicates.csv")
