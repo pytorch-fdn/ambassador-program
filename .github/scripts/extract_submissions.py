@@ -105,15 +105,15 @@ for reviewer in reviewers:
 
         checkboxes = "\n".join([line for line in pitch.splitlines() if "☑" in line or "✔" in line])
 
-        summary = f"""Contributions:\n{submission.get("Contributions", "").strip()}
+        summary = f"""Contributions:\n{str(submission.get("Contributions", "")).strip()}
 
-Ambassador Pitch:\n{pitch.strip()}
-
-Checkbox Summary:\n{checkboxes.strip()}
-
-Extra Notes:\n{submission.get("Extra Notes", "").strip()}
-
-Additional Info:\n{extra.strip()}"""
+        Ambassador Pitch:\n{str(pitch).strip()}
+        
+        Checkbox Summary:\n{str(checkboxes).strip()}
+        
+        Extra Notes:\n{str(submission.get("Extra Notes", "")).strip()}
+        
+        Additional Info:\n{str(extra).strip()}"""
 
         start = row_idx
         for cat, subcat, question in rubric:
