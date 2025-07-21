@@ -7,6 +7,7 @@ from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 import pandas as pd
+from github import Github
 
 # Load deduplicated submissions
 submissions_path = "ambassador/ambassador_submissions_deduped.csv"
@@ -15,10 +16,16 @@ contrib_path = "ambassador/contribution_details.csv"
 submissions = pd.read_csv(submissions_path).to_dict(orient="records")
 contrib_details = pd.read_csv(contrib_path).to_dict(orient="records")
 
+# GitHub authentication
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPOSITORY")
+gh = Github(GITHUB_TOKEN)
+repo = gh.get_repo(GITHUB_REPO)
+
 # Define reviewers
 reviewers = [f"Reviewer {i}" for i in range(1, 8)]
 
-# Updated rubric
+# Rubric
 rubric = [
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Demonstrated knowledge and practical experience with PyTorch, including model building, traininga and deployment?"),
     ("Technical Expertise", "Proficiency with the PyTorch Ecosystem", "Familiarity with foundation-hosted projects, vLLM, DeepSpeed?"),
@@ -55,7 +62,7 @@ for cat, _, _ in rubric:
     if cat not in summary_categories:
         summary_categories.append(cat)
 
-# Create output folder
+# Output folder
 output_folder = "ambassador/reviewer_sheets_excel"
 os.makedirs(output_folder, exist_ok=True)
 
@@ -76,11 +83,11 @@ for reviewer in reviewers:
     summary_ws = wb.create_sheet("Score Summary")
 
     headers = [
-        "Submission ID", "First Name", "Last Name", "Submission Summary",
+        "Submission ID", "First Name", "Last Name", "Checkboxes", "Submission Summary",
         "Reviewer's Merged Comment", "Category", "Subcategory", "Question", "Score"
     ]
     ws.append(headers)
-    for col in range(1, len(headers)+1):
+    for col in range(1, len(headers) + 1):
         ws.cell(row=1, column=col).font = Font(bold=True)
 
     dv = DataValidation(type="list", formula1='"Yes,No,N/A"', allow_blank=True)
@@ -98,38 +105,39 @@ for reviewer in reviewers:
         fname = name[0]
         lname = name[-1] if len(name) > 1 else ""
 
-        
-        # Pull from contribution_details
         contrib_row = next((row for row in contrib_details if int(row["Submission ID"]) == int(sid)), None)
         pitch = str(contrib_row.get("How Would the Nominee Contribute as an Ambassador?", "")).strip() if contrib_row else ""
         extra = str(contrib_row.get("Any Additional Details", "")).strip() if contrib_row else ""
-        
-        checkboxes = "\n".join([line for line in pitch.splitlines() if "☑" in line or "✔" in line])
-        
+
+        try:
+            issue = repo.get_issue(number=int(sid))
+            body = issue.body or ""
+            checkboxes = "\n".join([line.strip() for line in body.splitlines() if "☑" in line or "✔" in line])
+        except Exception as e:
+            checkboxes = f"(error fetching checkboxes: {e})"
+
         summary = f"""Contributions:\n{str(submission.get("Contributions", "")).strip()}
-        
-        Ambassador Pitch:\n{pitch}
-        
-        Checkbox Summary:\n{checkboxes.strip()}
-        
-        Extra Notes:\n{str(submission.get("Extra Notes", "")).strip()}
-        
-        Additional Info:\n{extra}"""
+
+Ambassador Pitch:\n{pitch}
+
+Extra Notes:\n{str(submission.get("Extra Notes", "")).strip()}
+
+Additional Info:\n{extra}"""
 
         start = row_idx
         for cat, subcat, question in rubric:
-            ws.append([sid, fname, lname, summary, "", cat, subcat, question, ""])
+            ws.append([sid, fname, lname, checkboxes, summary, "", cat, subcat, question, ""])
             row_idx += 1
         end = row_idx - 1
         candidate_ranges.append((sid, fname, lname, start, end))
 
-        for col in [1, 2, 3, 4, 5]:
+        for col in [1, 2, 3, 4, 5, 6]:
             ws.merge_cells(start_row=start, end_row=end, start_column=col, end_column=col)
             cell = ws.cell(row=start, column=col)
             cell.alignment = Alignment(vertical="top", wrap_text=True)
 
         for r in range(start, end + 1):
-            dv.add(ws[f"I{r}"])
+            dv.add(ws[f"J{r}"])
 
     # Auto-fit columns
     for col in ws.columns:
@@ -144,14 +152,14 @@ for reviewer in reviewers:
     for sid, fname, lname, start, end in candidate_ranges:
         category_rows = defaultdict(list)
         for r in range(start, end + 1):
-            cat = ws.cell(row=r, column=6).value
+            cat = ws.cell(row=r, column=7).value
             category_rows[cat].append(r)
 
         formulas = []
         for cat in summary_categories:
             if cat in category_rows:
                 rows = category_rows[cat]
-                formulas.append(f'=SUMPRODUCT(--(\'Review Sheet\'!I{rows[0]}:I{rows[-1]}="Yes"))')
+                formulas.append(f'=SUMPRODUCT(--(\'Review Sheet\'!J{rows[0]}:J{rows[-1]}="Yes"))')
             else:
                 formulas.append("0")
 
@@ -162,4 +170,4 @@ for reviewer in reviewers:
     filename = os.path.join(output_folder, f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
     wb.save(filename)
 
-print("✅ Reviewer sheets generated with enriched submission summary (including checkboxes).")
+print("✅ Reviewer sheets generated with GitHub checkboxes as a separate column.")
