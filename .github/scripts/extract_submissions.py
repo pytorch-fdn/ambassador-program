@@ -98,22 +98,23 @@ for reviewer in reviewers:
         fname = name[0]
         lname = name[-1] if len(name) > 1 else ""
 
+        
         # Pull from contribution_details
         contrib_row = next((row for row in contrib_details if int(row["Submission ID"]) == int(sid)), None)
-        pitch = contrib_row.get("How Would the Nominee Contribute as an Ambassador?", "") if contrib_row else ""
-        extra = contrib_row.get("Any Additional Details", "") if contrib_row else ""
-
-        checkboxes = "\n".join([line for line in pitch.splitlines() if "☑" in line or "✔" in line])
-
-        summary = f"""Contributions:\n{str(submission.get("Contributions", "")).strip()}
-
-        Ambassador Pitch:\n{str(pitch).strip()}
+        pitch = str(contrib_row.get("How Would the Nominee Contribute as an Ambassador?", "")).strip() if contrib_row else ""
+        extra = str(contrib_row.get("Any Additional Details", "")).strip() if contrib_row else ""
         
-        Checkbox Summary:\n{str(checkboxes).strip()}
+        checkboxes = "\n".join([line for line in pitch.splitlines() if "☑" in line or "✔" in line])
+        
+        summary = f"""Contributions:\n{str(submission.get("Contributions", "")).strip()}
+        
+        Ambassador Pitch:\n{pitch}
+        
+        Checkbox Summary:\n{checkboxes.strip()}
         
         Extra Notes:\n{str(submission.get("Extra Notes", "")).strip()}
         
-        Additional Info:\n{str(extra).strip()}"""
+        Additional Info:\n{extra}"""
 
         start = row_idx
         for cat, subcat, question in rubric:
