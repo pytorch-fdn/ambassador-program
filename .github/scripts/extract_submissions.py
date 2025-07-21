@@ -6,11 +6,14 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
+import pandas as pd
 
 # Load deduplicated submissions
-with open("ambassador/output_step1/ambassador_submissions_deduped.csv", newline='', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    submissions = list(reader)
+submissions_path = "ambassador/output_step1/ambassador_submissions_deduped.csv"
+contrib_path = "ambassador/contribution_details.csv"
+
+submissions = pd.read_csv(submissions_path).to_dict(orient="records")
+contrib_details = pd.read_csv(contrib_path).to_dict(orient="records")
 
 # Define reviewers
 reviewers = [f"Reviewer {i}" for i in range(1, 8)]
@@ -95,13 +98,22 @@ for reviewer in reviewers:
         fname = name[0]
         lname = name[-1] if len(name) > 1 else ""
 
+        # Pull from contribution_details
+        contrib_row = next((row for row in contrib_details if int(row["Submission ID"]) == int(sid)), None)
+        pitch = contrib_row.get("How Would the Nominee Contribute as an Ambassador?", "") if contrib_row else ""
+        extra = contrib_row.get("Any Additional Details", "") if contrib_row else ""
+
+        checkboxes = "\n".join([line for line in pitch.splitlines() if "☑" in line or "✔" in line])
+
         summary = f"""Contributions:\n{submission.get("Contributions", "").strip()}
 
-Ambassador Pitch:\n{submission.get("Ambassador Pitch", "").strip()}
+Ambassador Pitch:\n{pitch.strip()}
+
+Checkbox Summary:\n{checkboxes.strip()}
 
 Extra Notes:\n{submission.get("Extra Notes", "").strip()}
 
-Additional Info:\n{submission.get("Additional Info", "").strip()}"""
+Additional Info:\n{extra.strip()}"""
 
         start = row_idx
         for cat, subcat, question in rubric:
@@ -110,7 +122,6 @@ Additional Info:\n{submission.get("Additional Info", "").strip()}"""
         end = row_idx - 1
         candidate_ranges.append((sid, fname, lname, start, end))
 
-        # Merge vertical fields
         for col in [1, 2, 3, 4, 5]:
             ws.merge_cells(start_row=start, end_row=end, start_column=col, end_column=col)
             cell = ws.cell(row=start, column=col)
@@ -124,7 +135,7 @@ Additional Info:\n{submission.get("Additional Info", "").strip()}"""
         max_len = max((len(str(cell.value)) if cell.value else 0) for cell in col)
         ws.column_dimensions[get_column_letter(col[0].column)].width = min(max_len + 5, 50)
 
-    # Score Summary header
+    # Score Summary
     summary_ws.append(["Submission ID", "First Name", "Last Name"] + summary_categories + ["Final Score"])
     for col in range(1, summary_ws.max_column + 1):
         summary_ws.cell(row=1, column=col).font = Font(bold=True)
@@ -150,4 +161,4 @@ Additional Info:\n{submission.get("Additional Info", "").strip()}"""
     filename = os.path.join(output_folder, f"{reviewer.replace(' ', '_').lower()}_sheet.xlsx")
     wb.save(filename)
 
-print("✅ Reviewer sheets generated with merged reviewer comment column and updated submission summary.")
+print("✅ Reviewer sheets generated with enriched submission summary (including checkboxes).")
