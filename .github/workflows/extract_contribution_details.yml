@@ -1,0 +1,37 @@
+name: Extract Ambassador Contribution Details
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  extract-details:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 📦 Install Dependencies
+        run: pip install PyGithub
+
+      - name: 🧠 Run Contribution Extraction Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/extract_contribution_details.py
+
+      - name: ✅ Commit and Push Extracted Details
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add ambassador/contribution_details.csv || true
+          git commit -m "Extracted ambassador contribution details" || echo "No changes to commit"
+          git push
