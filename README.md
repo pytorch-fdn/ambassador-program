@@ -25,6 +25,14 @@ Please check back here or on [pytorch.org](https://pytorch.org/programs/ambassad
 
 ---
 
+## 🗓️ Timeline – Current Cycle
+
+| Date(s)        | Event |
+|----------------|-------|
+| **August 11 – 22** | Internal review |
+| **August 29**  | Candidate notifications sent |
+| **September 8** | Ambassador onboarding begins |
+
 ## ❓ Frequently Asked Questions (FAQ)
 
 ### Who can become a PyTorch Ambassador?
