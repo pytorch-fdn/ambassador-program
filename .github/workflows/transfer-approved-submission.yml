@@ -85,6 +85,17 @@ jobs:
               "ℹ️ This issue remains open here for visibility, but ongoing tracking happens in the private repository."
             ].join("\n\n");
 
+            // --- Ensure the public issue is unlocked before commenting ---
+            try {
+              await github.rest.issues.unlock({
+                owner: repoOwner,
+                repo: publicRepo,
+                issue_number
+              });
+            } catch (e) {
+              // ignore if already unlocked
+            }
+
             await github.rest.issues.createComment({
               owner: repoOwner,
               repo: publicRepo,
