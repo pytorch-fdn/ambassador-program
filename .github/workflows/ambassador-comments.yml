@@ -224,4 +224,27 @@ jobs:
                       labels = get_issue_labels(num)
 
                       if decision_raw in ("accept","accepted","approve","approved"):
-                          if
+                          if "Accepted" in labels:
+                              add_comment_once(num, ACCEPT_MSG.format(name=candidate), ACCEPT_MARKER)
+                              counts["accept_commented"] += 1
+                          else:
+                              print(f"Row {idx}: issue #{num} lacks 'Accepted' label; skipping.")
+                              counts["skipped"] += 1
+
+                      elif decision_raw in ("reject","rejected","decline","declined"):
+                          if "Rejected" in labels:
+                              add_comment_once(num, REJECT_MSG.format(name=candidate), REJECT_MARKER)
+                              counts["reject_commented"] += 1
+                          else:
+                              print(f"Row {idx}: issue #{num} lacks 'Rejected' label; skipping.")
+                              counts["skipped"] += 1
+                      else:
+                          print(f"Row {idx}: unknown decision '{decision_raw}'; skipping.")
+                          counts["skipped"] += 1
+          except FileNotFoundError:
+              print(f"decision.csv not found at: {dec_csv}", file=sys.stderr); sys.exit(1)
+
+          print(f"Decisions: accept_commented={counts['accept_commented']}, reject_commented={counts['reject_commented']}, skipped={counts['skipped']} (rows={counts['rows']})")
+          if dry_run: print("DRY-RUN complete (no changes were made).")
+PY
+
