@@ -27,7 +27,8 @@ jobs:
             const issue_number = parseInt(core.getInput("issue_number"));
             const repoOwner = context.repo.owner;
             const publicRepo = context.repo.repo;
-            const privateRepo = "pytorch-fdn/ambassador-program-management";
+            const privateOwner = "pytorch-fdn";
+            const privateName = "ambassador-program-management";
             const assignee = "reginankenchor";
 
             const issue = await github.rest.issues.get({
@@ -36,8 +37,8 @@ jobs:
               issue_number
             });
 
-            const hasAcceptedLabel = issue.data.labels.some(
-              l => l.name.toLowerCase().includes("accept")
+            const hasAcceptedLabel = (issue.data.labels || []).some(
+              l => String(l.name || "").toLowerCase().includes("accept")
             );
 
             if (!hasAcceptedLabel) {
@@ -54,12 +55,27 @@ jobs:
             ].join("\n\n");
 
             const newIssue = await github.rest.issues.create({
-              owner: "pytorch-fdn",
-              repo: "ambassador-program-management",
+              owner: privateOwner,
+              repo: privateName,
               title: issue.data.title,
               body: bodyContent,
               assignees: [assignee]
             });
+
+            // Invite the issue author to the private repo with read access
+            const applicant = issue.data.user?.login;
+            if (applicant) {
+              try {
+                await github.rest.repos.addCollaborator({
+                  owner: privateOwner,
+                  repo: privateName,
+                  username: applicant,
+                  permission: "pull" // read-only access
+                });
+              } catch (e) {
+                // ignore invite errors (already invited, org policy, etc.)
+              }
+            }
 
             const confirmation = [
               "✅ This submission has been **accepted** and transferred to the private program management repository.",
