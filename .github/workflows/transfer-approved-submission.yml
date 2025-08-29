@@ -43,7 +43,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           # IMPORTANT: this token must have write access to BOTH repos
-          github-token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          github-token: ${{ secrets.PRIVATE_TOKEN }}
           script: |
             const dryRun = core.getInput('dry_run') === 'true';
             const privateOwner = core.getInput('private_owner');
