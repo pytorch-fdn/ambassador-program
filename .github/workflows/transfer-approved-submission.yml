@@ -1,104 +1,189 @@
-name: "Transfer Accepted Submission to Private Repo"
+name: "Transfer ALL Accepted to Private Repo"
 
 on:
   workflow_dispatch:
     inputs:
-      issue_number:
-        description: "Issue number to transfer"
+      private_owner:
+        description: "Private repo owner"
         required: true
-        type: number
+        default: pytorch-fdn
+        type: string
+      private_name:
+        description: "Private repo name"
+        required: true
+        default: ambassador-program-management
+        type: string
+      assignee:
+        description: "Assignee in private repo"
+        required: true
+        default: reginankenchor
+        type: string
+      dry_run:
+        description: "Preview without changing anything"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: transfer-all-accepted
+  cancel-in-progress: true
+
 jobs:
-  transfer-submission:
+  transfer:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Transfer Issue to Private Repo
+      - name: Transfer all Accepted issues
         uses: actions/github-script@v7
         with:
+          # IMPORTANT: this token must have write access to BOTH repos
           github-token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           script: |
-            const issue_number = parseInt(core.getInput("issue_number"));
+            const dryRun = core.getInput('dry_run') === 'true';
+            const privateOwner = core.getInput('private_owner');
+            const privateName  = core.getInput('private_name');
+            const assignee     = core.getInput('assignee');
+
             const repoOwner = context.repo.owner;
             const publicRepo = context.repo.repo;
-            const privateOwner = "pytorch-fdn";
-            const privateName = "ambassador-program-management";
-            const assignee = "reginankenchor";
 
-            const issue = await github.rest.issues.get({
-              owner: repoOwner,
-              repo: publicRepo,
-              issue_number
-            });
+            const TRANSFER_MARKER = "<!-- transferred-to-private -->";
 
-            const hasAcceptedLabel = (issue.data.labels || []).some(
-              l => String(l.name || "").toLowerCase().includes("accept")
-            );
-
-            if (!hasAcceptedLabel) {
-              throw new Error(`Issue #${issue_number} does not have an 'Accepted' label. Aborting transfer.`);
+            async function listIssuesWithLabel(label) {
+              const results = [];
+              const per_page = 100;
+              let page = 1;
+              while (true) {
+                const { data } = await github.rest.issues.listForRepo({
+                  owner: repoOwner,
+                  repo: publicRepo,
+                  state: "all",
+                  labels: label,
+                  per_page,
+                  page,
+                });
+                const issuesOnly = data.filter(i => !i.pull_request);
+                results.push(...issuesOnly);
+                if (data.length < per_page) break;
+                page += 1;
+              }
+              return results;
             }
 
-            const bodyContent = [
-              "📝 Submission Transferred from Public Repository",
-              "",
-              "----------------------------------------",
-              issue.data.body || "",
-              "----------------------------------------",
-              `🔔 @${assignee} — this submission has been accepted and is now ready for program-level follow-up.`
-            ].join("\n\n");
-
-            const newIssue = await github.rest.issues.create({
-              owner: privateOwner,
-              repo: privateName,
-              title: issue.data.title,
-              body: bodyContent,
-              assignees: [assignee]
-            });
-
-            // Invite the issue author to the private repo with read access
-            const applicant = issue.data.user?.login;
-            if (applicant) {
-              try {
-                await github.rest.repos.addCollaborator({
-                  owner: privateOwner,
-                  repo: privateName,
-                  username: applicant,
-                  permission: "pull" // read-only access
+            async function hasMarkerComment(owner, repo, issue_number) {
+              const per_page = 100;
+              let page = 1;
+              while (true) {
+                const { data } = await github.rest.issues.listComments({
+                  owner, repo, issue_number, per_page, page
                 });
-              } catch (e) {
-                // ignore invite errors (already invited, org policy, etc.)
+                if (data.some(c => (c.body || "").includes(TRANSFER_MARKER))) return true;
+                if (data.length < per_page) break;
+                page += 1;
+              }
+              return false;
+            }
+
+            function buildPrivateBody(publicIssue) {
+              return [
+                "📝 Submission Transferred from Public Repository",
+                "",
+                "----------------------------------------",
+                publicIssue.body || "",
+                "----------------------------------------",
+                `Source: ${publicIssue.html_url}`,
+                `Original Author: @${publicIssue.user?.login || "unknown"}`,
+                "",
+                `🔔 @${assignee} — this submission has been accepted and is now ready for program-level follow-up.`
+              ].join("\n\n");
+            }
+
+            const accepted = await listIssuesWithLabel("Accepted");
+            core.info(`Found ${accepted.length} issues labeled 'Accepted'.`);
+
+            let transferred = 0, skipped = 0, failed = 0;
+
+            for (const pub of accepted) {
+              const number = pub.number;
+
+              // Skip if already transferred (marker present)
+              const already = await hasMarkerComment(repoOwner, publicRepo, number);
+              if (already) {
+                core.info(`#${number}: already transferred (marker found). Skipping.`);
+                skipped += 1;
+                continue;
+              }
+
+              // Create issue in private repo
+              const body = buildPrivateBody(pub);
+
+              if (dryRun) {
+                core.info(`[DRY-RUN] Would create private issue for #${number} and invite @${pub.user?.login}`);
+              } else {
+                let newIssue;
+                try {
+                  newIssue = await github.rest.issues.create({
+                    owner: privateOwner,
+                    repo: privateName,
+                    title: pub.title,
+                    body,
+                    assignees: [assignee]
+                  });
+                } catch (e) {
+                  core.warning(`#${number}: creating private issue failed: ${e.message}`);
+                  failed += 1;
+                  continue;
+                }
+
+                // Invite the applicant (read access)
+                const applicant = pub.user?.login;
+                if (applicant) {
+                  try {
+                    await github.rest.repos.addCollaborator({
+                      owner: privateOwner,
+                      repo: privateName,
+                      username: applicant,
+                      permission: "pull"
+                    });
+                  } catch (e) {
+                    // ignore invite errors (already invited/org policy/etc.)
+                    core.info(`#${number}: invite @${applicant} ignored: ${e.message}`);
+                  }
+                }
+
+                // Ensure public issue is unlocked before commenting; leave it unlocked
+                try {
+                  await github.rest.issues.unlock({
+                    owner: repoOwner, repo: publicRepo, issue_number: number
+                  });
+                } catch (e) {
+                  // ignore if already unlocked or not lockable
+                }
+
+                const confirmation = [
+                  "✅ This submission has been **accepted** and transferred to the private program management repository.",
+                  "",
+                  `🔗 **Private tracking issue:** ${newIssue.data.html_url}`,
+                  "",
+                  TRANSFER_MARKER
+                ].join("\n");
+
+                try {
+                  await github.rest.issues.createComment({
+                    owner: repoOwner, repo: publicRepo, issue_number: number, body: confirmation
+                  });
+                } catch (e) {
+                  core.warning(`#${number}: public confirmation comment failed: ${e.message}`);
+                }
+
+                transferred += 1;
               }
             }
 
-            const confirmation = [
-              "✅ This submission has been **accepted** and transferred to the private program management repository.",
-              "",
-              `🔗 [View it here](${newIssue.data.html_url})`,
-              "",
-              "ℹ️ This issue remains open here for visibility, but ongoing tracking happens in the private repository."
-            ].join("\n\n");
-
-            // --- Ensure the public issue is unlocked before commenting ---
-            try {
-              await github.rest.issues.unlock({
-                owner: repoOwner,
-                repo: publicRepo,
-                issue_number
-              });
-            } catch (e) {
-              // ignore if already unlocked
-            }
-
-            await github.rest.issues.createComment({
-              owner: repoOwner,
-              repo: publicRepo,
-              issue_number,
-              body: confirmation
-            });
+            core.info(`Done. transferred=${transferred}, skipped=${skipped}, failed=${failed}, dry_run=${dryRun}`);
