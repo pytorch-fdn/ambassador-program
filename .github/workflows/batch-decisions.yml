@@ -35,13 +35,24 @@ jobs:
       - name: Checkout PUBLIC repo
         uses: actions/checkout@v4
 
-      - name: Checkout PRIVATE repo
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ inputs.private_repo }}
-          ref: ${{ inputs.private_ref }}
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
-          path: private-src
+      - name: Download CSV from private repo
+        env:
+          TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          REPO: ${{ inputs.private_repo }}
+          REF: ${{ inputs.private_ref }}
+          FILE: ${{ inputs.csv_path }}
+        run: |
+          set -euo pipefail
+          mkdir -p private-src
+          # Build the API URL from inputs
+          API_URL="https://api.github.com/repos/${REPO}/contents/${FILE}?ref=${REF}"
+          # Download the raw CSV into private-src/decisions.csv
+          curl -sSfL \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Accept: application/vnd.github.raw+json" \
+            "${API_URL}" \
+            -o private-src/decisions.csv
+          echo "Downloaded CSV to private-src/decisions.csv"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -52,7 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_FULL: ${{ github.repository }}
-          CSV_ABS_PATH: ${{ github.workspace }}/private-src/${{ inputs.csv_path }}
+          CSV_ABS_PATH: ${{ github.workspace }}/private-src/decisions.csv
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           python - <<'PY'
@@ -113,7 +124,7 @@ jobs:
 
           ACCEPT_MSG = (
             "Hello {name},\n\n"
-            "Congratulations! 🎉 We're excited to inform you that you have been selected as a 2025 PyTorch Ambassador. "
+            "Congratulations! 🎉 We’re excited to inform you that you have been selected as a 2025 PyTorch Ambassador. "
             "Your contributions, impact, and commitment to the PyTorch community stood out during the review process.\n\n"
             "You should also have received an invitation to join our private program management repository, "
             "where onboarding details and next steps will be shared. If you do not see the invite, please comment here and we will assist you.\n\n"
@@ -182,4 +193,3 @@ jobs:
             print(f"CSV not found at: {csv_path}", file=sys.stderr)
             sys.exit(1)
           PY
-          
