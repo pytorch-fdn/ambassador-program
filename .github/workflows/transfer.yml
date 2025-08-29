@@ -1,0 +1,109 @@
+name: "Transfer Accepted Submission to Private Repo"
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to transfer"
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  transfer-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Transfer Issue to Private Repo
+        uses: actions/github-script@v7
+        env:
+          PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}   # PAT with access to pytorch-fdn/ambassador-program-management
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}               # public repo ops
+          script: |
+            const issue_number = parseInt(core.getInput("issue_number"));
+            const repoOwner = context.repo.owner;
+            const publicRepo = context.repo.repo;
+
+            // Private repo target (fixed owner/name)
+            const privateOwner = "pytorch-fdn";
+            const privateName  = "ambassador-program-management";
+            const assignee     = "reginankenchor";
+
+            const { Octokit } = require("@octokit/rest");
+            const priv = new Octokit({ auth: process.env.PRIVATE_REPO_TOKEN });
+
+            // 1) Public: fetch the issue
+            const issue = await github.rest.issues.get({ owner: repoOwner, repo: publicRepo, issue_number });
+
+            // Accept label check (case-insensitive contains "accept")
+            const hasAccepted = (issue.data.labels || []).some(l => String(l.name || "").toLowerCase().includes("accept"));
+            if (!hasAccepted) {
+              throw new Error(`Issue #${issue_number} does not have an 'Accepted' label. Aborting transfer.`);
+            }
+
+            // 2) Private: sanity-check token can access private repo
+            await priv.rest.repos.get({ owner: privateOwner, repo: privateName });
+
+            // 3) Private: create the new issue
+            const bodyContent = [
+              "📝 Submission Transferred from Public Repository",
+              "",
+              "----------------------------------------",
+              issue.data.body || "",
+              "----------------------------------------",
+              `Source: ${issue.data.html_url}`,
+              `Original Author: @${issue.data.user?.login || "unknown"}`,
+              "",
+              `🔔 @${assignee} — this submission has been accepted and is now ready for program-level follow-up.`
+            ].join("\n\n");
+
+            const newIssue = await priv.rest.issues.create({
+              owner: privateOwner,
+              repo: privateName,
+              title: issue.data.title,
+              body: bodyContent,
+              assignees: [assignee]
+            });
+
+            // 4) Private: invite applicant (read-only)
+            const applicant = issue.data.user?.login;
+            if (applicant) {
+              try {
+                await priv.rest.repos.addCollaborator({
+                  owner: privateOwner,
+                  repo: privateName,
+                  username: applicant,
+                  permission: "pull"
+                });
+              } catch (e) {
+                core.info(`Invite for @${applicant} ignored: ${e.message}`);
+              }
+            }
+
+            // 5) Public: ensure unlocked, then comment; leave unlocked (do not close)
+            const confirmation = [
+              "✅ This submission has been **accepted** and transferred to the private program management repository.",
+              "",
+              `🔗 **Private tracking issue:** ${newIssue.data.html_url}`,
+              "",
+              "<!-- transferred-to-private -->"
+            ].join("\n");
+
+            try {
+              await github.rest.issues.unlock({ owner: repoOwner, repo: publicRepo, issue_number });
+            } catch (e) { /* already unlocked or not lockable */ }
+
+            await github.rest.issues.createComment({
+              owner: repoOwner,
+              repo: publicRepo,
+              issue_number,
+              body: confirmation
+            });
+
+            // NOTE: No closing of public issue
