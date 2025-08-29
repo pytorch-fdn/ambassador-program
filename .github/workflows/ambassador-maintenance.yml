@@ -1,0 +1,274 @@
+name: "Ambassador maintenance (duplicates + decisions + cleanup)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      private_repo:
+        description: "Private repo containing the CSVs (owner/name)"
+        required: true
+        default: pytorch-fdn/ambassador-program-management
+        type: string
+      private_ref:
+        description: "Branch/tag/sha of the private repo"
+        required: true
+        default: main
+        type: string
+      duplicates_csv_path:
+        description: "Path to duplicates CSV"
+        required: true
+        default: .github/ISSUE_TEMPLATE/duplicates.csv
+        type: string
+      decision_csv_path:
+        description: "Path to decision CSV (has Submission ID, Decision, Candidate)"
+        required: true
+        default: .github/ISSUE_TEMPLATE/decision.csv
+        type: string
+      dry_run:
+        description: "Preview without writing comments/labels"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ambassador-maintenance
+  cancel-in-progress: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PUBLIC repo
+        uses: actions/checkout@v4
+
+      - name: Checkout PRIVATE repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.private_repo }}
+          ref: ${{ inputs.private_ref }}
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: private-src
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Process duplicates, post decisions by row, clean pending-review
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ github.repository }}
+          DUP_CSV_ABS: ${{ github.workspace }}/private-src/${{ inputs.duplicates_csv_path }}
+          DEC_CSV_ABS: ${{ github.workspace }}/private-src/${{ inputs.decision_csv_path }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          python - <<'PY'
+          import os, csv, re, sys, urllib.parse
+          import requests
+          from requests.adapters import HTTPAdapter, Retry
+
+          token = os.getenv("GITHUB_TOKEN")
+          repo_full = os.getenv("REPO_FULL")
+          dup_csv = os.getenv("DUP_CSV_ABS")
+          dec_csv = os.getenv("DEC_CSV_ABS")
+          dry_run = (os.getenv("DRY_RUN","false").lower() == "true")
+
+          if not token or not repo_full:
+              print("Missing GITHUB_TOKEN or REPO_FULL", file=sys.stderr); sys.exit(1)
+
+          owner, repo = repo_full.split("/", 1)
+
+          # resilient session
+          s = requests.Session()
+          retries = Retry(total=8, backoff_factor=0.7,
+                          status_forcelist=[429,500,502,503,504],
+                          allowed_methods=["GET","POST","PATCH","DELETE","HEAD","OPTIONS"])
+          s.mount("https://", HTTPAdapter(max_retries=retries))
+          s.headers.update({"Authorization": f"Bearer {token}",
+                            "Accept": "application/vnd.github+json",
+                            "X-GitHub-Api-Version": "2022-11-28"})
+
+          def norm_key(x): return re.sub(r"[^a-z0-9]+","",(x or "").strip().lower())
+
+          def ensure_label(name, color):
+              enc = urllib.parse.quote(name, safe="")
+              r = s.get(f"https://api.github.com/repos/{owner}/{repo}/labels/{enc}")
+              if r.status_code==200: return
+              if r.status_code==404:
+                  if dry_run: print(f"DRY-RUN: would create label '{name}' #{color}"); return
+                  r = s.post(f"https://api.github.com/repos/{owner}/{repo}/labels",
+                             json={"name":name,"color":color})
+                  if r.status_code not in (200,201):
+                      print(f"Warn: create label {name} failed: {r.status_code} {r.text}")
+              else:
+                  print(f"Warn: get label {name} failed: {r.status_code} {r.text}")
+
+          def get_issue(num): return s.get(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}")
+
+          def get_issue_labels(num):
+              r = s.get(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/labels?per_page=100")
+              if r.status_code==200: return {x["name"] for x in r.json()}
+              print(f"Warn: get labels #{num} failed: {r.status_code} {r.text}"); return set()
+
+          def add_labels(num, labels):
+              if not labels: return
+              if dry_run: print(f"DRY-RUN: would add labels to #{num}: {sorted(labels)}"); return
+              r = s.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/labels",
+                         json={"labels": list(labels)})
+              if r.status_code not in (200,201):
+                  print(f"Warn: add labels #{num} failed: {r.status_code} {r.text}")
+
+          def remove_label(num, label):
+              if dry_run: print(f"DRY-RUN: would remove label '{label}' from #{num}"); return
+              enc = urllib.parse.quote(label, safe="")
+              r = s.delete(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/labels/{enc}")
+              if r.status_code not in (200,204):
+                  print(f"Warn: remove label #{num} failed: {r.status_code} {r.text}")
+
+          def add_comment_once(num, body, marker):
+              # avoid duplicate comments using hidden marker
+              url = f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/comments?per_page=100"
+              while url:
+                  r = s.get(url)
+                  if r.status_code!=200: print(f"Warn: list comments #{num} failed: {r.status_code} {r.text}"); break
+                  if any(marker in (c.get("body") or "") for c in r.json()): 
+                      print(f"Skip duplicate comment on #{num}"); return
+                  url = r.links.get("next",{}).get("url")
+              if dry_run: print(f"DRY-RUN: would comment on #{num}:\n{body}\n---"); return
+              r = s.post(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/comments", json={"body": body})
+              if r.status_code not in (200,201): print(f"Warn: comment #{num} failed: {r.status_code} {r.text}")
+
+          def list_issues_with_label(label):
+              url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=all&per_page=100&labels={urllib.parse.quote(label, safe='')}"
+              while url:
+                  r = s.get(url)
+                  if r.status_code!=200: print(f"Warn: list issues for '{label}' failed: {r.status_code} {r.text}"); return
+                  for it in r.json():
+                      if "pull_request" in it: continue
+                      yield it
+                  url = r.links.get("next",{}).get("url")
+
+          # labels & messages
+          ACCEPT_LABEL, REJECT_LABEL, DUP_LABEL, PENDING_LABEL = "Accepted","Rejected","Duplicate","pending-review"
+          ensure_label(ACCEPT_LABEL, "2ea44f")
+          ensure_label(REJECT_LABEL, "d73a4a")
+          ensure_label(DUP_LABEL, "cfd3d7")
+
+          ACCEPT_MARKER = "<!-- ambassador-decision:accepted-2025 -->"
+          REJECT_MARKER = "<!-- ambassador-decision:rejected-2025 -->"
+
+          ACCEPT_MSG = (
+            "Hello {name},\n\n"
+            "Congratulations! 🎉 We're excited to inform you that you have been selected as a 2025 PyTorch Ambassador. "
+            "Your contributions, impact, and commitment to the PyTorch community stood out during the review process.\n\n"
+            "You should also have received an invitation to join our private program management repository, "
+            "where onboarding details and next steps will be shared. If you do not see the invite, please comment here and we will assist you.\n\n"
+            "Best regards,\n"
+            "The PyTorch PMO\n\n" + ACCEPT_MARKER
+          )
+          REJECT_MSG = (
+            "Hello {name},\n\n"
+            "Thank you for applying to the 2025 PyTorch Ambassador Program and for the valuable contributions you make in the PyTorch community. "
+            "After careful consideration, we regret to inform you that your application was not selected in this cycle.\n\n"
+            "We encourage you to apply again in the future — the next application cycle will open in early 2026. "
+            "Please keep an eye on our website for updates on the timeline: https://pytorch.org/programs/ambassadors/\n\n"
+            "We truly appreciate the time, effort, and passion you bring to the PyTorch community, and we hope to see your application again in the future.\n\n"
+            "If you have any questions in the meantime, please feel free to reach out to us at ambassadors@pytorch.org.\n\n"
+            "Best regards,\n"
+            "The PyTorch PMO\n\n" + REJECT_MARKER
+          )
+
+          # --- Part 1: Label duplicates from duplicates.csv (no closing) ---
+          dup_counts={"total":0,"labeled":0,"missing":0,"skipped":0}
+          try:
+              with open(dup_csv, newline="", encoding="utf-8") as f:
+                  rdr = csv.DictReader(f)
+                  hdr = {norm_key(h): h for h in (rdr.fieldnames or [])}
+                  id_key = hdr.get("issue") or hdr.get("submissionid") or hdr.get("issuenumber") or hdr.get("id")
+                  if not id_key:
+                      print("duplicates.csv must have an issue id column (e.g., 'Issue' or 'Submission ID').", file=sys.stderr); sys.exit(1)
+                  for idx,row in enumerate(rdr, start=2):
+                      dup_counts["total"] += 1
+                      raw = (row.get(id_key) or "").strip()
+                      if not raw: dup_counts["skipped"] += 1; continue
+                      try: num = int(float(raw))
+                      except: print(f"Row {idx}: invalid ID '{raw}'; skipping."); dup_counts["skipped"] += 1; continue
+                      r = get_issue(num)
+                      if r.status_code==404: print(f"Issue #{num} not found; skipping."); dup_counts["missing"] += 1; continue
+                      if r.status_code!=200: print(f"Warn: GET issue #{num} failed: {r.status_code} {r.text}"); dup_counts["skipped"] += 1; continue
+                      existing = get_issue_labels(num)
+                      to_add = {"Duplicate"} - existing
+                      add_labels(num, to_add)
+                      if to_add: dup_counts["labeled"] += 1
+          except FileNotFoundError:
+              print(f"duplicates.csv not found at: {dup_csv}", file=sys.stderr); sys.exit(1)
+
+          # --- Part 2: Iterate decision.csv rows and post per-row messages with Candidate name ---
+          # Expects columns: Submission ID, Decision, Candidate
+          dec_counts={"rows":0,"accept_commented":0,"reject_commented":0,"skipped":0}
+          try:
+              with open(dec_csv, newline="", encoding="utf-8") as f:
+                  rdr = csv.DictReader(f)
+                  hdr = {norm_key(h): h for h in (rdr.fieldnames or [])}
+                  sid_key = hdr.get("submissionid") or hdr.get("issue") or hdr.get("issuenumber") or hdr.get("id")
+                  decision_key = hdr.get("decision")
+                  name_key = hdr.get("candidate")
+                  if not sid_key or not decision_key or not name_key:
+                      print("decision.csv must contain 'Submission ID', 'Decision', and 'Candidate' columns.", file=sys.stderr); sys.exit(1)
+
+                  for idx,row in enumerate(rdr, start=2):
+                      dec_counts["rows"] += 1
+                      raw_id = (row.get(sid_key) or "").strip()
+                      decision_raw = (row.get(decision_key) or "").strip().lower()
+                      candidate = (row.get(name_key) or "").strip() or "there"
+
+                      if not raw_id:
+                          dec_counts["skipped"] += 1; continue
+                      try:
+                          num = int(float(raw_id))
+                      except:
+                          print(f"Row {idx}: invalid Submission ID '{raw_id}'; skipping.")
+                          dec_counts["skipped"] += 1; continue
+
+                      # Only comment if the label matches (safety) and avoid duplicates via marker
+                      if decision_raw in ("accept","accepted","approve","approved"):
+                          # optional: ensure Accepted label exists on the issue before commenting
+                          labels = get_issue_labels(num)
+                          if "Accepted" in labels:
+                              add_comment_once(num, ACCEPT_MSG.format(name=candidate), ACCEPT_MARKER)
+                              dec_counts["accept_commented"] += 1
+                          else:
+                              print(f"Row {idx}: issue #{num} lacks 'Accepted' label; skipping comment.")
+                              dec_counts["skipped"] += 1
+
+                      elif decision_raw in ("reject","rejected","decline","declined"):
+                          labels = get_issue_labels(num)
+                          if "Rejected" in labels:
+                              add_comment_once(num, REJECT_MSG.format(name=candidate), REJECT_MARKER)
+                              dec_counts["reject_commented"] += 1
+                          else:
+                              print(f"Row {idx}: issue #{num} lacks 'Rejected' label; skipping comment.")
+                              dec_counts["skipped"] += 1
+                      else:
+                          print(f"Row {idx}: unknown decision '{decision_raw}'; skipping.")
+                          dec_counts["skipped"] += 1
+          except FileNotFoundError:
+              print(f"decision.csv not found at: {dec_csv}", file=sys.stderr); sys.exit(1)
+
+          # --- Part 3: Remove 'pending-review' everywhere ---
+          removed = 0
+          for issue in list_issues_with_label(PENDING_LABEL) or []:
+              remove_label(issue["number"], PENDING_LABEL)
+              removed += 1
+
+          print(f"Duplicates: labeled={dup_counts['labeled']} / total_rows={dup_counts['total']}, missing={dup_counts['missing']}, skipped={dup_counts['skipped']}")
+          print(f"Decisions: accept_commented={dec_counts['accept_commented']}, reject_commented={dec_counts['reject_commented']}, skipped={dec_counts['skipped']} (rows={dec_counts['rows']})")
+          print(f"pending-review removed from {removed} issues.")
+          if dry_run: print("DRY-RUN complete (no changes were made).")
+          PY
