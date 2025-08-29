@@ -1,0 +1,185 @@
+name: "Batch Accept/Reject from Private CSV"
+
+on:
+  workflow_dispatch:
+    inputs:
+      private_repo:
+        description: "Private repo containing the CSV (owner/name)"
+        required: true
+        default: pytorch-fdn/ambassador-program-management
+        type: string
+      private_ref:
+        description: "Branch/tag/sha of the private repo"
+        required: true
+        default: main
+        type: string
+      csv_path:
+        description: "Path to CSV inside the private repo"
+        required: true
+        default: .github/ISSUE_TEMPLATE/dmsap.csv
+        type: string
+      dry_run:
+        description: "Preview without writing comments/labels"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  apply-decisions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PUBLIC repo
+        uses: actions/checkout@v4
+
+      - name: Checkout PRIVATE repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.private_repo }}
+          ref: ${{ inputs.private_ref }}
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: private-src
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Apply decisions from CSV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ github.repository }}
+          CSV_ABS_PATH: ${{ github.workspace }}/private-src/${{ inputs.csv_path }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          python - <<'PY'
+          import os, csv, re, requests, sys
+
+          token = os.getenv("GITHUB_TOKEN")
+          repo_full = os.getenv("REPO_FULL")
+          csv_path = os.getenv("CSV_ABS_PATH")
+          dry_run = (os.getenv("DRY_RUN","false").lower() == "true")
+
+          if not token or not repo_full or not csv_path:
+            print("Missing GITHUB_TOKEN, REPO_FULL, or CSV_ABS_PATH", file=sys.stderr)
+            sys.exit(1)
+
+          owner, repo = repo_full.split("/", 1)
+          headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+          }
+
+          def norm_key(s): return re.sub(r"[^a-z0-9]+","", (s or "").strip().lower())
+
+          def ensure_label(name, color):
+            r = requests.get(f"https://api.github.com/repos/{owner}/{repo}/labels/{name}", headers=headers)
+            if r.status_code == 404 and not dry_run:
+              requests.post(
+                f"https://api.github.com/repos/{owner}/{repo}/labels",
+                headers=headers,
+                json={"name": name, "color": color}
+              )
+
+          def add_labels(num, labels):
+            if dry_run: return
+            requests.post(
+              f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/labels",
+              headers=headers,
+              json={"labels": labels}
+            )
+
+          def add_comment(num, body):
+            if dry_run:
+              print(f"DRY-RUN: would comment on #{num}:\n{body}\n---")
+              return
+            requests.post(
+              f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/comments",
+              headers=headers,
+              json={"body": body}
+            )
+
+          def issue_exists(num):
+            r = requests.get(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}", headers=headers)
+            return r.status_code == 200
+
+          ACCEPT_LABEL, REJECT_LABEL = "Accepted", "Rejected"
+          ensure_label(ACCEPT_LABEL, "2ea44f")
+          ensure_label(REJECT_LABEL, "d73a4a")
+
+          ACCEPT_MSG = (
+            "Hello {name},\n\n"
+            "Congratulations! 🎉 We're excited to inform you that you have been selected as a 2025 PyTorch Ambassador. "
+            "Your contributions, impact, and commitment to the PyTorch community stood out during the review process.\n\n"
+            "You should also have received an invitation to join our private program management repository, "
+            "where onboarding details and next steps will be shared. If you do not see the invite, please comment here and we will assist you.\n\n"
+            "Best regards,\n"
+            "The PyTorch PMO"
+          )
+
+          REJECT_MSG = (
+            "Hello {name},\n\n"
+            "Thank you for applying to the 2025 PyTorch Ambassador Program and for the valuable contributions you make in the PyTorch community. "
+            "After careful consideration, we regret to inform you that your application was not selected in this cycle.\n\n"
+            "We encourage you to apply again in the future — the next application cycle will open in early 2026. "
+            "Please keep an eye on our website for updates on the timeline: https://pytorch.org/programs/ambassadors/\n\n"
+            "We truly appreciate the time, effort, and passion you bring to the PyTorch community, and we hope to see your application again in the future.\n\n"
+            "If you have any questions in the meantime, please feel free to reach out to us at ambassadors@pytorch.org.\n\n"
+            "Best regards,\n"
+            "The PyTorch PMO"
+          )
+
+          try:
+            with open(csv_path, newline="", encoding="utf-8") as f:
+              reader = csv.DictReader(f)
+              headers_map = {norm_key(h): h for h in (reader.fieldnames or [])}
+              sid_key = headers_map.get("submissionid")
+              decision_key = headers_map.get("decision")
+              name_key = headers_map.get("candidate")
+
+              if not sid_key or not decision_key:
+                print("CSV must contain 'Submission ID' and 'Decision' columns.", file=sys.stderr)
+                sys.exit(1)
+
+              total = processed = 0
+              for row in reader:
+                total += 1
+                raw_id = (row.get(sid_key) or "").strip()
+                if not raw_id:
+                  continue
+                try:
+                  issue_number = int(float(raw_id))
+                except Exception:
+                  print(f"Skip row with invalid Submission ID: {raw_id}")
+                  continue
+
+                decision = (row.get(decision_key) or "").strip().lower()
+                name = (row.get(name_key) or "").strip() if name_key else ""
+                if not name:
+                  name = "there"
+
+                if not issue_exists(issue_number):
+                  print(f"Issue #{issue_number} not found; skipping.")
+                  continue
+
+                if decision in ("accept", "accepted", "approve", "approved"):
+                  add_comment(issue_number, ACCEPT_MSG.format(name=name))
+                  add_labels(issue_number, [ACCEPT_LABEL])
+                  processed += 1
+                elif decision in ("reject", "rejected", "decline", "declined"):
+                  add_comment(issue_number, REJECT_MSG.format(name=name))
+                  add_labels(issue_number, [REJECT_LABEL])
+                  processed += 1
+                else:
+                  print(f"Unknown decision '{decision}' for issue #{issue_number}; skipping.")
+
+              print(f"Processed {processed}/{total} rows.")
+          except FileNotFoundError:
+            print(f"CSV not found at: {csv_path}", file=sys.stderr)
+            sys.exit(1)
+          PY
+          
