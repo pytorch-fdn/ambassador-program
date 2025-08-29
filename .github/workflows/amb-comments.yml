@@ -246,5 +246,5 @@ jobs:
 
           print(f"Decisions: accept_commented={counts['accept_commented']}, reject_commented={counts['reject_commented']}, skipped={counts['skipped']} (rows={counts['rows']})")
           if dry_run: print("DRY-RUN complete (no changes were made).")
-PY
+          PY
 
