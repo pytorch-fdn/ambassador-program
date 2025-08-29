@@ -21,7 +21,7 @@ on:
       decision_csv_path:
         description: "Path to decision CSV (has Submission ID, Decision, Candidate)"
         required: true
-        default: .github/ISSUE_TEMPLATE/decision.csv
+        default: .github/ISSUE_TEMPLATE/dmsap.csv
         type: string
       dry_run:
         description: "Preview without writing comments/labels"
