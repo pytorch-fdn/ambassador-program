@@ -44,25 +44,12 @@ jobs:
           import os, re, csv, sys, requests
           from requests.adapters import HTTPAdapter
           try:
-              # urllib3 v1/v2 compatibility
               from urllib3.util.retry import Retry
               try:
-                  retry = Retry(
-                      total=8,
-                      backoff_factor=0.7,
-                      status_forcelist=[429,500,502,503,504],
-                      allowed_methods=frozenset(["GET","POST","HEAD","OPTIONS"])
-                  )
+                  retry = Retry(total=8, backoff_factor=0.7, status_forcelist=[429,500,502,503,504], allowed_methods=frozenset(["GET","POST","HEAD","OPTIONS"]))
               except TypeError:
-                  # Older urllib3 uses method_whitelist
-                  retry = Retry(
-                      total=8,
-                      backoff_factor=0.7,
-                      status_forcelist=[429,500,502,503,504],
-                      method_whitelist=frozenset(["GET","POST","HEAD","OPTIONS"])
-                  )
-          except Exception as e:
-              print("Retry configuration error:", e, file=sys.stderr)
+                  retry = Retry(total=8, backoff_factor=0.7, status_forcelist=[429,500,502,503,504], method_whitelist=frozenset(["GET","POST","HEAD","OPTIONS"]))
+          except Exception:
               retry = None
 
           token = os.getenv("GITHUB_TOKEN")
@@ -83,37 +70,27 @@ jobs:
           if retry:
               s.mount("https://", HTTPAdapter(max_retries=retry))
 
-          MESSAGE_TEMPLATE = """Hello {first_name}
-
-You’ve been invited to join the private **Ambassador Program Management Repository**:
-👉 [pytorch-fdn/ambassador-program-management](https://github.com/pytorch-fdn/ambassador-program-management/)
-
-Once you accept the invitation, you’ll find important information in the discussion thread — including instructions to submit a new issue using the **“Ambassador Confirmation & Details”** template.
-
-To confirm your participation in the 2025 PyTorch Ambassador Program, please open a new issue using the **“Ambassador Confirmation & Details”** template here:
-👉 [Create your confirmation issue](https://github.com/pytorch-fdn/ambassador-program-management/issues/new/choose)
-
-_Completing this step will confirm your role and get you ready for onboarding 🚀_
-
-As part of onboarding, we’ll be hosting a **Kick-Off Call** where we’ll share important program details, expectations, and next steps:
-
-📅 **Date:** Monday, September 8
-🕒 **Time:** 5:30 PM CEST / 8:30 AM PDT
-
-Once you confirm your role, you will also receive a calendar invite with the meeting link.
-
-We’re truly excited to welcome you into the PyTorch Ambassador Program and look forward to the impact you’ll continue to make in the community.
-
-Best regards,
-The PyTorch PMO
-"""
-
-          def api_get(url, **kwargs):
-              r = s.get(url, **kwargs)
-              if r.status_code != 200:
-                  print(f"GET {url} failed: {r.status_code} {r.text}", file=sys.stderr)
-                  sys.exit(1)
-              return r
+          # Safe message definition with explicit newlines
+          MESSAGE_TEMPLATE = (
+              "Hello {first_name},\n\n"
+              "You have been invited to join the private **Ambassador Program Management Repository**:\n"
+              "👉 https://github.com/pytorch-fdn/ambassador-program-management/\n\n"
+              "Once you accept the invitation, you will find important information in the discussion thread — "
+              "including instructions to submit a new issue using the **\"Ambassador Confirmation & Details\"** template.\n\n"
+              "To confirm your participation in the 2025 PyTorch Ambassador Program, please open a new issue using the "
+              "**\"Ambassador Confirmation & Details\"** template here:\n"
+              "👉 https://github.com/pytorch-fdn/ambassador-program-management/issues/new/choose\n\n"
+              "_Completing this step will confirm your role and get you ready for onboarding :rocket:_\n\n"
+              "As part of onboarding, we will be hosting a **Kick-Off Call** where we will share important program details, "
+              "expectations, and next steps:\n\n"
+              "📅 Date: Monday, September 8\n"
+              "🕒 Time: 5:30 PM CEST / 8:30 AM PDT\n\n"
+              "Once you confirm your role, you will also receive a calendar invite with the meeting link.\n\n"
+              "We are truly excited to welcome you into the PyTorch Ambassador Program and look forward to the impact "
+              "you will continue to make in the community.\n\n"
+              "Best regards,\n"
+              "The PyTorch PMO\n"
+          )
 
           def api_post(url, json):
               r = s.post(url, json=json)
@@ -122,7 +99,6 @@ The PyTorch PMO
               return r
 
           def get_accepted_open_issues():
-              # labels param supports comma-separated labels; pass as-is to allow spaces
               url = f"https://api.github.com/repos/{owner}/{repo}/issues"
               params = {"state":"open", "labels":label_name, "per_page":100}
               first = True
@@ -130,18 +106,13 @@ The PyTorch PMO
                   r = s.get(url, params=params if first else None)
                   first = False
                   if r.status_code != 200:
-                      print(f"List issues failed: {r.status_code} {r.text}", file=sys.stderr)
-                      sys.exit(1)
-                  data = r.json()
-                  for it in data:
+                      print(f"List issues failed: {r.status_code} {r.text}", file=sys.stderr); sys.exit(1)
+                  for it in r.json():
                       if "pull_request" not in it:
                           yield it
                   url = r.links.get("next",{}).get("url")
 
           def parse_after_label(body:str, label:str):
-              # Matches:
-              # Label
-              # value
               pat = rf"{re.escape(label)}\s*\r?\n([^\n\r]+)"
               m = re.search(pat, body or "", re.IGNORECASE)
               return m.group(1).strip() if m else ""
@@ -157,12 +128,11 @@ The PyTorch PMO
                   m = re.search(r"github\.com/([^/\s]+)", gh_handle, re.IGNORECASE)
                   if m: gh_handle = m.group(1)
 
-              # First name from nominee name; fallback to login
               if nominee_name:
                   first_name = nominee_name.split()[0].strip()
               else:
                   user = issue.get("user") or {}
-                  prof_name = (user.get("name") or "").strip()  # usually empty on Issues API
+                  prof_name = (user.get("name") or "").strip()
                   first_name = prof_name.split()[0] if prof_name else (user.get("login") or "there")
 
               return {
@@ -181,22 +151,14 @@ The PyTorch PMO
               api_post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",
                        json={"body": body})
 
-          rows = []
-          count = 0
-          any_issues = False
+          rows, count, any_issues = [], 0, False
           for issue in get_accepted_open_issues():
               any_issues = True
               data = extract_fields(issue)
               msg = MESSAGE_TEMPLATE.format(first_name=data["first_name"])
               post_comment(data["issue_number"], msg)
               count += 1
-              rows.append([
-                  data["issue_number"],
-                  data["nominee_name"],
-                  data["nominee_email"],
-                  data["location"],
-                  data["github_handle"]
-              ])
+              rows.append([data["issue_number"], data["nominee_name"], data["nominee_email"], data["location"], data["github_handle"]])
 
           if not any_issues:
               print(f"No open issues found with label '{label_name}'.")
@@ -205,9 +167,7 @@ The PyTorch PMO
 
           out = "accepted_export.csv"
           with open(out, "w", newline="", encoding="utf-8") as f:
-              w = csv.writer(f)
-              w.writerow(["Issue", "Nominee Name", "Nominee Email", "Location", "GitHub Handle"])
-              w.writerows(rows)
+              csv.writer(f).writerows([["Issue","Nominee Name","Nominee Email","Location","GitHub Handle"], *rows])
           print(f"Exported {len(rows)} row(s) -> {out}")
           PY
 
