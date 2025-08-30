@@ -1,0 +1,194 @@
+name: "Ambassador Accepted: Post + Export"
+
+on:
+  workflow_dispatch:
+    inputs:
+      label_name:
+        description: "Target label"
+        required: true
+        default: Accepted
+        type: string
+      dry_run:
+        description: "Preview without posting"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  post-and-export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Post message and export CSV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ github.repository }}
+          LABEL_NAME: ${{ inputs.label_name }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          python - <<'PY'
+          import os, re, csv, sys, requests
+          from requests.adapters import HTTPAdapter, Retry
+
+          token = os.getenv("GITHUB_TOKEN")
+          repo_full = os.getenv("REPO_FULL")
+          label_name = os.getenv("LABEL_NAME","Accepted")
+          dry_run = (os.getenv("DRY_RUN","false").lower()=="true")
+
+          if not token or not repo_full:
+              print("Missing GITHUB_TOKEN or REPO_FULL", file=sys.stderr); sys.exit(1)
+          owner, repo = repo_full.split("/",1)
+
+          s = requests.Session()
+          s.headers.update({
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28"
+          })
+          s.mount("https://", HTTPAdapter(max_retries=Retry(
+              total=8, backoff_factor=0.7,
+              status_forcelist=[429,500,502,503,504],
+              allowed_methods=["GET","POST","HEAD","OPTIONS"]
+          )))
+
+          MESSAGE_TEMPLATE = """Hello {first_name}
+
+You’ve been invited to join the private **Ambassador Program Management Repository**:
+👉 [pytorch-fdn/ambassador-program-management](https://github.com/pytorch-fdn/ambassador-program-management/)
+
+Once you accept the invitation, you’ll find important information in the discussion thread — including instructions to submit a new issue using the **“Ambassador Confirmation & Details”** template.
+
+To confirm your participation in the 2025 PyTorch Ambassador Program, please open a new issue using the **“Ambassador Confirmation & Details”** template here:
+👉 [Create your confirmation issue](https://github.com/pytorch-fdn/ambassador-program-management/issues/new/choose)
+
+_Completing this step will confirm your role and get you ready for onboarding 🚀_
+
+As part of onboarding, we’ll be hosting a **Kick-Off Call** where we’ll share important program details, expectations, and next steps:
+
+📅 **Date:** Monday, September 8
+🕒 **Time:** 5:30 PM CEST / 8:30 AM PDT
+
+Once you confirm your role, you will also receive a calendar invite with the meeting link.
+
+We’re truly excited to welcome you into the PyTorch Ambassador Program and look forward to the impact you’ll continue to make in the community.
+
+Best regards,
+The PyTorch PMO
+"""
+
+          # ---------- Helpers ----------
+          def get_accepted_open_issues():
+              url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+              params = {"state":"open", "labels":label_name, "per_page":100}
+              while url:
+                  r = s.get(url, params=params if 'params' in locals() else None)
+                  if r.status_code != 200:
+                      print(f"Failed to list issues: {r.status_code} {r.text}", file=sys.stderr); sys.exit(1)
+                  for it in r.json():
+                      if "pull_request" not in it:
+                          yield it
+                  url = r.links.get("next",{}).get("url")
+                  params = None
+
+          def parse_after_label(body:str, label:str):
+              """
+              Finds the line immediately following a label header block:
+                Label
+                value
+              Returns '' if not found.
+              """
+              pat = rf"{re.escape(label)}\s*\r?\n([^\n\r]+)"
+              m = re.search(pat, body, re.IGNORECASE)
+              return m.group(1).strip() if m else ""
+
+          def extract_fields(issue):
+              body = issue.get("body") or ""
+              nominee_name = parse_after_label(body, "Nominee Name")
+              nominee_email = parse_after_label(body, "Nominee Email")
+              location = parse_after_label(body, "City, State/Province, Country")
+              gh_handle = parse_after_label(body, "Nominee's GitHub or GitLab Handle")
+
+              # Normalize handle: if it's a URL like https://github.com/user -> take last path segment
+              if gh_handle.startswith("http"):
+                  m = re.search(r"github\.com/([^/\s]+)", gh_handle, re.IGNORECASE)
+                  if m:
+                      gh_handle = m.group(1)
+
+              # First name: from nominee_name first token; fallback to profile name; then login
+              first_name = ""
+              if nominee_name:
+                  first_name = nominee_name.split()[0].strip()
+              if not first_name:
+                  user = issue.get("user") or {}
+                  prof_name = (user.get("name") or "").strip()
+                  if prof_name:
+                      first_name = prof_name.split()[0]
+                  else:
+                      first_name = (user.get("login") or "there")
+
+              return {
+                  "issue_number": issue["number"],
+                  "first_name": first_name,
+                  "nominee_name": nominee_name,
+                  "nominee_email": nominee_email,
+                  "location": location,
+                  "github_handle": gh_handle
+              }
+
+          def post_comment(issue_number, body):
+              if dry_run:
+                  print(f"DRY-RUN: would post to #{issue_number}:\n{body[:300]}...\n---")
+                  return
+              r = s.post(
+                  f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",
+                  json={"body": body}
+              )
+              if r.status_code not in (200,201):
+                  print(f"Failed to comment on #{issue_number}: {r.status_code} {r.text}", file=sys.stderr)
+
+          # ---------- Process ----------
+          rows = []
+          count = 0
+          for issue in get_accepted_open_issues():
+              data = extract_fields(issue)
+              msg = MESSAGE_TEMPLATE.format(first_name=data["first_name"])
+              post_comment(data["issue_number"], msg)
+              count += 1
+              rows.append([
+                  data["issue_number"],
+                  data["nominee_name"],
+                  data["nominee_email"],
+                  data["location"],
+                  data["github_handle"]
+              ])
+
+          # Export CSV
+          out = "accepted_export.csv"
+          with open(out, "w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerow(["Issue", "Nominee Name", "Nominee Email", "Location", "GitHub Handle"])
+              w.writerows(rows)
+
+          print(f"Posted to {count} accepted issue(s).")
+          print(f"Exported {len(rows)} row(s) -> {out}")
+          PY
+
+      - name: Upload export artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: accepted_export
+          path: accepted_export.csv
