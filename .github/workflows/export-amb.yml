@@ -1,0 +1,125 @@
+name: "Ambassador: Export Accepted Issues (CSV only)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      label_name:
+        description: "Target label"
+        required: true
+        default: Accepted
+        type: string
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Export accepted issues to CSV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ github.repository }}
+          LABEL_NAME: ${{ inputs.label_name }}
+        run: |
+          python - <<'PY'
+          import os, re, csv, sys, requests
+          from requests.adapters import HTTPAdapter
+          try:
+              from urllib3.util.retry import Retry
+              retry = Retry(total=8, backoff_factor=0.7,
+                            status_forcelist=[429,500,502,503,504],
+                            allowed_methods=frozenset(["GET","HEAD","OPTIONS"]))
+          except Exception:
+              retry = None
+
+          token = os.getenv("GITHUB_TOKEN")
+          repo_full = os.getenv("REPO_FULL")
+          label_name = os.getenv("LABEL_NAME","Accepted")
+
+          if not token or not repo_full:
+              print("Missing GITHUB_TOKEN or REPO_FULL", file=sys.stderr); sys.exit(1)
+          owner, repo = repo_full.split("/",1)
+
+          s = requests.Session()
+          s.headers.update({
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28"
+          })
+          if retry: s.mount("https://", HTTPAdapter(max_retries=retry))
+
+          def get_accepted_open_issues():
+              url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+              params = {"state":"open", "labels":label_name, "per_page":100}
+              first = True
+              while url:
+                  r = s.get(url, params=params if first else None)
+                  first = False
+                  if r.status_code != 200:
+                      print(f"List issues failed: {r.status_code} {r.text}", file=sys.stderr); sys.exit(1)
+                  for it in r.json():
+                      if "pull_request" not in it:
+                          yield it
+                  url = r.links.get("next",{}).get("url")
+
+          def parse_after_label(body:str, label:str):
+              pat = rf"{re.escape(label)}\s*\r?\n([^\n\r]+)"
+              m = re.search(pat, body or "", re.IGNORECASE)
+              return m.group(1).strip() if m else ""
+
+          def normalize_handle(val: str) -> str:
+              val = (val or "").strip()
+              if not val: return ""
+              if val.startswith("http"):
+                  m = re.search(r"github\.com/([^/\s]+)", val, re.IGNORECASE)
+                  return m.group(1) if m else ""
+              return val.lstrip("@").split("/")[0]
+
+          rows = []
+          for issue in get_accepted_open_issues():
+              body = issue.get("body") or ""
+              nominee_name  = parse_after_label(body, "Nominee Name")
+              nominee_email = parse_after_label(body, "Nominee Email")
+              location      = parse_after_label(body, "City, State/Province, Country")
+              handle_raw    = parse_after_label(body, "Nominee's GitHub or GitLab Handle")
+              gh_handle     = normalize_handle(handle_raw)
+
+              # First name (optional convenience)
+              first_name = nominee_name.split()[0] if nominee_name else (issue.get("user",{}).get("login") or "there")
+
+              rows.append([
+                  issue["number"],
+                  first_name,
+                  nominee_name,
+                  nominee_email,
+                  location,
+                  gh_handle
+              ])
+
+          out = "accepted_export.csv"
+          with open(out, "w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerow(["Issue","First Name","Nominee Name","Nominee Email","Location","GitHub Handle"])
+              w.writerows(rows)
+
+          print(f"Exported {len(rows)} row(s) -> {out}")
+          PY
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: accepted_export
+          path: accepted_export.csv
