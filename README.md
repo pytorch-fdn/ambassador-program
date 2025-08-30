@@ -52,5 +52,5 @@ You can submit feedback or inquiries [here](https://github.com/pytorch-fdn/ambas
 ## 📬 Contact
 
 For general questions or additional information:  
-**Email:** ambassador@pytorch.org
+**Email:** ambassadors@pytorch.org
 
