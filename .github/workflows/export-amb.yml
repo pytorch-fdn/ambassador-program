@@ -1,4 +1,4 @@
-name: "Ambassador: Export Accepted Issues (CSV only)"
+name: "Ambassador Export Accepted Issues (CSV only)"
 
 on:
   workflow_dispatch:
