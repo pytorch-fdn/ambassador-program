@@ -42,7 +42,28 @@ jobs:
         run: |
           python - <<'PY'
           import os, re, csv, sys, requests
-          from requests.adapters import HTTPAdapter, Retry
+          from requests.adapters import HTTPAdapter
+          try:
+              # urllib3 v1/v2 compatibility
+              from urllib3.util.retry import Retry
+              try:
+                  retry = Retry(
+                      total=8,
+                      backoff_factor=0.7,
+                      status_forcelist=[429,500,502,503,504],
+                      allowed_methods=frozenset(["GET","POST","HEAD","OPTIONS"])
+                  )
+              except TypeError:
+                  # Older urllib3 uses method_whitelist
+                  retry = Retry(
+                      total=8,
+                      backoff_factor=0.7,
+                      status_forcelist=[429,500,502,503,504],
+                      method_whitelist=frozenset(["GET","POST","HEAD","OPTIONS"])
+                  )
+          except Exception as e:
+              print("Retry configuration error:", e, file=sys.stderr)
+              retry = None
 
           token = os.getenv("GITHUB_TOKEN")
           repo_full = os.getenv("REPO_FULL")
@@ -59,11 +80,8 @@ jobs:
               "Accept": "application/vnd.github+json",
               "X-GitHub-Api-Version": "2022-11-28"
           })
-          s.mount("https://", HTTPAdapter(max_retries=Retry(
-              total=8, backoff_factor=0.7,
-              status_forcelist=[429,500,502,503,504],
-              allowed_methods=["GET","POST","HEAD","OPTIONS"]
-          )))
+          if retry:
+              s.mount("https://", HTTPAdapter(max_retries=retry))
 
           MESSAGE_TEMPLATE = """Hello {first_name}
 
@@ -90,29 +108,42 @@ Best regards,
 The PyTorch PMO
 """
 
-          # ---------- Helpers ----------
+          def api_get(url, **kwargs):
+              r = s.get(url, **kwargs)
+              if r.status_code != 200:
+                  print(f"GET {url} failed: {r.status_code} {r.text}", file=sys.stderr)
+                  sys.exit(1)
+              return r
+
+          def api_post(url, json):
+              r = s.post(url, json=json)
+              if r.status_code not in (200,201):
+                  print(f"POST {url} failed: {r.status_code} {r.text}", file=sys.stderr)
+              return r
+
           def get_accepted_open_issues():
+              # labels param supports comma-separated labels; pass as-is to allow spaces
               url = f"https://api.github.com/repos/{owner}/{repo}/issues"
               params = {"state":"open", "labels":label_name, "per_page":100}
+              first = True
               while url:
-                  r = s.get(url, params=params if 'params' in locals() else None)
+                  r = s.get(url, params=params if first else None)
+                  first = False
                   if r.status_code != 200:
-                      print(f"Failed to list issues: {r.status_code} {r.text}", file=sys.stderr); sys.exit(1)
-                  for it in r.json():
+                      print(f"List issues failed: {r.status_code} {r.text}", file=sys.stderr)
+                      sys.exit(1)
+                  data = r.json()
+                  for it in data:
                       if "pull_request" not in it:
                           yield it
                   url = r.links.get("next",{}).get("url")
-                  params = None
 
           def parse_after_label(body:str, label:str):
-              """
-              Finds the line immediately following a label header block:
-                Label
-                value
-              Returns '' if not found.
-              """
+              # Matches:
+              # Label
+              # value
               pat = rf"{re.escape(label)}\s*\r?\n([^\n\r]+)"
-              m = re.search(pat, body, re.IGNORECASE)
+              m = re.search(pat, body or "", re.IGNORECASE)
               return m.group(1).strip() if m else ""
 
           def extract_fields(issue):
@@ -122,23 +153,17 @@ The PyTorch PMO
               location = parse_after_label(body, "City, State/Province, Country")
               gh_handle = parse_after_label(body, "Nominee's GitHub or GitLab Handle")
 
-              # Normalize handle: if it's a URL like https://github.com/user -> take last path segment
               if gh_handle.startswith("http"):
                   m = re.search(r"github\.com/([^/\s]+)", gh_handle, re.IGNORECASE)
-                  if m:
-                      gh_handle = m.group(1)
+                  if m: gh_handle = m.group(1)
 
-              # First name: from nominee_name first token; fallback to profile name; then login
-              first_name = ""
+              # First name from nominee name; fallback to login
               if nominee_name:
                   first_name = nominee_name.split()[0].strip()
-              if not first_name:
+              else:
                   user = issue.get("user") or {}
-                  prof_name = (user.get("name") or "").strip()
-                  if prof_name:
-                      first_name = prof_name.split()[0]
-                  else:
-                      first_name = (user.get("login") or "there")
+                  prof_name = (user.get("name") or "").strip()  # usually empty on Issues API
+                  first_name = prof_name.split()[0] if prof_name else (user.get("login") or "there")
 
               return {
                   "issue_number": issue["number"],
@@ -153,17 +178,14 @@ The PyTorch PMO
               if dry_run:
                   print(f"DRY-RUN: would post to #{issue_number}:\n{body[:300]}...\n---")
                   return
-              r = s.post(
-                  f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",
-                  json={"body": body}
-              )
-              if r.status_code not in (200,201):
-                  print(f"Failed to comment on #{issue_number}: {r.status_code} {r.text}", file=sys.stderr)
+              api_post(f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}/comments",
+                       json={"body": body})
 
-          # ---------- Process ----------
           rows = []
           count = 0
+          any_issues = False
           for issue in get_accepted_open_issues():
+              any_issues = True
               data = extract_fields(issue)
               msg = MESSAGE_TEMPLATE.format(first_name=data["first_name"])
               post_comment(data["issue_number"], msg)
@@ -176,14 +198,16 @@ The PyTorch PMO
                   data["github_handle"]
               ])
 
-          # Export CSV
+          if not any_issues:
+              print(f"No open issues found with label '{label_name}'.")
+          else:
+              print(f"Posted to {count} accepted issue(s).")
+
           out = "accepted_export.csv"
           with open(out, "w", newline="", encoding="utf-8") as f:
               w = csv.writer(f)
               w.writerow(["Issue", "Nominee Name", "Nominee Email", "Location", "GitHub Handle"])
               w.writerows(rows)
-
-          print(f"Posted to {count} accepted issue(s).")
           print(f"Exported {len(rows)} row(s) -> {out}")
           PY
 
