@@ -1,0 +1,100 @@
+name: "Migrate Rejected → Not Accepted"
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview changes without updating issues"
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  relabel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Replace labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_FULL: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          python - <<'PY'
+          import os, sys, requests
+          from requests.adapters import HTTPAdapter
+          try:
+              from urllib3.util.retry import Retry
+              retry = Retry(total=5, backoff_factor=0.7,
+                            status_forcelist=[429,500,502,503,504])
+          except Exception:
+              retry = None
+
+          token = os.getenv("GITHUB_TOKEN")
+          repo_full = os.getenv("REPO_FULL")
+          dry_run = os.getenv("DRY_RUN","true").lower() == "true"
+
+          if not token or not repo_full:
+              print("Missing env vars", file=sys.stderr); sys.exit(1)
+          owner, repo = repo_full.split("/", 1)
+
+          s = requests.Session()
+          s.headers.update({
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json"
+          })
+          if retry: s.mount("https://", HTTPAdapter(max_retries=retry))
+
+          def list_all_issues():
+              url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+              params = {"state":"all", "per_page":100}
+              first = True
+              while url:
+                  r = s.get(url, params=params if first else None)
+                  first = False
+                  if r.status_code != 200:
+                      print("List issues failed:", r.text); sys.exit(1)
+                  for it in r.json():
+                      if "pull_request" not in it:
+                          yield it
+                  url = r.links.get("next",{}).get("url")
+                  params = None
+
+          def update_labels(num, labels):
+              if dry_run:
+                  print(f"DRY-RUN: would update issue #{num} labels → {labels}")
+                  return
+              r = s.put(f"https://api.github.com/repos/{owner}/{repo}/issues/{num}/labels",
+                        json={"labels": labels})
+              if r.status_code not in (200,201):
+                  print(f"Update labels failed for #{num}: {r.status_code} {r.text}")
+
+          changed = 0
+          for issue in list_all_issues():
+              labels = [l["name"] for l in issue["labels"]]
+              if "Rejected" in labels:
+                  new_labels = [l for l in labels if l != "Rejected"]
+                  if "Not Accepted" not in new_labels:
+                      new_labels.append("Not Accepted")
+                  update_labels(issue["number"], new_labels)
+                  changed += 1
+
+          if dry_run:
+              print(f"DRY-RUN complete. {changed} issue(s) would be updated.")
+          else:
+              print(f"Done. Updated {changed} issue(s).")
+          PY
