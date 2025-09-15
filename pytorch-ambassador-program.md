@@ -55,7 +55,7 @@ To become a PyTorch Ambassador, candidates must meet the following criteria:
 - 📖 Event organization materials and playbooks.  
 
 ### **3️⃣ Financial & Event Support**  
-- 💰 Approved expense reimbursement to support community engagement
+- 💰 Approved expense reimbursement to support community engagement within the program’s budget.
 - 🎟️ Free or discounted tickets to the PyTorch Conference.  
 - 🎁 Ambassador swag for outreach events.  
 
