@@ -26,8 +26,6 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: transform .15s ease, box-shadow .15s ease;
-  /* position: relative; */
-  /* not clickable anymore; only the button is */
 }
 .ambassador-card:hover {
   transform: translateY(-2px);
@@ -51,13 +49,15 @@
   color: #111;
 }
 
-/* Social icons */
+/* ===== Social icons ===== */
 .ambassador-card .social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 12px; /* space between GitHub + LinkedIn */
 }
+
+/* Each icon button */
 .ambassador-card .icon {
   display: flex;
   align-items: center;
@@ -69,14 +69,22 @@
   background: #fafafa;
   transition: background .15s ease, border-color .15s ease, transform .05s ease;
 }
-.ambassador-card .icon img { width: 20px; height: 20px; display: block; }
-.ambassador-card .icon:hover {
-  background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
-}
-.ambassador-card .icon[aria-label="LinkedIn"]:hover {
-  background: #eef6ff; border-color: #b9d7ff;
+.ambassador-card .icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
+/* Hover styles */
+.ambassador-card .icon:hover {
+  background: #f8f9fb;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+}
+.ambassador-card .icon[aria-label="LinkedIn"]:hover {
+  background: #eef6ff;
+  border-color: #b9d7ff;
+}
 .ambassador-card .pronouns {
   margin: -6px 0 10px;
   font-size: 0.9rem;
