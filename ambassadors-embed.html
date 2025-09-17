@@ -27,6 +27,7 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: transform .15s ease, box-shadow .15s ease;
   position: relative;
+  /* not clickable anymore; only the button is */
 }
 .ambassador-card:hover {
   transform: translateY(-2px);
@@ -50,15 +51,13 @@
   color: #111;
 }
 
-/* ===== Social icons ===== */
+/* Social icons */
 .ambassador-card .social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px; /* space between GitHub + LinkedIn */
+  gap: 12px;
 }
-
-/* Each icon button */
 .ambassador-card .icon {
   display: flex;
   align-items: center;
@@ -70,21 +69,12 @@
   background: #fafafa;
   transition: background .15s ease, border-color .15s ease, transform .05s ease;
 }
-.ambassador-card .icon img {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Hover styles */
+.ambassador-card .icon img { width: 20px; height: 20px; display: block; }
 .ambassador-card .icon:hover {
-  background: #f8f9fb;
-  border-color: #d0d7de;
-  transform: translateY(-1px);
+  background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
 }
 .ambassador-card .icon[aria-label="LinkedIn"]:hover {
-  background: #eef6ff;
-  border-color: #b9d7ff;
+  background: #eef6ff; border-color: #b9d7ff;
 }
 
 .ambassador-card .pronouns {
@@ -94,7 +84,7 @@
   font-style: italic;
 }
 
-/* ===== Toggle button (kept for completeness; not used) ===== */
+/* ===== Toggle button (only thing that opens the card) ===== */
 .ambassador-toggle {
   margin-top: 12px;
   width: 100%;
@@ -124,7 +114,7 @@
 }
 .ambassador-card.open .ambassador-toggle::after { transform: rotate(180deg); }
 
-/* ===== Expandable area (kept for completeness; not used) ===== */
+/* ===== Expandable area (bio + location) ===== */
 .ambassador-card .extra {
   margin-top: 12px;
   padding-top: 12px;
@@ -147,7 +137,7 @@
 }
 .ambassador-card .extra .bio strong { font-weight: 700; }
 
-/* Hide any leftover .label spans */
+/* Hide any leftover .label spans (not using "Bio:" inline anymore) */
 .ambassador-card .extra .label { display: none; }
 
 /* Location: plain text, no pin icon */
@@ -157,27 +147,18 @@
   line-height: 1.4;
 }
 .ambassador-card .extra .location::before { content: none; }
-
-/* Open state (kept for completeness) */
+/* Open state (only the card with aria-expanded="true" expands) */
+.ambassador-card[aria-expanded="true"] .extra {
+  max-height: 1000px; /* large enough for real content */
+  opacity: 1;
+}
+/* Only the card with aria-expanded="true" should show its extra panel */
 .ambassador-card[aria-expanded="true"] .extra {
   max-height: 1000px;   /* big enough for content */
   opacity: 1;
 }
 
-/* ===== Desktop override: exactly 4 cards per row when the iframe is wide enough ===== */
-@media (min-width: 1200px) {
-  .ambassadors-grid {
-    grid-template-columns: repeat(4, 260px);
-    gap: 20px;
-    justify-content: center;   /* center the 4-column grid */
-    justify-items: start;      /* cards hug the left of each track */
-    max-width: calc(4 * 260px + 3 * 20px);
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* ===== Modal (only name + pronouns + bio) ===== */
+/* ===== Modal (unchanged; shows only name + pronouns + bio) ===== */
 .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal:target { display: grid; place-items: center; }
 .modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
@@ -199,7 +180,7 @@
 
   <!-- Regina Nkenchor -->
   <div class="ambassador-card">
-    <img class="avatar" src="https://github.com/reginankenchor.png?size=240" alt="Regina Nkenchor" />
+    <img class="avatar" src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg" alt="Regina Nkenchor" />
     <h3 class="name">Regina Nkenchor</h3>
     <p class="pronouns">she/her</p>
     <div class="social-icons">
@@ -369,26 +350,26 @@
 </section>
 
 <script>
-/* Open the matching modal when a card is clicked; social icons keep their links */
-(function(){
-  var cards = Array.prototype.slice.call(document.querySelectorAll('.ambassador-card'));
-  var modalIds = ['regina-modal','alejandro-modal','orestis-modal','abdulsalam-modal','giorgio-modal','eyup-modal'];
+  // Open the matching modal when a card is clicked (social links remain clickable)
+  (function(){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.ambassador-card'));
+    var modalIds = ['regina-modal','alejandro-modal','orestis-modal','abdulsalam-modal','giorgio-modal','eyup-modal'];
 
-  document.addEventListener('click', function(e){
-    if (e.target.closest('.social-icons a')) return; // don't hijack GitHub/LinkedIn clicks
-    var card = e.target.closest('.ambassador-card');
-    if (!card) return;
-    var idx = cards.indexOf(card);
-    if (idx > -1 && modalIds[idx]) {
-      location.hash = modalIds[idx]; // triggers :target CSS to show the modal
-    }
-  });
+    document.addEventListener('click', function(e){
+      if (e.target.closest('.social-icons a')) return; // don't hijack logo clicks
+      var card = e.target.closest('.ambassador-card');
+      if (!card) return;
+      var idx = cards.indexOf(card);
+      if (idx > -1 && modalIds[idx]) {
+        location.hash = modalIds[idx]; // triggers :target to show the modal
+      }
+    });
 
-  // ESC closes the modal
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && location.hash) location.hash = '';
-  });
-})();
+    // ESC closes the modal
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && location.hash) location.hash = '';
+    });
+  })();
 </script>
 
 </body>
