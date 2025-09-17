@@ -6,124 +6,171 @@
 <title>Ambassadors</title>
 
 <style>
-  /* Grid: fixed 260px tiles, left-aligned, with comfortable spacing */
-  .ambassadors-grid {
-    display: grid;
-    gap: 28px; /* space between cards (adjust to 32px if you want more) */
-    margin-top: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 260px));
-    justify-content: start;  /* pack from the left */
-    justify-items: start;    /* each card hugs the left of its cell */
-  }
+/* ===== Ambassadors grid ===== */
+.ambassadors-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-items: center;
+}
 
-  /* Card styling (kept like your original) */
-  .ambassador-card {
-    max-width: 260px;
-    width: 100%;
-    border: 1px solid #e6e6e6;
-    border-radius: 12px;
-    padding: 16px 14px;
-    text-align: center;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: transform .15s ease, box-shadow .15s ease;
-    position: relative;
-    cursor: pointer;
-  }
-  .ambassador-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
+/* ===== Card styling ===== */
+.ambassador-card {
+  max-width: 260px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 16px 14px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform .15s ease, box-shadow .15s ease;
+  position: relative;
+  /* not clickable anymore; only the button is */
+}
+.ambassador-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
 
-  /* Avatar */
-  .ambassador-card .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 12px;
-  }
+/* Avatar */
+.ambassador-card .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
 
-  /* Name */
-  .ambassador-card .name {
-    margin: 8px 0 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #111;
-  }
+/* Name */
+.ambassador-card .name {
+  margin: 8px 0 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
 
-  /* Pronouns */
-  .ambassador-card .pronouns {
-    margin: -6px 0 10px;
-    font-size: 0.9rem;
-    color: #555;
-    font-style: italic;
-  }
+/* Social icons */
+.ambassador-card .social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.ambassador-card .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+}
+.ambassador-card .icon img { width: 20px; height: 20px; display: block; }
+.ambassador-card .icon:hover {
+  background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
+}
+.ambassador-card .icon[aria-label="LinkedIn"]:hover {
+  background: #eef6ff; border-color: #b9d7ff;
+}
 
-  /* Social icons (on the card only) */
-  .ambassador-card .social-icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-  }
-  .ambassador-card .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid #e6e6e6;
-    border-radius: 8px;
-    background: #fafafa;
-    transition: background .15s ease, border-color .15s ease, transform .05s ease;
-  }
-  .ambassador-card .icon img { width: 20px; height: 20px; display: block; }
-  .ambassador-card .icon:hover {
-    background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
-  }
-  .ambassador-card .icon[aria-label="LinkedIn"]:hover {
-    background: #eef6ff; border-color: #b9d7ff;
-  }
+.ambassador-card .pronouns {
+  margin: -6px 0 10px;
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}
 
-  /* Modal (opens via :target on the hash) */
-  .modal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    z-index: 1000;
-  }
-  .modal:target { display: grid; place-items: center; }
-  .modal__backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.5);
-  }
-  .modal__card {
-    position: relative;
-    background: #fff;
-    width: min(640px, 92vw);
-    max-height: 85vh;
-    overflow: auto;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
-  }
-  .modal__close {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    font-size: 24px;
-    text-decoration: none;
-    color: #111;
-    line-height: 1;
-  }
-  /* Modal header: only name + pronouns */
-  .modal__header {
-    margin-bottom: 12px;
-    text-align: left;
-  }
-  .bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
+/* ===== Toggle button (only thing that opens the card) ===== */
+.ambassador-toggle {
+  margin-top: 12px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.92rem;
+  line-height: 1;
+  color: #111;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.ambassador-toggle:hover {
+  background: #f8f9fb;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+}
+.ambassador-toggle::after {
+  content: "▾";
+  font-size: 0.9rem;
+  transition: transform .2s ease;
+}
+.ambassador-card.open .ambassador-toggle::after { transform: rotate(180deg); }
+
+/* ===== Expandable area (bio + location) ===== */
+.ambassador-card .extra {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  text-align: left;
+  display: grid;
+  gap: 10px;
+  max-height: 0;          /* collapsed by default */
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .3s ease, opacity .2s ease;
+}
+.ambassador-card.open .extra { opacity: 1; }
+
+/* Bio starts with bold name */
+.ambassador-card .extra .bio {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+.ambassador-card .extra .bio strong { font-weight: 700; }
+
+/* Hide any leftover .label spans (not using "Bio:" inline anymore) */
+.ambassador-card .extra .label { display: none; }
+
+/* Location: plain text, no pin icon */
+.ambassador-card .extra .location {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.4;
+}
+.ambassador-card .extra .location::before { content: none; }
+/* Open state (only the card with aria-expanded="true" expands) */
+.ambassador-card[aria-expanded="true"] .extra {
+  max-height: 1000px; /* large enough for real content */
+  opacity: 1;
+}
+/* Only the card with aria-expanded="true" should show its extra panel */
+.ambassador-card[aria-expanded="true"] .extra {
+  max-height: 1000px;   /* big enough for content */
+  opacity: 1;
+}
+
+/* ===== Modal (unchanged; shows only name + pronouns + bio) ===== */
+.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+.modal:target { display: grid; place-items: center; }
+.modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
+.modal__card {
+  position: relative; background: #fff; width: min(640px, 92vw); max-height: 85vh;
+  overflow: auto; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.modal__close {
+  position: absolute; top: 10px; right: 12px; font-size: 24px; text-decoration: none; color: #111; line-height: 1;
+}
+.modal__header { margin-bottom: 12px; text-align: left; }
+.bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
 </style>
 </head>
 <body>
