@@ -121,6 +121,50 @@
   width: 110px;
   height: 110px;
 }
+/* === OVERRIDES: tidy content inside taller cards (same width) === */
+.ambassador-card {
+  /* you already set min-height: 420px earlier */
+  display: flex;                
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 24px;            
+  padding-bottom: 20px;
+}
+
+.ambassador-card .avatar {
+  width: 110px;                  
+  height: 110px;
+  margin-bottom: 14px;
+}
+
+.ambassador-card .name {
+  font-size: 1.2rem;        
+  line-height: 1.25;
+  margin: 10px 0 6px;
+  text-align: center;
+  min-height: 2.5em;            
+  display: flex;
+  align-items: center;        
+  justify-content: center;
+}
+
+.ambassador-card .pronouns {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0 0 16px;
+  min-height: 1.2em;             
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Push the icons to the bottom so every card fills its height neatly */
+.ambassador-card .social-icons {
+  margin-top: auto;         
+  padding-top: 12px;
+  gap: 12px;                    
+}
 
 </style>
 </head>
