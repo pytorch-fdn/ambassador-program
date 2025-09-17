@@ -92,77 +92,7 @@
   font-style: italic;
 }
 
-/* ===== Toggle button (only thing that opens the card) ===== */
-.ambassador-toggle {
-  margin-top: 12px;
-  width: 100%;
-  border: 1px solid #e6e6e6;
-  background: #fafafa;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.92rem;
-  line-height: 1;
-  color: #111;
-  cursor: pointer;
-  transition: background .15s ease, border-color .15s ease, transform .05s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.ambassador-toggle:hover {
-  background: #f8f9fb;
-  border-color: #d0d7de;
-  transform: translateY(-1px);
-}
-.ambassador-toggle::after {
-  content: "▾";
-  font-size: 0.9rem;
-  transition: transform .2s ease;
-}
-.ambassador-card.open .ambassador-toggle::after { transform: rotate(180deg); }
-
-/* ===== Expandable area (bio + location) ===== */
-.ambassador-card .extra {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-  text-align: left;
-  display: grid;
-  gap: 10px;
-  max-height: 0;          /* collapsed by default */
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height .3s ease, opacity .2s ease;
-}
-.ambassador-card.open .extra { opacity: 1; }
-
-/* Bio starts with bold name */
-.ambassador-card .extra .bio {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.5;
-}
-.ambassador-card .extra .bio strong { font-weight: 700; }
-
-/* Hide any leftover .label spans (not using "Bio:" inline anymore) */
-.ambassador-card .extra .label { display: none; }
-
-/* Location: plain text, no pin icon */
-.ambassador-card .extra .location {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.4;
-}
-.ambassador-card .extra .location::before { content: none; }
-
-/* Open state (only the card with aria-expanded="true" expands) */
-.ambassador-card[aria-expanded="true"] .extra {
-  max-height: 1000px;   /* big enough for content */
-  opacity: 1;
-}
-
-/* ===== Modal (shows only name + pronouns + bio) ===== */
+/* ===== Modal (only name + pronouns + bio; no logos) ===== */
 .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal:target { display: grid; place-items: center; }
 .modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
@@ -175,51 +105,9 @@
 }
 .modal__header { margin-bottom: 12px; text-align: left; }
 .bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
-
-/* === 4 columns
-.ambassador-card {
-  max-width: none;          /* remove 260px cap so cards can grow */
-  padding: 28px 24px;       /* more inner space */
-  border-radius: 16px;      
-}
-
-.ambassador-card .avatar {
-  width: clamp(200px, 60%, 280px);
-  height: clamp(200px, 60%, 280px);
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.ambassador-card .name {
-  font-size: clamp(1.8rem, 1.2vw + 1.1rem, 2.6rem);
-  line-height: 1.2;
-  margin: 18px 0 12px;
-}
-
-.ambassador-card .pronouns {
-  font-size: 1rem;
-  color: #777;
-  font-style: italic;
-  margin: 4px 0 16px;
-}
-
-.ambassador-card .icon {
-  width: 48px;
-  height: 48px;
-}
-
-.ambassadors-grid { gap: 40px; }
-
-@media (min-width: 1400px) {
-  .ambassadors-grid {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 </style>
+</head>
+<body>
 
 <h2>Meet the Ambassadors</h2>
 <div class="ambassadors-grid">
@@ -314,9 +202,9 @@
     </div>
   </div>
 
-</div> <!-- end .ambassadors-grid -->
+</div><!-- /.ambassadors-grid -->
 
-<!-- Modals (only name + pronouns + bio; no logos inside) -->
+<!-- ===== Modals (only name + pronouns + bio; no logos) ===== -->
 <section id="regina-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="regina-title">
   <a href="#" class="modal__backdrop" aria-hidden="true"></a>
   <div class="modal__card">
@@ -396,26 +284,38 @@
 </section>
 
 <script>
-  // Open the matching modal when a card is clicked (social links remain clickable)
-  (function(){
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.ambassador-card'));
-    var modalIds = ['regina-modal','alejandro-modal','orestis-modal','abdulsalam-modal','giorgio-modal','eyup-modal'];
+/* Open the matching modal when a card is clicked; social icons keep their links */
+(function () {
+  var cards = Array.prototype.slice.call(
+    document.querySelectorAll('.ambassadors-grid .ambassador-card')
+  );
+  var modalIds = [
+    'regina-modal',
+    'alejandro-modal',
+    'orestis-modal',
+    'abdulsalam-modal',
+    'giorgio-modal',
+    'eyup-modal'
+  ];
 
-    document.addEventListener('click', function(e){
-      if (e.target.closest('.social-icons a')) return; // don't hijack logo clicks
-      var card = e.target.closest('.ambassador-card');
-      if (!card) return;
-      var idx = cards.indexOf(card);
-      if (idx > -1 && modalIds[idx]) {
-        location.hash = modalIds[idx]; // triggers :target to show the modal
-      }
-    });
+  document.addEventListener('click', function (e) {
+    // don't hijack GitHub/LinkedIn clicks
+    if (e.target.closest('.social-icons a')) return;
 
-    // ESC closes the modal
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && location.hash) location.hash = '';
-    });
-  })();
+    var card = e.target.closest('.ambassador-card');
+    if (!card) return;
+
+    var idx = cards.indexOf(card);
+    if (idx > -1 && modalIds[idx]) {
+      location.hash = modalIds[idx]; // triggers :target CSS to show the modal
+    }
+  });
+
+  // ESC closes the modal
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && location.hash) location.hash = '';
+  });
+})();
 </script>
 
 </body>
