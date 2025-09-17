@@ -91,6 +91,20 @@
   color: #555;
   font-style: italic;
 }
+
+/* ===== Modal (only name + pronouns + bio; no logos) ===== */
+.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+.modal:target { display: grid; place-items: center; }
+.modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
+.modal__card {
+  position: relative; background: #fff; width: min(640px, 92vw); max-height: 85vh;
+  overflow: auto; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.modal__close {
+  position: absolute; top: 10px; right: 12px; font-size: 24px; text-decoration: none; color: #111; line-height: 1;
+}
+.modal__header { margin-bottom: 12px; text-align: left; }
+.bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
 </style>
 </head>
 <body>
