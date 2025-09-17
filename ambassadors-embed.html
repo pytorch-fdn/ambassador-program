@@ -26,8 +26,6 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: transform .15s ease, box-shadow .15s ease;
-  position: relative;
-  /* not clickable anymore; only the button is */
 }
 .ambassador-card:hover {
   transform: translateY(-2px);
@@ -51,13 +49,15 @@
   color: #111;
 }
 
-/* Social icons */
+/* ===== Social icons ===== */
 .ambassador-card .social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 12px; /* space between GitHub + LinkedIn */
 }
+
+/* Each icon button */
 .ambassador-card .icon {
   display: flex;
   align-items: center;
@@ -69,93 +69,27 @@
   background: #fafafa;
   transition: background .15s ease, border-color .15s ease, transform .05s ease;
 }
-.ambassador-card .icon img { width: 20px; height: 20px; display: block; }
-.ambassador-card .icon:hover {
-  background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
-}
-.ambassador-card .icon[aria-label="LinkedIn"]:hover {
-  background: #eef6ff; border-color: #b9d7ff;
+.ambassador-card .icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
+/* Hover styles */
+.ambassador-card .icon:hover {
+  background: #f8f9fb;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+}
+.ambassador-card .icon[aria-label="LinkedIn"]:hover {
+  background: #eef6ff;
+  border-color: #b9d7ff;
+}
 .ambassador-card .pronouns {
   margin: -6px 0 10px;
   font-size: 0.9rem;
   color: #555;
   font-style: italic;
-}
-
-/* ===== Toggle button (only thing that opens the card) ===== */
-.ambassador-toggle {
-  margin-top: 12px;
-  width: 100%;
-  border: 1px solid #e6e6e6;
-  background: #fafafa;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.92rem;
-  line-height: 1;
-  color: #111;
-  cursor: pointer;
-  transition: background .15s ease, border-color .15s ease, transform .05s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.ambassador-toggle:hover {
-  background: #f8f9fb;
-  border-color: #d0d7de;
-  transform: translateY(-1px);
-}
-.ambassador-toggle::after {
-  content: "▾";
-  font-size: 0.9rem;
-  transition: transform .2s ease;
-}
-.ambassador-card.open .ambassador-toggle::after { transform: rotate(180deg); }
-
-/* ===== Expandable area (bio + location) ===== */
-.ambassador-card .extra {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-  text-align: left;
-  display: grid;
-  gap: 10px;
-  max-height: 0;          /* collapsed by default */
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height .3s ease, opacity .2s ease;
-}
-.ambassador-card.open .extra { opacity: 1; }
-
-/* Bio starts with bold name */
-.ambassador-card .extra .bio {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.5;
-}
-.ambassador-card .extra .bio strong { font-weight: 700; }
-
-/* Hide any leftover .label spans (not using "Bio:" inline anymore) */
-.ambassador-card .extra .label { display: none; }
-
-/* Location: plain text, no pin icon */
-.ambassador-card .extra .location {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.4;
-}
-.ambassador-card .extra .location::before { content: none; }
-/* Open state (only the card with aria-expanded="true" expands) */
-.ambassador-card[aria-expanded="true"] .extra {
-  max-height: 1000px; /* large enough for real content */
-  opacity: 1;
-}
-/* Only the card with aria-expanded="true" should show its extra panel */
-.ambassador-card[aria-expanded="true"] .extra {
-  max-height: 1000px;   /* big enough for content */
-  opacity: 1;
 }
 </style>
 </head>
