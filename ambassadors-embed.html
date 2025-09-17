@@ -26,6 +26,8 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: transform .15s ease, box-shadow .15s ease;
+  position: relative;
+  /* not clickable anymore; only the button is */
 }
 .ambassador-card:hover {
   transform: translateY(-2px);
@@ -49,15 +51,13 @@
   color: #111;
 }
 
-/* ===== Social icons ===== */
+/* Social icons */
 .ambassador-card .social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px; /* space between GitHub + LinkedIn */
+  gap: 12px;
 }
-
-/* Each icon button */
 .ambassador-card .icon {
   display: flex;
   align-items: center;
@@ -69,22 +69,14 @@
   background: #fafafa;
   transition: background .15s ease, border-color .15s ease, transform .05s ease;
 }
-.ambassador-card .icon img {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Hover styles */
+.ambassador-card .icon img { width: 20px; height: 20px; display: block; }
 .ambassador-card .icon:hover {
-  background: #f8f9fb;
-  border-color: #d0d7de;
-  transform: translateY(-1px);
+  background: #f8f9fb; border-color: #d0d7de; transform: translateY(-1px);
 }
 .ambassador-card .icon[aria-label="LinkedIn"]:hover {
-  background: #eef6ff;
-  border-color: #b9d7ff;
+  background: #eef6ff; border-color: #b9d7ff;
 }
+
 .ambassador-card .pronouns {
   margin: -6px 0 10px;
   font-size: 0.9rem;
@@ -92,142 +84,79 @@
   font-style: italic;
 }
 
-/* ===== Modal (only name + pronouns + bio; no logos) ===== */
-.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
-.modal:target { display: grid; place-items: center; }
-.modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
-.modal__card {
-  position: relative; background: #fff; width: min(640px, 92vw); max-height: 85vh;
-  overflow: auto; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
-}
-.modal__close {
-  position: absolute; top: 10px; right: 12px; font-size: 24px; text-decoration: none; color: #111; line-height: 1;
-}
-.modal__header { margin-bottom: 12px; text-align: left; }
-.bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
-.ambassadors-grid {
-  gap: 28px; /* a bit more space between cards */
-}
-
-.ambassador-card {
-  max-width: 260px;   
-  min-height: 420px;
-  padding-top: 22px;  
-  padding-bottom: 22px;
-}
-
-/* Optional: tiny avatar bump to balance the taller card; remove if not needed */
-.ambassador-card .avatar {
-  width: 110px;
-  height: 110px;
-}
-/* === OVERRIDES: tidy content inside taller cards (same width) === */
-.ambassador-card {
-  /* you already set min-height: 420px earlier */
-  display: flex;                
-  flex-direction: column;
+/* ===== Toggle button (only thing that opens the card) ===== */
+.ambassador-toggle {
+  margin-top: 12px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.92rem;
+  line-height: 1;
+  color: #111;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 24px;            
-  padding-bottom: 20px;
-}
-
-.ambassador-card .avatar {
-  width: 110px;                  
-  height: 110px;
-  margin-bottom: 14px;
-}
-
-.ambassador-card .name {
-  font-size: 1.2rem;        
-  line-height: 1.25;
-  margin: 10px 0 6px;
-  text-align: center;
-  min-height: 2.5em;            
-  display: flex;
-  align-items: center;        
   justify-content: center;
+  gap: 6px;
 }
+.ambassador-toggle:hover {
+  background: #f8f9fb;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+}
+.ambassador-toggle::after {
+  content: "▾";
+  font-size: 0.9rem;
+  transition: transform .2s ease;
+}
+.ambassador-card.open .ambassador-toggle::after { transform: rotate(180deg); }
 
-.ambassador-card .pronouns {
+/* ===== Expandable area (bio + location) ===== */
+.ambassador-card .extra {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  text-align: left;
+  display: grid;
+  gap: 10px;
+  max-height: 0;          /* collapsed by default */
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .3s ease, opacity .2s ease;
+}
+.ambassador-card.open .extra { opacity: 1; }
+
+/* Bio starts with bold name */
+.ambassador-card .extra .bio {
   font-size: 0.95rem;
-  color: #666;
-  margin: 0 0 16px;
-  min-height: 1.2em;             
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #333;
+  line-height: 1.5;
 }
+.ambassador-card .extra .bio strong { font-weight: 700; }
 
-/* Push the icons to the bottom so every card fills its height neatly */
-.ambassador-card .social-icons {
-  margin-top: auto;         
-  padding-top: 12px;
-  gap: 12px;                    
+/* Hide any leftover .label spans (not using "Bio:" inline anymore) */
+.ambassador-card .extra .label { display: none; }
+
+/* Location: plain text, no pin icon */
+.ambassador-card .extra .location {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.4;
 }
-/* === OVERRIDES: balance content inside taller cards (same width) === */
-
-/* Make each grid row stretch so all cards share the same height */
-.ambassadors-grid {
-  align-items: stretch;
-  gap: 28px;                 /* a little more space between cards */
+.ambassador-card .extra .location::before { content: none; }
+/* Open state (only the card with aria-expanded="true" expands) */
+.ambassador-card[aria-expanded="true"] .extra {
+  max-height: 1000px; /* large enough for real content */
+  opacity: 1;
 }
-
-/* Turn each card into a vertical flex layout */
-.ambassador-card {
-  max-width: 260px;          /* keep your original width */
-  min-height: 460px;         /* adjust this number to taste (e.g., 420–520) */
-  padding: 24px 16px;        /* a touch more vertical breathing room */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+/* Only the card with aria-expanded="true" should show its extra panel */
+.ambassador-card[aria-expanded="true"] .extra {
+  max-height: 1000px;   /* big enough for content */
+  opacity: 1;
 }
-
-/* Avatar slightly larger to fit the taller card */
-.ambassador-card .avatar {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 14px;
-  flex: 0 0 auto;
-}
-
-/* Name & pronouns sized and spaced to avoid big gaps */
-.ambassador-card .name {
-  font-size: 1.25rem !important;  /* keep readable but not huge */
-  line-height: 1.25;
-  margin: 10px 0 6px !important;
-  text-align: center;
-  min-height: 2.6em;              /* reserves consistent space for 2 lines */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ambassador-card .pronouns {
-  font-size: 0.95rem !important;
-  color: #666 !important;
-  margin: 0 0 16px !important;
-  text-align: center;
-  min-height: 1.2em;              /* keeps layout steady if missing */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Push the social icons to the bottom so cards feel filled */
-.ambassador-card .social-icons {
-  margin-top: auto;               /* key line: anchors row to the bottom */
-  padding-top: 12px;
-  gap: 12px;
-}
-
-.ambassador-card .icon {
-  width: 38px;
-  height: 38px;
-}
-
-
 </style>
 </head>
 <body>
