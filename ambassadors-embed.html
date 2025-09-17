@@ -6,17 +6,17 @@
 <title>Ambassadors</title>
 
 <style>
-  /* Ambassadors grid: fixed 260px tiles, wrap from the left */
+  /* Grid: fixed 260px tiles, left-aligned, with comfortable spacing */
   .ambassadors-grid {
     display: grid;
-    gap: 20px;
+    gap: 28px; /* space between cards (adjust to 32px if you want more) */
     margin-top: 20px;
     grid-template-columns: repeat(auto-fill, minmax(260px, 260px));
-    justify-content: start;   /* pack tiles from the left edge */
-    justify-items: start;     /* each tile hugs the left of its cell */
+    justify-content: start;  /* pack from the left */
+    justify-items: start;    /* each card hugs the left of its cell */
   }
 
-  /* Card */
+  /* Card styling (kept like your original) */
   .ambassador-card {
     max-width: 260px;
     width: 100%;
@@ -60,7 +60,7 @@
     font-style: italic;
   }
 
-  /* Social icons (only on the card, not in modal) */
+  /* Social icons (on the card only) */
   .ambassador-card .social-icons {
     display: flex;
     align-items: center;
@@ -118,12 +118,12 @@
     color: #111;
     line-height: 1;
   }
-  /* Modal header simplified: only name + pronouns */
+  /* Modal header: only name + pronouns */
   .modal__header {
     margin-bottom: 12px;
     text-align: left;
   }
-  .location, .bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
+  .bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -223,7 +223,7 @@
 
 </div> <!-- end .ambassadors-grid -->
 
-<!-- Modals (only name + pronouns + bio) -->
+<!-- Modals (only name + pronouns + bio; no logos inside) -->
 <section id="regina-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="regina-title">
   <a href="#" class="modal__backdrop" aria-hidden="true"></a>
   <div class="modal__card">
@@ -303,18 +303,15 @@
 </section>
 
 <script>
-  // Open the matching modal when a card is clicked (logos in cards remain clickable and won't open the modal)
+  // Open the matching modal when a card is clicked (social links remain clickable)
   (function(){
     var cards = Array.prototype.slice.call(document.querySelectorAll('.ambassador-card'));
     var modalIds = ['regina-modal','alejandro-modal','orestis-modal','abdulsalam-modal','giorgio-modal','eyup-modal'];
 
     document.addEventListener('click', function(e){
-      // ignore clicks on social links
-      if (e.target.closest('.social-icons a')) return;
-
+      if (e.target.closest('.social-icons a')) return; // don't hijack logo clicks
       var card = e.target.closest('.ambassador-card');
       if (!card) return;
-
       var idx = cards.indexOf(card);
       if (idx > -1 && modalIds[idx]) {
         location.hash = modalIds[idx]; // triggers :target to show the modal
