@@ -147,18 +147,14 @@
   line-height: 1.4;
 }
 .ambassador-card .extra .location::before { content: none; }
+
 /* Open state (only the card with aria-expanded="true" expands) */
-.ambassador-card[aria-expanded="true"] .extra {
-  max-height: 1000px; /* large enough for real content */
-  opacity: 1;
-}
-/* Only the card with aria-expanded="true" should show its extra panel */
 .ambassador-card[aria-expanded="true"] .extra {
   max-height: 1000px;   /* big enough for content */
   opacity: 1;
 }
 
-/* ===== Modal (unchanged; shows only name + pronouns + bio) ===== */
+/* ===== Modal (shows only name + pronouns + bio) ===== */
 .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal:target { display: grid; place-items: center; }
 .modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
@@ -171,9 +167,51 @@
 }
 .modal__header { margin-bottom: 12px; text-align: left; }
 .bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
+
+/* === 4 columns
+.ambassador-card {
+  max-width: none;          /* remove 260px cap so cards can grow */
+  padding: 28px 24px;       /* more inner space */
+  border-radius: 16px;      
+}
+
+.ambassador-card .avatar {
+  width: clamp(200px, 60%, 280px);
+  height: clamp(200px, 60%, 280px);
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.ambassador-card .name {
+  font-size: clamp(1.8rem, 1.2vw + 1.1rem, 2.6rem);
+  line-height: 1.2;
+  margin: 18px 0 12px;
+}
+
+.ambassador-card .pronouns {
+  font-size: 1rem;
+  color: #777;
+  font-style: italic;
+  margin: 4px 0 16px;
+}
+
+.ambassador-card .icon {
+  width: 48px;
+  height: 48px;
+}
+
+.ambassadors-grid { gap: 40px; }
+
+@media (min-width: 1400px) {
+  .ambassadors-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 </style>
-</head>
-<body>
 
 <h2>Meet the Ambassadors</h2>
 <div class="ambassadors-grid">
