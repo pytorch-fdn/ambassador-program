@@ -144,5 +144,21 @@ h2{
 .modal .location {
   margin-top: 6px;
 }
+/* === Lock to exactly 4 columns at desktop === */
+@media (min-width: 1200px) {
+  .ambassadors-grid {
+    /* exactly 4 fixed-width columns */
+    grid-template-columns: repeat(4, 260px);
+    gap: 20px;
+
+    max-width: calc(4 * 260px + 3 * 20px); /* 1100px */
+    margin-left: auto;
+    margin-right: auto;
+
+    justify-content: center;
+    justify-items: center;
+  }
+}
+
 
 
