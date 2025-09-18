@@ -5,124 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Ambassadors</title>
 
+<!-- Font (optional; helps GH match WP scale/feel) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Swap this font for your actual brand font if different -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-  html { font-size: 18px; }
-  /* Use the same text stack as WP */
-  body {
-    margin: 0;
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    line-height: 1.5;
-    color: #111;
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-</style>
-
-<style>
-/* ===== Ambassadors grid ===== */
-.ambassadors-grid {
-  display: grid;
-  gap: 20px;
-  margin-top: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  justify-items: center;
-}
-
-/* ===== Card styling ===== */
-.ambassador-card {
-  max-width: 260px;
-  width: 100%;
-  border: 1px solid #e6e6e6;
-  border-radius: 12px;
-  padding: 16px 14px;
-  text-align: center;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-.ambassador-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* Avatar */
-.ambassador-card .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-}
-
-/* Name */
-.ambassador-card .name {
-  margin: 8px 0 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #111;
-}
-
-/* ===== Social icons ===== */
-.ambassador-card .social-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px; /* space between GitHub + LinkedIn */
-}
-
-/* Each icon button */
-.ambassador-card .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  background: #fafafa;
-  transition: background .15s ease, border-color .15s ease, transform .05s ease;
-}
-.ambassador-card .icon img {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-/* Hover styles */
-.ambassador-card .icon:hover {
-  background: #f8f9fb;
-  border-color: #d0d7de;
-  transform: translateY(-1px);
-}
-.ambassador-card .icon[aria-label="LinkedIn"]:hover {
-  background: #eef6ff;
-  border-color: #b9d7ff;
-}
-.ambassador-card .pronouns {
-  margin: -6px 0 10px;
-  font-size: 0.9rem;
-  color: #555;
-  font-style: italic;
-}
-
-/* ===== Modal (only name + pronouns + bio; no logos) ===== */
-.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
-.modal:target { display: grid; place-items: center; }
-.modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
-.modal__card {
-  position: relative; background: #fff; width: min(640px, 92vw); max-height: 85vh;
-  overflow: auto; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
-}
-.modal__close {
-  position: absolute; top: 10px; right: 12px; font-size: 24px; text-decoration: none; color: #111; line-height: 1;
-}
-.modal__header { margin-bottom: 12px; text-align: left; }
-.bio { font-size: 0.95rem; color: #333; line-height: 1.5; }
-</style>
+<!-- Your external CSS -->
+<link rel="stylesheet" href="./ambassadors.css">
 </head>
 <body>
 
@@ -300,40 +189,7 @@
   </div>
 </section>
 
-<script>
-/* Open the matching modal when a card is clicked; social icons keep their links */
-(function () {
-  var cards = Array.prototype.slice.call(
-    document.querySelectorAll('.ambassadors-grid .ambassador-card')
-  );
-  var modalIds = [
-    'regina-modal',
-    'alejandro-modal',
-    'orestis-modal',
-    'abdulsalam-modal',
-    'giorgio-modal',
-    'eyup-modal'
-  ];
-
-  document.addEventListener('click', function (e) {
-    // don't hijack GitHub/LinkedIn clicks
-    if (e.target.closest('.social-icons a')) return;
-
-    var card = e.target.closest('.ambassador-card');
-    if (!card) return;
-
-    var idx = cards.indexOf(card);
-    if (idx > -1 && modalIds[idx]) {
-      location.hash = modalIds[idx]; // triggers :target CSS to show the modal
-    }
-  });
-
-  // ESC closes the modal
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && location.hash) location.hash = '';
-  });
-})();
-</script>
-
+<!-- Your external JS -->
+<script defer src="./ambassadors.js"></script>
 </body>
 </html>
