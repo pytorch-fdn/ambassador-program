@@ -22,13 +22,13 @@ body {
 *, *::before, *::after { box-sizing: border-box; }
 
 /* === Heading: match WP dump for "Meet the Ambassadors" === */
-h2 {
-  font-family: serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: normal;
+h2{
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 200;      /* very light */
+  font-size: 56px;       /* from WP computed */
+  line-height: 64px;     /* from WP computed */
+  color: #444444;        /* rgb(68,68,68) */
   margin: 0 0 0.5rem;
-  color: #111; /* keep your heading color */
 }
 
 /* ===== Ambassadors grid ===== */
