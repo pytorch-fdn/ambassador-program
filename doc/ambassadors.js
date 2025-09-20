@@ -9,16 +9,20 @@
   }
 
   function setModalOpenClass() {
-    // If the hash points to an actual modal section…
     var isOpen = !!(location.hash && document.querySelector(location.hash + '.modal'));
-
-    if (isOpen) {
-      document.body.classList.add('modal-open');
-    } else {
-      document.body.classList.remove('modal-open');
-    }
-
+    if (isOpen) document.body.classList.add('modal-open');
+    else document.body.classList.remove('modal-open');
     notifyParentModal(isOpen);
+  }
+
+  // load the big image inside the modal the first time it's opened
+  function loadModalAvatar(modalEl) {
+    if (!modalEl) return;
+    var img = modalEl.querySelector('.modal__avatar');
+    if (img && !img.src) {
+      var url = img.getAttribute('data-src');
+      if (url) img.src = url;
+    }
   }
 
   function init() {
@@ -36,7 +40,6 @@
     ];
 
     document.addEventListener('click', function (e) {
-      // Ignore clicks on social icons so they behave normally
       if (e.target.closest('.social-icons a')) return;
 
       var card = e.target.closest('.ambassador-card');
@@ -45,7 +48,11 @@
       var idx = cards.indexOf(card);
       if (idx > -1 && modalIds[idx]) {
         location.hash = modalIds[idx];
-        setModalOpenClass(); //
+        // NEW: load deferred avatar now
+        var modalEl = document.getElementById(modalIds[idx]);
+        loadModalAvatar(modalEl);
+
+        setModalOpenClass();
       }
     });
 
@@ -56,11 +63,19 @@
       }
     });
 
-    // Handle browser back/forward or backdrop clicks
-    window.addEventListener('hashchange', setModalOpenClass);
+    // Ensure image loads when arriving with a hash or using back/forward
+    window.addEventListener('hashchange', function () {
+      setModalOpenClass();
+      if (location.hash) {
+        loadModalAvatar(document.querySelector(location.hash + '.modal'));
+      }
+    });
 
-    // If the page loads with a modal already open (e.g., shared link)
     setModalOpenClass();
+    // If page loads with a hash, also try to load that modal image
+    if (location.hash) {
+      loadModalAvatar(document.querySelector(location.hash + '.modal'));
+    }
   }
 
   if (document.readyState === 'loading') {
