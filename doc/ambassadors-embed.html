@@ -9,214 +9,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
 
-
+<!-- external CSS -->
 <link rel="stylesheet" href="./ambassadors.css">
 </head>
 <body>
 
-<!-- Wrap page content so it can be blurred when a modal is open -->
-<div id="page-content">
-  <div class="ambassadors-grid">
-
-    <!-- Regina Nkenchor -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg" alt="Regina Nkenchor" />
-      <h3 class="name">Regina Nkenchor</h3>
-      <p class="pronouns">she/her</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/reginankenchor" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="https://www.linkedin.com/in/reginankenchor" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- Alejandro Núñez Arroyo -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://github.com/AleNunezArroyo.png?size=240" alt="Alejandro Núñez Arroyo" />
-      <h3 class="name">Alejandro Núñez Arroyo</h3>
-      <p class="pronouns">—</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/AleNunezArroyo" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- Orestis Antonis Makris -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://github.com/OrestisMakris.png?size=240" alt="Orestis Antonis Makris" />
-      <h3 class="name">Orestis Antonis Makris</h3>
-      <p class="pronouns">—</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/OrestisMakris" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- ABDULSALAM YAZID BANDE -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://github.com/abdulsalam-bande.png?size=240" alt="ABDULSALAM YAZID BANDE" />
-      <h3 class="name">ABDULSALAM YAZID BANDE</h3>
-      <p class="pronouns">—</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/abdulsalam-bande" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- Giorgio Armani Magno -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://github.com/ggiorgioarmanim.png?size=240" alt="Giorgio Armani Magno" />
-      <h3 class="name">Giorgio Armani Magno</h3>
-      <p class="pronouns">—</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/ggiorgioarmanim" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-    <!-- Assoc. Prof. Dr. Eyup Cinar -->
-    <div class="ambassador-card">
-      <img class="avatar" src="https://github.com/drecinar.png?size=240" alt="Assoc. Prof. Dr. Eyup Cinar" />
-      <h3 class="name">Assoc. Prof. Dr. Eyup Cinar</h3>
-      <p class="pronouns">—</p>
-      <div class="social-icons">
-        <a class="icon" href="https://github.com/drecinar" target="_blank" rel="noopener" aria-label="GitHub">
-          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
-        </a>
-        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
-        </a>
-      </div>
-    </div>
-
-  </div><!-- /.ambassadors-grid -->
-</div><!-- /#page-content -->
-
-<!-- ===== Modals (stay OUTSIDE #page-content so they don’t blur) ===== -->
-<section id="regina-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="regina-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-
-    <!-- ✅ Added: full-size photo inside the modal -->
-    <div class="modal__avatar-wrap">
-      <img class="modal__avatar"
-           src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg"
-           alt="Regina Nkenchor"
-           width="140" height="140" />
-    </div>
-
-    <div class="modal__header">
-      <h3 id="regina-title">Regina Nkenchor</h3>
-      <p class="pronouns">she/her</p>
-      <p class="location">Location: Lagos, Nigeria</p>
-    </div>
-    <p class="bio">
-      I’m a Machine Learning Engineer at Arm, focused on accelerating ML performance,
-      benchmarking, and deployment on Arm CPUs through projects like KleidiAI and ExecuTorch—helping make PyTorch faster
-      and more efficient on billions of devices. Before this, I built robotic perception systems at Dyson, deploying
-      multi-task vision models on embedded hardware. As a PyTorch Ambassador, I’m passionate about open source and
-      committed to making AI more accessible through real-world PyTorch applications, mentorship, and community initiatives.
-    </p>
+  <!-- Wrap page content so it can be blurred when a modal is open -->
+  <div id="page-content">
+    <!-- JS will inject all ambassador cards and modals here -->
+    <div class="ambassadors-grid" id="ambassadors-grid"></div>
   </div>
-</section>
-
-<section id="alejandro-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="alejandro-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-    <div class="modal__header">
-      <h3 id="alejandro-title">Alejandro Núñez Arroyo</h3>
-      <p class="pronouns">—</p>
-    </div>
-    <p class="bio">—</p>
-  </div>
-</section>
-
-<section id="orestis-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orestis-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-    <div class="modal__header">
-      <h3 id="orestis-title">Orestis Antonis Makris</h3>
-      <p class="pronouns">—</p>
-    </div>
-    <p class="bio">—</p>
-  </div>
-</section>
-
-<section id="abdulsalam-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="abdulsalam-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-    <div class="modal__header">
-      <h3 id="abdulsalam-title">ABDULSALAM YAZID BANDE</h3>
-      <p class="pronouns">—</p>
-    </div>
-    <p class="bio">—</p>
-  </div>
-</section>
-
-<section id="giorgio-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="giorgio-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-    <div class="modal__header">
-      <h3 id="giorgio-title">Giorgio Armani Magno</h3>
-      <p class="pronouns">—</p>
-    </div>
-    <p class="bio">—</p>
-  </div>
-</section>
-
-<section id="eyup-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="eyup-title">
-  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-  <div class="modal__card">
-    <a href="#" class="modal__close" aria-label="Close">×</a>
-    <div class="modal__header">
-      <h3 id="eyup-title">Assoc. Prof. Dr. Eyup Cinar</h3>
-      <p class="pronouns">—</p>
-    </div>
-    <p class="bio">—</p>
-  </div>
-</section>
 
 
-<script defer src="./ambassadors.js"></script>
+  <script defer src="./ambassadors.js"></script>
 
 
-<script>
-  (function () {
-    function syncModalOpenClass() {
-      if (location.hash && document.querySelector(location.hash + '.modal')) {
-        document.body.classList.add('modal-open');
-      } else {
-        document.body.classList.remove('modal-open');
+  <script>
+    (function () {
+      function syncModalOpenClass() {
+        if (location.hash && document.querySelector(location.hash + '.modal')) {
+          document.body.classList.add('modal-open');
+        } else {
+          document.body.classList.remove('modal-open');
+        }
       }
-    }
-    window.addEventListener('hashchange', syncModalOpenClass);
-    document.addEventListener('DOMContentLoaded', syncModalOpenClass);
-  })();
-</script>
+      window.addEventListener('hashchange', syncModalOpenClass);
+      document.addEventListener('DOMContentLoaded', syncModalOpenClass);
+    })();
+  </script>
 
 </body>
 </html>
