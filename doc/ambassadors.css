@@ -5,9 +5,7 @@
   --body-size: 18px;
   --body-line: 28px;      /* 28px line-height */
 }
-
 html { font-size: var(--body-size); }
-
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -18,9 +16,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 *, *::before, *::after { box-sizing: border-box; }
-
 /* === Heading: match WP dump for "Meet the Ambassadors" === */
 h2{
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
@@ -30,7 +26,6 @@ h2{
   color: #444444;        /* rgb(68,68,68) */
   margin: 0 0 0.5rem;
 }
-
 /* ===== Ambassadors grid ===== */
 .ambassadors-grid {
   display: grid;
@@ -39,7 +34,6 @@ h2{
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   justify-items: center;
 }
-
 .ambassador-card {
   max-width: 260px;
   width: 100%;
@@ -55,7 +49,6 @@ h2{
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-
 /* Avatar */
 .ambassador-card .avatar {
   width: 100px;
@@ -64,7 +57,6 @@ h2{
   object-fit: cover;
   margin-bottom: 12px;
 }
-
 .ambassador-card .name {
   margin: 8px 0 12px;
   font-family: var(--font-body);
@@ -73,7 +65,6 @@ h2{
   line-height: 28px;
   color: var(--text-color);
 }
-
 /* ===== Social icons ===== */
 .ambassador-card .social-icons {
   display: flex;
@@ -81,7 +72,6 @@ h2{
   justify-content: center;
   gap: 12px; /* space between GitHub + LinkedIn */
 }
-
 .ambassador-card .icon {
   display: flex;
   align-items: center;
@@ -98,7 +88,6 @@ h2{
   height: 20px;
   display: block;
 }
-
 .ambassador-card .icon:hover {
   background: #f8f9fb;
   border-color: #d0d7de;
@@ -108,14 +97,12 @@ h2{
   background: #eef6ff;
   border-color: #b9d7ff;
 }
-
 .ambassador-card .pronouns {
   margin: -6px 0 10px;
   font-size: 0.9rem;
   color: #555;
   font-style: italic;
 }
-
 /* ===== Modal (only name + pronouns + bio; no logos) ===== */
 .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
 .modal:target { display: grid; place-items: center; }
@@ -137,7 +124,6 @@ h2{
   line-height: 28px;
   color: #676767;
 }
-
 /* Small spacing tweak for the location line */
 .modal .location {
   margin-top: 6px;
@@ -148,40 +134,32 @@ h2{
     /* exactly 4 fixed-width columns */
     grid-template-columns: repeat(4, 260px);
     gap: 20px;
-
     max-width: calc(4 * 260px + 3 * 20px); /* 1100px */
     margin-left: auto;
     margin-right: auto;
-
     justify-content: center;
     justify-items: center;
   }
 }
-
 :root{
   --card-w: 254.96px;   
   --card-gap: 20px;
-
   --avatar-size: 100px; 
   --icon-size: 38px;
   --icon-img: 20px;
-
   --name-size: 22.4px;  
   --name-line: 32px;    
   --name-weight: 300;   
 }
-
 .ambassadors-grid{
   gap: var(--card-gap);
   grid-template-columns: repeat(auto-fit, minmax(var(--card-w), 1fr));
 }
-
 /* Card width */
 .ambassador-card{
   max-width: var(--card-w);
   width: 100%;
 }
-
 .ambassador-card .name{
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-size: var(--name-size);
@@ -191,7 +169,6 @@ h2{
   margin: 8px 0 12px;
   text-align: center;
 }
-
 /* Scale internals so the layout feels proportional at ~255px */
 .ambassador-card .avatar{
   width: var(--avatar-size);
@@ -205,7 +182,6 @@ h2{
   width: var(--icon-img);
   height: var(--icon-img);
 }
-
 @media (min-width: 1200px){
   .ambassadors-grid{
     grid-template-columns: repeat(4, var(--card-w));
@@ -217,14 +193,10 @@ h2{
     justify-items: center;
   }
 }
-
-
 .modal .modal__card {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   color: #676767;
 }
-
-
 .modal .modal__header h3 {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -234,8 +206,6 @@ h2{
   margin: 0 0 6px;
   text-align: center;
 }
-
-
 .modal .modal__header .pronouns {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -246,7 +216,6 @@ h2{
   text-align: center;
   margin: 0 0 12px;
 }
-
 .modal .modal__card .bio,
 .modal .modal__card .location {
   font-family: "Montserrat", Helvetica, Arial, sans-serif; /* beats .modal .bio/.location */
@@ -256,7 +225,6 @@ h2{
   color: #676767;
   text-align: center; /* change to left if you prefer */
 }
-
 /* === EXACT card dimensions + balanced internals  old === */
 :root{
   --card-w: 254.96px;      
@@ -266,10 +234,7 @@ h2{
   --icon-size: 42px;           
   --icon-img: 22px;           
 }
-
-
 /* === Normalize and align everything inside the fixed-height card === */
-
 /* Make the card a centered vertical stack with consistent gaps */
 .ambassadors-grid .ambassador-card {
   display: flex !important;
@@ -280,7 +245,6 @@ h2{
   padding-top: 24px !important;
   padding-bottom: 24px !important;
 }
-
 /* Avatar */
 .ambassadors-grid .ambassador-card .avatar {
   width: 140px !important;   /* was 100–112px */
@@ -289,7 +253,6 @@ h2{
   object-fit: cover;
   border-radius: 50%;
 }
-
 /* Name — clamp to 2 lines so different lengths align */
 .ambassadors-grid .ambassador-card .name {
   font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
@@ -306,7 +269,6 @@ h2{
   min-height: calc(2 * 32px); 
   text-align: center !important;
 }
-
 /* Pronouns — one line reserved so rows line up */
 .ambassadors-grid .ambassador-card .pronouns {
   font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
@@ -318,7 +280,6 @@ h2{
   margin: 0 !important;
   min-height: 24px;               
 }
-
 /* Push socials to the bottom of the fixed-height card */
 .ambassadors-grid .ambassador-card .social-icons {
   margin-top: auto !important;     
@@ -328,7 +289,6 @@ h2{
   gap: 14px;
   width: 100%;
 }
-
 /* Icon buttons */
 .ambassadors-grid .ambassador-card .icon {
   width: 42px !important;
@@ -345,14 +305,12 @@ h2{
   height: 22px !important;
   display: block;
 }
-
 .ambassadors-grid .ambassador-card {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;  /* centers avatar and text */
   text-align: center !important;
 }
-
 /* Optional: ensure even cards with very long names remain balanced */
 @supports not (-webkit-line-clamp: 2) {
   .ambassadors-grid .ambassador-card .name {
@@ -362,14 +320,12 @@ h2{
   }
 }
 /* === Background blur + scroll lock when a modal is open === */
-
 .modal__backdrop {
   background: rgba(0,0,0,.45);
 }
 @supports (backdrop-filter: blur(2px)) {
   .modal__backdrop { backdrop-filter: blur(2px); }
 }
-
 /* Modern approach: use :has() to detect an open modal via :target */
 @supports selector(body:has(.modal:target)) {
   body:has(.modal:target) {
@@ -381,21 +337,17 @@ h2{
     pointer-events: none;       /* prevent clicks through the blur */
   }
 }
-
 body.modal-open { overflow: hidden; }
 body.modal-open #page-content {
   filter: blur(6px);
   transform: translateZ(0);
   pointer-events: none;
 }
-
 /* Make sure the modal sits above the blurred content */
 .modal { z-index: 1000; }
-
 body.modal-open { 
   overflow: hidden;   /* lock scrolling while a modal is open */
 }
-
 @supports selector(body:has(.modal:target)) {
   body:has(.modal:target) {
     overflow: hidden; /* modern browsers can lock scroll purely in CSS */
@@ -403,5 +355,3 @@ body.modal-open {
 }
 .modal__avatar-wrap { display:flex; justify-content:center; margin-bottom:20px; }
 .modal__avatar { width:140px; height:140px; border-radius:50%; object-fit:cover; box-shadow:0 4px 12px rgba(0,0,0,.15); }
-
-
