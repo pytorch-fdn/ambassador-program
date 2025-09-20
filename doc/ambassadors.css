@@ -217,3 +217,35 @@ h2{
     justify-items: center;
   }
 }
+
+.modal__header h3 {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 22.4px;
+  line-height: 32px;
+  color: #444; /* or #111 if you want darker */
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+
+.modal__header .pronouns {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  font-style: italic;
+  color: #555;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.modal .location,
+.modal .bio {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  color: #676767;
+  text-align: center; /* or left if preferred */
+}
