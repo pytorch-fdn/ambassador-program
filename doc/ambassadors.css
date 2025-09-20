@@ -257,41 +257,66 @@ h2{
   text-align: center; /* change to left if you prefer */
 }
 
-/* === Gentle card height increase === */
-:root {
-  --card-h: 520px;        
-  --avatar-size: 112px;   
-  --icon-size: 42px;     
-  --icon-img: 22px;       
+/* === EXACT card dimensions + balanced internals === */
+:root{
+  --card-w: 254.96px;      
+  --card-h-exact: 480.58px;   
+  --pad-y: 24px;           
+  --avatar-size: 112px;       
+  --icon-size: 42px;           
+  --icon-img: 22px;           
 }
 
-.ambassador-card {
-  min-height: var(--card-h);    
-  padding-top: 24px;          
-  padding-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* Force width & height (box-sizing is already border-box globally) */
+.ambassadors-grid .ambassador-card{
+  width: var(--card-w) !important;
+  max-width: var(--card-w) !important;
+  height: var(--card-h-exact) !important;   /* fixed height */
+  padding-top: var(--pad-y) !important;
+  padding-bottom: var(--pad-y) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
 }
 
-.ambassador-card .avatar {
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  margin-bottom: 16px;
+/* Keep spacing and proportions inside the fixed-height card */
+.ambassadors-grid .ambassador-card .avatar{
+  width: var(--avatar-size) !important;
+  height: var(--avatar-size) !important;
+  margin-bottom: 16px !important;
 }
 
-.ambassador-card .social-icons {
-  margin-top: auto;          
-  gap: 14px;
+.ambassadors-grid .ambassador-card .name{
+  margin: 8px 0 12px !important;
 }
 
-.ambassador-card .icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
+.ambassadors-grid .ambassador-card .pronouns{
+  margin: -6px 0 12px !important;
 }
 
-.ambassador-card .icon img {
-  width: var(--icon-img);
-  height: var(--icon-img);
+.ambassadors-grid .ambassador-card .social-icons{
+  margin-top: auto !important;   /* parks icons near the bottom */
+  gap: 14px !important;
+}
+
+.ambassadors-grid .ambassador-card .icon{
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+}
+.ambassadors-grid .ambassador-card .icon img{
+  width: var(--icon-img) !important;
+  height: var(--icon-img) !important;
+}
+
+/* Grid: make sure columns respect the fixed card width */
+.ambassadors-grid{
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-w), 1fr)) !important;
+}
+
+@media (min-width: 1200px){
+  .ambassadors-grid{
+    grid-template-columns: repeat(4, var(--card-w)) !important;
+    max-width: calc(4 * var(--card-w) + 3 * 20px) !important;
+  }
 }
 
