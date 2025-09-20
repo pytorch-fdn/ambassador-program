@@ -392,3 +392,14 @@ body.modal-open #page-content {
 /* Make sure the modal sits above the blurred content */
 .modal { z-index: 1000; }
 
+body.modal-open { 
+  overflow: hidden;   /* lock scrolling while a modal is open */
+}
+
+@supports selector(body:has(.modal:target)) {
+  body:has(.modal:target) {
+    overflow: hidden; /* modern browsers can lock scroll purely in CSS */
+  }
+}
+
+
