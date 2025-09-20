@@ -401,7 +401,6 @@ body.modal-open {
     overflow: hidden; /* modern browsers can lock scroll purely in CSS */
   }
 }
-.modal__avatar-wrap { display:flex; justify-content:center; margin-bottom:20px; }
-.modal__avatar { width:140px; height:140px; border-radius:50%; object-fit:cover; box-shadow:0 4px 12px rgba(0,0,0,.15); }
+
 
 
