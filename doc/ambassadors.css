@@ -40,7 +40,6 @@ h2{
   justify-items: center;
 }
 
-/* ===== Card styling ===== */
 .ambassador-card {
   max-width: 260px;
   width: 100%;
@@ -67,15 +66,12 @@ h2{
 }
 
 .ambassador-card .name {
-  margin: 8px 0 12px;  
-  font-size: 1.1rem;   
-  font-weight: 600;
-}
-
-.ambassadors-grid .ambassador-card .name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #111;
+  margin: 8px 0 12px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--text-color);
 }
 
 /* ===== Social icons ===== */
