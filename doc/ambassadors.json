@@ -4,7 +4,7 @@
     "name": "Abdulsalam Bande",
     "pronouns": "He/him",
     "location": "Istanbul, Turkey",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Bande.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Bande.jpg",
     "github": "https://github.com/abdulsalam-bande",
     "linkedin": "https://www.linkedin.com/in/abdulsalam-bande-ml",
     "bio": "Abdulsalam Bande is a Machine Learning Researcher with a master’s degree in Computer Science from Istanbul Technical University, where his work focused on applying machine learning to drug design and bioinformatics. He runs the YouTube channel Machine Learning with PyTorch (@machinelearningwithpytorch), where he explains PyTorch’s neural network modules and reinforcement learning algorithms step by step with pen-and-paper examples. His goal is to make PyTorch more accessible to students, researchers, and self-learners worldwide."
@@ -14,17 +14,17 @@
     "name": "Akhil Varanasi",
     "pronouns": "He/him",
     "location": "Bengaluru , India",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Akhil.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Akhil.jpg",
     "github": "https://github.com/AkCodes23",
     "linkedin": "https://www.linkedin.com/in/akhil-varanasi/",
     "bio": "I’m Akhil Varanasi, a student at MIT Manipal with a passion for artificial intelligence and open-source development. I enjoy exploring how PyTorch can be used for both research and real-world applications, and I love sharing knowledge through workshops and community activities. As a PyTorch Ambassador, I’m excited to contribute, learn, and collaborate with the global AI community."
   },
   {
-    "id": "alejandro-n-ez-arroyo",
+    "id": "alejandro-nunez-arroyo",
     "name": "Alejandro Núñez Arroyo",
     "pronouns": "He/Him",
     "location": "Campinas, Brazil",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/alejandro.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/alejandro.jpg",
     "github": "https://github.com/AleNunezArroyo",
     "linkedin": "https://www.linkedin.com/in/alejandronunezarroyo/",
     "bio": "M.Sc. student in Computer Science at UNICAMP in Brazil and Mechatronics Engineer from Bolivia, currently working remotely as an Artificial Intelligence Research Engineer at Fogsphere, a UK-based company developing AI-driven products. My work focuses on the development, inference, and optimization of Intelligent Agents and Vision-Language Models (VLMs). I bridge academic research and industry practice, advancing innovation in AI systems and translating state-of-the-art models into impactful real-world solutions."
@@ -34,59 +34,59 @@
     "name": "Ankita Guha",
     "pronouns": "she/her",
     "location": "Auburn Hills, Michigan",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/ankita.guha.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/ankita.guha.jpg",
     "github": "https://github.com/ankitaguhaoakland",
     "linkedin": "https://www.linkedin.com/in/ankita-guha-4dscience/",
-    "bio": "nan"
+    "bio": ""
   },
   {
     "id": "arun-bhandari",
     "name": "Arun Bhandari",
     "pronouns": "He/him",
     "location": "Kathmandu, Nepal",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Arun.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Arun.jpg",
     "github": "https://github.com/bhandariarun",
     "linkedin": "https://www.linkedin.com/in/arunbhandari1/",
     "bio": "Arun Bhandari is a Software Engineer at Innovative Techno Consultant Pvt. Ltd., with experience in backend development, data engineering, and AI integration. He is passionate about deep learning, computer vision, and building impactful open-source solutions. As part of the Google Developer Group Kathmandu , Arun actively contributes to tech communities and loves exploring the possibilities of PyTorch in real-world applications."
   },
   {
     "id": "chandra-mohan-negi",
-    "name": "chandra mohan Negi",
+    "name": "Chandra Mohan Negi",
     "pronouns": "He/Him",
     "location": "Bengaluru, India",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Chandra.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Chandra.jpg",
     "github": "https://github.com/cmnegi",
-    "linkedin": "www.linkedin.com/in/cmnegi",
-    "bio": "AI/ML & GenAI leader at Siemens R&D, building PyTorch-powered \nsystems for computer vision, speech, and agentic workflows across \nmanufacturing and robotics. I’ve shipped edge-to-cloud MLOps pipelines,\n filed four ML/AI patents (two selected), and served as a reviewer for\n ICONIP/LoG, with MCP work showcased at the Siemens Global AI Conference.\n I hold an M.Tech in AI (IIT) and contribute to open source and community education."
+    "linkedin": "https://www.linkedin.com/in/cmnegi",
+    "bio": "AI/ML & GenAI leader at Siemens R&D, building PyTorch-powered systems for computer vision, speech, and agentic workflows across manufacturing and robotics. I’ve shipped edge-to-cloud MLOps pipelines, filed four ML/AI patents (two selected), and served as a reviewer for ICONIP/LoG, with MCP work showcased at the Siemens Global AI Conference. I hold an M.Tech in AI (IIT) and contribute to open source and community education."
   },
   {
     "id": "dr-eyup-cinar",
     "name": "Dr. Eyup Cinar",
     "pronouns": "He/him",
     "location": "Eskisehir, Turkey",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Dr%20Ayup.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Dr%20Ayup.jpg",
     "github": "https://github.com/drecinar",
     "linkedin": "https://tr.linkedin.com/in/ecinar",
-    "bio": "Associate Professor of Computer Engineering, ex-silicon valley engineer, industry veteran, \nNVIDIA Campus Ambassador, NVIDIA Deep Learning Institute Instructor, Deep Learning Enthusiast, Over 40 peer reviewed journal  publications"
+    "bio": "Associate Professor of Computer Engineering, ex-silicon valley engineer, industry veteran, NVIDIA Campus Ambassador, NVIDIA Deep Learning Institute Instructor, Deep Learning Enthusiast, Over 40 peer reviewed journal publications"
   },
   {
     "id": "fedor-shabashev",
     "name": "Fedor Shabashev",
     "pronouns": "He/him",
-    "location": "nan",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Fedor.jpg",
+    "location": "",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Fedor.jpg",
     "github": "https://github.com/fshabashev",
-    "linkedin": "nan",
-    "bio": "Technical Lead with extensive history building large-scale machine learning & AI systems that impact more than 1 billion internet users.\nPreviously ML engineer at Facebook.\nOrganiser of the London Pytorch Meetup. Open source contributor to PyTorch."
+    "linkedin": "",
+    "bio": "Technical Lead with extensive history building large-scale machine learning & AI systems that impact more than 1 billion internet users. Previously ML engineer at Facebook. Organiser of the London Pytorch Meetup. Open source contributor to PyTorch."
   },
   {
     "id": "giorgio-armani-magno",
     "name": "Giorgio Armani Magno",
     "pronouns": "He/Him",
     "location": "Pasay City, Philippines",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Magno%2C%20Giorgio%20Armani.png",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Magno%2C%20Giorgio%20Armani.png",
     "github": "https://github.com/ggiorgioarmanim",
-    "linkedin": "www.linkedin.com/in/giorgioarmanimagno",
+    "linkedin": "https://www.linkedin.com/in/giorgioarmanimagno",
     "bio": "He is a Data Scientist in the Philippines. He began his career in the real estate industry as an Assistant Data Scientist at Megaworld Corporation, and after almost a year, he progressed from an entry to specialist level Data Scientist at Semirara Mining and Power Corporation, the Philippines' largest coal producer. He also works part-time as a Data Science Specialist Instructor at CIIT College of Arts and Technology. As a Bachelor of Science in Computer Science graduate, he proudly represented the Philippines in the 2019 ICDL Asia Digital Challenge in Kuala Lumpur, Malaysia, winning third place. He envisions contributing further to the tech community's growth and innovation through his channel, GioData."
   },
   {
@@ -94,7 +94,7 @@
     "name": "Jiho Kim",
     "pronouns": "She/Her",
     "location": "Seoul, South Korea",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Jiho%20Kim.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Jiho%20Kim.jpg",
     "github": "https://github.com/jih0",
     "linkedin": "https://www.linkedin.com/in/jih0/",
     "bio": "As part of the PyTorch Korea User Group operations committee, Jiho Kim has led open-source contributions, hosted community events, and authored official PyTorch blog content. She is passionate about making PyTorch accessible to Korean developers and fostering two-way knowledge exchange with the global community."
@@ -104,17 +104,17 @@
     "name": "Junghwan Park",
     "pronouns": "He/him",
     "location": "SeongNam-Si, Korea (Republic of)",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Junghwan%20Park.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Junghwan%20Park.jpg",
     "github": "https://github.com/9bow",
     "linkedin": "https://www.linkedin.com/in/9bow",
-    "bio": "Junghwan Park is the founder and organizer of the [PyTorch Korea User Group](https://pytorch.kr/), where he has translated [official tutorials](https://tutorials.pytorch.kr/), organized [community activities](https://discuss.pytorch.kr/), and supported thousands of developers since 2018. In his professional work as an AI/Data Engineer, he focuses on Vision AI and multimodal research and product development."
+    "bio": "Junghwan Park is the founder and organizer of the PyTorch Korea User Group, where he has translated official tutorials, organized community activities, and supported thousands of developers since 2018. In his professional work as an AI/Data Engineer, he focuses on Vision AI and multimodal research and product development."
   },
   {
     "id": "luis-fernando-solis-navarro",
     "name": "Luis Fernando Solis Navarro",
     "pronouns": "He/Him",
     "location": "Montreal, Cánada",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/%20Luis%20Fernando%20Solis%20Navarro.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/%20Luis%20Fernando%20Solis%20Navarro.jpg",
     "github": "https://github.com/luisfernandosolis",
     "linkedin": "https://www.linkedin.com/in/luisfernandosolisnavarro/",
     "bio": "Aspiring research scientist. Currently pursuing a Master’s in Computer Science at one of Latin America's top universities (UNICAMP, Brazil). I Love pets."
@@ -124,7 +124,7 @@
     "name": "Marimuthu Kalimuthu",
     "pronouns": "He/him",
     "location": "Stuttgart, Germany",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Marimuthu.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Marimuthu.jpg",
     "github": "https://github.com/kmario23",
     "linkedin": "https://www.linkedin.com/in/kmario23",
     "bio": "I'm a PhD researcher in Scientific Machine Learning, working on Neural PDE Solvers and Simulations. I use PyTorch on a daily basis for my research. Having acquired a decade of experience in tensor computing (NumPy, PyTorch, CuPy, etc.) for Computer Vision and NLP, I look forward to communicating the simplicity and power of PyTorch to the SciML community in various application areas of natural sciences and engineering."
@@ -134,27 +134,27 @@
     "name": "Masahiro Hiramori",
     "pronouns": "He/him",
     "location": "Kanagawa, Japan",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/masahiro.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/masahiro.jpg",
     "github": "https://github.com/mshr-h",
     "linkedin": "https://www.linkedin.com/in/masahiro-hiramori/",
-    "bio": "Masahiro Hiramori is Head Engineer at the Open Source Program Office (OSPO) at Mitsubishi Electric, where he leads company-wide efforts around open-source AI technologies. As an Apache TVM committer and a key contributor to projects like Hummingbird and PyTorch, he was also nominated for the PyTorch Contributor Award 2024. He delivered an invited talk at the [LF AI & Data Japan RUG Kickoff](https://lfaidata.foundation/blog/2025/02/20/first-japan-regional-user-group-rug-was-a-success/)."
+    "bio": "Masahiro Hiramori is Head Engineer at the Open Source Program Office (OSPO) at Mitsubishi Electric, where he leads company-wide efforts around open-source AI technologies. As an Apache TVM committer and a key contributor to projects like Hummingbird and PyTorch, he was also nominated for the PyTorch Contributor Award 2024. He delivered an invited talk at the LF AI & Data Japan RUG Kickoff."
   },
   {
     "id": "menan-velayuthan",
     "name": "Menan Velayuthan",
     "pronouns": "He/him",
     "location": "Colombo, Sri Lanka",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Menan_Velayuthan.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Menan_Velayuthan.jpg",
     "github": "https://github.com/vmenan",
-    "linkedin": "[www.linkedin.com/in/menanv](www.linkedin.com/in/menanv)",
-    "bio": "Hi I am Menan Velayuthan a research based master's student from Sri Lanka. My main research interests are in the field of NLP and Computer Vision. I am an incoming PhD candidate at University of Utrecht. I have worked on head pose estimation, neural machine translation and tokenizers. My papers can be found in my [Google Scholar](https://scholar.google.com/citations?user=8dn_dfcAAAAJ&hl=en)."
+    "linkedin": "https://www.linkedin.com/in/menanv",
+    "bio": "Hi I am Menan Velayuthan a research based master's student from Sri Lanka. My main research interests are in the field of NLP and Computer Vision. I am an incoming PhD candidate at University of Utrecht. I have worked on head pose estimation, neural machine translation and tokenizers. My papers can be found in my Google Scholar."
   },
   {
     "id": "naeem-khoshnevis",
     "name": "Naeem Khoshnevis",
     "pronouns": "he/him",
     "location": "Cambridge, Massachusetts, USA",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/nNaeem%20Khoshnevis.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/nNaeem%20Khoshnevis.jpg",
     "github": "https://github.com/naeemkh",
     "linkedin": "https://www.linkedin.com/in/nkhshnvs/",
     "bio": "I am a Senior ML Research Engineer at Harvard’s Kempner Institute, specializing in large-scale ML systems, GPU computing, and AI infrastructure. I am actively involved in developing NeuroAI research codebases and conducting research on diffusion models, alongside contributing widely adopted open-source packages."
@@ -164,7 +164,7 @@
     "name": "Orestis Antonis Makris",
     "pronouns": "He/Him",
     "location": "Patras, Greece / Athens, Greece",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Oretis.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Oretis.jpg",
     "github": "https://github.com/OrestisMakris",
     "linkedin": "https://www.linkedin.com/in/orestis-makris-250353208/",
     "bio": "I am a student at the University of Patras with a strong focus on AI, deep learning, and neural networks. I am the founder and coordinator of the ACM Student Chapter at my university, where I also lead the AI Special Interest Group and mentor student teams. I serve as a teaching assistant for Information Retrieval and Natural Language Processing courses, where I also teach PyTorch, while actively contributing to open-source and community-driven AI initiatives."
@@ -174,9 +174,9 @@
     "name": "Pacifique Kwaba Mugisho",
     "pronouns": "He/him",
     "location": "Kampala, Uganda",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/paci.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/paci.jpg",
     "github": "https://github.com/ganji759",
-    "linkedin": "www.linkedin.com/in/pacifique-mugisho-a487801b7",
+    "linkedin": "https://www.linkedin.com/in/pacifique-mugisho-a487801b7",
     "bio": "Pacifique Kwaba Mugisho is a mechanical engineer and researcher passionate about AI and machine learning. Driven by innovation and community development, he strives to empower underserved communities through accessible PyTorch education and mentorship. His goal is to bridge the AI gap by making advanced tools and knowledge available to all."
   },
   {
@@ -184,7 +184,7 @@
     "name": "Rodrigo Bernal",
     "pronouns": "He/him",
     "location": "Guadalajara, Mexico",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Rodrigo.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Rodrigo.jpg",
     "github": "https://github.com/rbernalc",
     "linkedin": "https://www.linkedin.com/in/rodrigo-bernal-castro-2179a924/",
     "bio": "I am a Software Engineering Manager at Intel, managing a team of developers focused on test and optimize PyTorch Libraries for Intel Hardware. I have been working on Artificial Intelligence for almost 7 years, with recent focus in LLM inference and DLRM libraries. I am also collaborating in initiatives to increase overall knowledge about Deep Learning Frameworks with Mexican universities."
@@ -194,7 +194,7 @@
     "name": "Sahdev Zala",
     "pronouns": "He/him",
     "location": "Raleigh, NC, USA",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Headshot_SahdevZala.jpeg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Headshot_SahdevZala.jpeg",
     "github": "https://github.com/spzala",
     "linkedin": "https://www.linkedin.com/in/spzala/",
     "bio": "I am a Senior Technical Staff Member at IBM. As an open source developer for over a decade, I have made significant contributions to numerous open source projects, including PyTorch, Kubernetes, OpenStack, and OASIS TOSCA. I have presented work on these projects at several conferences such as, Open Source Summit, KubeCon, OpenStack Summit, All Things Open, EGI, IBM Think, IBM TechXchange, and local open-source Meetups. My work has been published in the Journal of Grid Computing, the International Journal of Computer Science and Information Technologies, cncf.io, Container Journal, IBM Developer, and other prestigious media."
@@ -204,7 +204,7 @@
     "name": "Steve Watt",
     "pronouns": "he/him",
     "location": "Austin,TX",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Steve-Watt-2025.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Steve-Watt-2025.jpg",
     "github": "https://github.com/wattsteve",
     "linkedin": "https://www.linkedin.com/in/wattsteve/",
     "bio": "Steve is a software engineer working across all areas of the inferencing stack in the Red Hat Office of the CTO. He is primarily focused on Triton, vLLM and llm-d and runs the quarterly events for the PyTorch ATX meetup.  In his spare time Steve enjoys surfing, coaching rugby and hanging out with his family in Austin, Texas."
@@ -214,7 +214,7 @@
     "name": "Ugama Benedicta Kelechi",
     "pronouns": "She/Her",
     "location": "Ebonyi, Nigeria",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/ugama%20benedicta.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/ugama%20benedicta.jpg",
     "github": "https://github.com/BenedictaKel",
     "linkedin": "https://www.linkedin.com/in/ugama-benedicta-kelechi-codergirl-103041300/",
     "bio": "I am an AI Engineer\nPytorch Ambassador\nSoftware Engineer"
@@ -224,7 +224,7 @@
     "name": "Usamah Zaheer",
     "pronouns": "He/Him",
     "location": "Cambridge, England",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/usamah.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/usamah.jpg",
     "github": "https://github.com/usamahz",
     "linkedin": "https://www.linkedin.com/in/usamahzaheer",
     "bio": "I’m a Machine Learning Engineer at Arm, focused on accelerating ML performance, benchmarking, and deployment on Arm CPUs through projects like KleidiAI and ExecuTorch, helping make PyTorch faster and more efficient on billions of devices.\n\nBefore this, I built robotic perception systems at Dyson, deploying multi-task vision models on embedded hardware. As a PyTorch Ambassador, I’m passionate about open source and committed to making AI more accessible through real-world PyTorch applications, mentorship, and community initiatives.\n\nOutside of work, I’m into boxing, judo, and philosophy!"
@@ -234,7 +234,7 @@
     "name": "Vincent Tran",
     "pronouns": "He/Him",
     "location": "Ho Chi Minh city, Vietnam",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/Vitran.png",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Vitran.png",
     "github": "https://github.com/Shindora",
     "linkedin": "https://www.linkedin.com/in/tuan-vi-tran/",
     "bio": "Hi, I'm Vincent – a researcher and educator working with PyTorch, especially in generative models and medical imaging. I love building open-source projects, mentoring others, and sharing practical resources to make deep learning more accessible."
@@ -244,17 +244,17 @@
     "name": "Yoshitomo Matsubara",
     "pronouns": "He/Him",
     "location": "Bellevue, USA",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/yoshitomo-masdubara.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/yoshitomo-masdubara.jpg",
     "github": "https://github.com/yoshitomo-matsubara",
     "linkedin": "https://www.linkedin.com/in/yoshitomo-matsubara",
-    "bio": "Yoshitomo Matsubara is a research scientist with strong passion of open source/science. [Most of his papers](https://yoshitomo-matsubara.net/publications/) are published with [code](https://github.com/yoshitomo-matsubara) and/or [artifacts](https://huggingface.co/yoshitomo-matsubara) for reproducibility and helping research communities build on his work.\n\nHe is also an ML OSS developer (nights and weekends), actively developing pip-installable PyTorch frameworks, [torchdistill](https://github.com/yoshitomo-matsubara/torchdistill) and [sc2bench](https://github.com/yoshitomo-matsubara/sc2-benchmark), as the author for several years. torchdistill joined PyTorch Ecosystem in 2023 ([PyTorch Community Blog](https://pytorch.org/blog/enhancing-deep-learning/), [PyTorch Medium](https://medium.com/pytorch/torchdistill-a-modular-configuration-driven-framework-for-reproducible-deep-learning-and-9e0ecabf2815)).\n\nIn 2022, he was selected as a top contributor of Papers with Code and received Papers with Code Contributor Award."
+    "bio": "Yoshitomo Matsubara is a research scientist with strong passion of open source/science. Most of his papers are published with code and/or artifacts for reproducibility and helping research communities build on his work. He is also an ML OSS developer (nights and weekends), actively developing pip-installable PyTorch frameworks, torchdistill and sc2bench, as the author for several years. torchdistill joined PyTorch Ecosystem in 2023."
   },
   {
     "id": "zaynul-abedin-miah",
     "name": "Zaynul Abedin Miah",
     "pronouns": "He/Him",
     "location": "Dhaka, Bangladesh",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/zaynul%20abedin%20Miah.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/zaynul%20abedin%20Miah.jpg",
     "github": "https://github.com/azaynul10",
     "linkedin": "https://www.linkedin.com/in/zaynul-abedin-miah/",
     "bio": "Introduction:\nHello! I'm Zaynul Abedin Miah, a Computer Science student at BRAC University with a strong focus on AI and Machine Learning, where I frequently leverage PyTorch for building robust deep learning models like real-time sign language detection systems using YOLOv11. As a passionate advocate for open-source tools, I've mastered PyTorch through hands-on projects and tutorials, sharing my knowledge to help others dive into efficient neural network development. My journey has enhanced my roles in various tech communities, inspiring me to contribute to its ecosystem through innovative applications and educational content.\n\nCommunity Highlights:\nIn my community efforts, I've created YouTube tutorials on YOLO-based projects powered by PyTorch, such as end-to-end sign language detection, which have garnered views and helped beginners implement deep learning solutions. As a co-organizer of the Google-supported AI/ML community in Bangladesh, I took workshops and paper reading sessions, fostering discussions on advanced topics like reinforcement learning and LLM fine-tuning. Additionally, through my Facebook and Dev.to posts, I've curated resources highlighting AI/ML mastery, contributing to hackathon wins and encouraging over 50,000 community members to explore PyTorch for production-grade AI systems."
@@ -264,7 +264,7 @@
     "name": "Zhiqing Xiao",
     "pronouns": "He/Him",
     "location": "Beijing, China",
-    "avatar": "https://github.com/pytorch-fdn/ambassador-program/blob/main/ambassador/ambassador-photos/zhiqingxiao.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/zhiqingxiao.jpg",
     "github": "https://github.com/zhiqingxiao",
     "linkedin": "https://www.linkedin.com/in/zhiqingxiao",
     "bio": "I am an AI researcher with doctoral degree from Tsinghua University. I write PyTorch tutorials and foster PyTorch community in Chinese. My book “Application of Neural Network and PyTorch” (GitHub: zhiqingxiao/pytorch-book) is one of the earliest PyTorch 1 tutorial books, and my book “Reinforcement Learning: Theory and Python Implementation” (GitHub: zhiqingxiao/rl-book) implements many mainstream RL algorithms upon PyTorch. I also maintain a WeChat subscription account and QQ groups for PyTorch community."
