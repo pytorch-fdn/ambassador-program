@@ -2,7 +2,7 @@
 (function () {
   const DATA_URL = "./ambassadors.json";
 
-  // tiny helpers
+  // helpers
   const isBlank = v => !v || String(v).toLowerCase() === "nan" || String(v).trim() === "";
   const safeLink = v => (isBlank(v) ? "" : (/^https?:\/\//i.test(v) ? v : "https://" + v));
   const fixAvatarUrl = url => {
@@ -10,6 +10,10 @@
     // turn github.com/.../blob/main/... into raw.githubusercontent.com/.../main/...
     const m = url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)$/i);
     return m ? `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : url;
+  };
+  const ghAvatarFromProfile = url => {
+    const m = safeLink(url).match(/^https:\/\/github\.com\/([^\/?#]+)/i);
+    return m ? `https://github.com/${m[1]}.png?size=240` : "";
   };
 
   function notifyParentModal(isOpen) {
@@ -21,23 +25,34 @@
     notifyParentModal(open);
   }
 
-  
+  // lazy-load big image in modal + attach fallback
   function loadModalAvatar(modalEl) {
     if (!modalEl) return;
     const img = modalEl.querySelector('.modal__avatar');
     if (!img) return;
 
-    const currentAttr = img.getAttribute('src'); 
-    if (!currentAttr) {
+    // attach fallback handler once
+    if (!img._fallbackBound) {
+      img.addEventListener('error', function () {
+        const fb = this.getAttribute('data-fallback');
+        if (fb && this.src !== fb) this.src = fb;
+      });
+      img._fallbackBound = true;
+    }
+
+    if (!img.getAttribute('src')) {
       const url = img.getAttribute('data-src');
       if (url) img.src = fixAvatarUrl(url);
     }
   }
 
-  // card + modal templates
+  // card + modal templates (each image carries a data-fallback to GH avatar)
   const cardHTML = a => `
     <div class="ambassador-card" data-id="${a.id}">
-      <img class="avatar" src="${a.avatar}" alt="${a.name}" width="140" height="140" loading="lazy" />
+      <img class="avatar"
+           src="${fixAvatarUrl(a.avatar)}"
+           data-fallback="${ghAvatarFromProfile(a.github)}"
+           alt="${a.name}" width="140" height="140" loading="lazy" />
       <h3 class="name">${a.name}</h3>
       <p class="pronouns">${isBlank(a.pronouns) ? "—" : a.pronouns}</p>
       <div class="social-icons">
@@ -61,7 +76,9 @@
 
         <div class="modal__avatar-wrap">
           <img class="modal__avatar"
-               src="" data-src="${a.avatar}"
+               src=""
+               data-src="${a.avatar}"
+               data-fallback="${ghAvatarFromProfile(a.github)}"
                alt="${a.name}" width="140" height="140" />
         </div>
 
@@ -90,7 +107,7 @@
       return;
     }
 
-    // normalize avatars + sort by name (defensive)
+    // normalize avatar URLs + sort by name (defensive)
     people.forEach(p => { p.avatar = fixAvatarUrl(p.avatar); });
     people.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
@@ -102,6 +119,16 @@
       frag.appendChild(t.content.firstElementChild);
     });
     grid.replaceChildren(frag);
+
+    // attach fallback to card avatars
+    grid.querySelectorAll('img.avatar').forEach(img => {
+      if (img._fallbackBound) return;
+      img.addEventListener('error', function () {
+        const fb = this.getAttribute('data-fallback');
+        if (fb && this.src !== fb) this.src = fb;
+      });
+      img._fallbackBound = true;
+    });
 
     // inject modals (outside page-content so blur doesn't affect them)
     const mfrag = document.createDocumentFragment();
