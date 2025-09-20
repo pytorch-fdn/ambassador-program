@@ -158,5 +158,62 @@ h2{
   }
 }
 
+:root{
+  --card-w: 254.96px;   
+  --card-gap: 20px;
 
+  --avatar-size: 100px; 
+  --icon-size: 38px;
+  --icon-img: 20px;
 
+  --name-size: 22.4px;  
+  --name-line: 32px;    
+  --name-weight: 300;   
+}
+
+.ambassadors-grid{
+  gap: var(--card-gap);
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-w), 1fr));
+}
+
+/* Card width */
+.ambassador-card{
+  max-width: var(--card-w);
+  width: 100%;
+}
+
+.ambassador-card .name{
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-size: var(--name-size);
+  line-height: var(--name-line);
+  font-weight: var(--name-weight);
+  color: #444;            /* keep readable; adjust if you want #111 */
+  margin: 8px 0 12px;
+  text-align: center;
+}
+
+/* Scale internals so the layout feels proportional at ~255px */
+.ambassador-card .avatar{
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+}
+.ambassador-card .icon{
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+.ambassador-card .icon img{
+  width: var(--icon-img);
+  height: var(--icon-img);
+}
+
+@media (min-width: 1200px){
+  .ambassadors-grid{
+    grid-template-columns: repeat(4, var(--card-w));
+    gap: var(--card-gap);
+    max-width: calc(4 * var(--card-w) + 3 * var(--card-gap));
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    justify-items: center;
+  }
+}
