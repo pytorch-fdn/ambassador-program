@@ -66,14 +66,16 @@ h2{
   margin-bottom: 12px;
 }
 
-/* Name (match WP body typography exactly) */
 .ambassador-card .name {
-  margin: 8px 0 12px;
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
-  color: var(--text-color);
+  margin: 8px 0 12px;  
+  font-size: 1.1rem;   
+  font-weight: 600;
+}
+
+.ambassadors-grid .ambassador-card .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
 }
 
 /* ===== Social icons ===== */
