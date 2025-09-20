@@ -20,12 +20,17 @@
     document.body.classList.toggle('modal-open', open);
     notifyParentModal(open);
   }
+
+  // FIX: check the attribute (not img.src) and run through fixAvatarUrl
   function loadModalAvatar(modalEl) {
     if (!modalEl) return;
     const img = modalEl.querySelector('.modal__avatar');
-    if (img && !img.src) {
+    if (!img) return;
+
+    const currentAttr = img.getAttribute('src'); // this is empty when we set src=""
+    if (!currentAttr) {
       const url = img.getAttribute('data-src');
-      if (url) img.src = url;
+      if (url) img.src = fixAvatarUrl(url);
     }
   }
 
@@ -85,7 +90,7 @@
       return;
     }
 
-    // normalize avatars + sort by name
+    // normalize avatars + sort by name (defensive)
     people.forEach(p => { p.avatar = fixAvatarUrl(p.avatar); });
     people.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
