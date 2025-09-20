@@ -1,13 +1,24 @@
 /* Open the matching modal when a card is clicked; social links keep their behavior
-   + add body.modal-open as a fallback for browsers without :has() */
+   + add body.modal-open as a fallback for browsers without :has()
+   + notify parent page (if embedded in an <iframe>) to lock/unlock scroll */
 (function () {
+  function notifyParentModal(isOpen) {
+    try {
+      parent.postMessage({ type: 'ambassador-modal', open: isOpen }, '*');
+    } catch (_) {}
+  }
+
   function setModalOpenClass() {
-    // If the hash points to an actual modal section, add the class
-    if (location.hash && document.querySelector(location.hash + '.modal')) {
+    // If the hash points to an actual modal section…
+    var isOpen = !!(location.hash && document.querySelector(location.hash + '.modal'));
+
+    if (isOpen) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
+
+    notifyParentModal(isOpen);
   }
 
   function init() {
@@ -15,7 +26,6 @@
       document.querySelectorAll('.ambassadors-grid .ambassador-card')
     );
 
-    // Keep this order aligned with the cards order in the HTML
     var modalIds = [
       'regina-modal',
       'alejandro-modal',
@@ -25,7 +35,6 @@
       'eyup-modal'
     ];
 
-    // Click on card → open modal
     document.addEventListener('click', function (e) {
       // Ignore clicks on social icons so they behave normally
       if (e.target.closest('.social-icons a')) return;
@@ -36,11 +45,10 @@
       var idx = cards.indexOf(card);
       if (idx > -1 && modalIds[idx]) {
         location.hash = modalIds[idx];
-        setModalOpenClass(); // ensure fallback class is set immediately
+        setModalOpenClass(); //
       }
     });
 
-    // ESC closes the modal
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && location.hash) {
         location.hash = '';
