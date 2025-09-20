@@ -218,18 +218,25 @@ h2{
   }
 }
 
-.modal__header h3 {
+
+.modal .modal__card {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  color: #676767;
+}
+
+
+.modal .modal__header h3 {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 22.4px;
   line-height: 32px;
-  color: #444; /* or #111 if you want darker */
+  color: #444;               /* use #111 if you want stronger contrast */
   margin: 0 0 6px;
   text-align: center;
 }
 
 
-.modal__header .pronouns {
+.modal .modal__header .pronouns {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -240,12 +247,13 @@ h2{
   margin: 0 0 12px;
 }
 
-.modal .location,
-.modal .bio {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+.modal .modal__card .bio,
+.modal .modal__card .location {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif; /* beats .modal .bio/.location */
   font-weight: 300;
   font-size: 18px;
   line-height: 28px;
   color: #676767;
-  text-align: center; /* or left if preferred */
+  text-align: center; /* change to left if you prefer */
 }
+
