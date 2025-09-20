@@ -21,13 +21,13 @@
     notifyParentModal(open);
   }
 
-  // FIX: check the attribute (not img.src) and run through fixAvatarUrl
+  
   function loadModalAvatar(modalEl) {
     if (!modalEl) return;
     const img = modalEl.querySelector('.modal__avatar');
     if (!img) return;
 
-    const currentAttr = img.getAttribute('src'); // this is empty when we set src=""
+    const currentAttr = img.getAttribute('src'); 
     if (!currentAttr) {
       const url = img.getAttribute('data-src');
       if (url) img.src = fixAvatarUrl(url);
