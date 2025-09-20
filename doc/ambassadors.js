@@ -14,6 +14,7 @@
     var cards = Array.prototype.slice.call(
       document.querySelectorAll('.ambassadors-grid .ambassador-card')
     );
+
     // Keep this order aligned with the cards order in the HTML
     var modalIds = [
       'regina-modal',
