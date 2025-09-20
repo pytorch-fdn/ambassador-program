@@ -257,3 +257,41 @@ h2{
   text-align: center; /* change to left if you prefer */
 }
 
+/* === Gentle card height increase === */
+:root {
+  --card-h: 520px;        
+  --avatar-size: 112px;   
+  --icon-size: 42px;     
+  --icon-img: 22px;       
+}
+
+.ambassador-card {
+  min-height: var(--card-h);    
+  padding-top: 24px;          
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ambassador-card .avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  margin-bottom: 16px;
+}
+
+.ambassador-card .social-icons {
+  margin-top: auto;          
+  gap: 14px;
+}
+
+.ambassador-card .icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.ambassador-card .icon img {
+  width: var(--icon-img);
+  height: var(--icon-img);
+}
+
