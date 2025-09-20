@@ -283,9 +283,9 @@ h2{
 
 /* Avatar */
 .ambassadors-grid .ambassador-card .avatar {
-  width: 112px !important;
-  height: 112px !important;
-  margin: 0 !important;             
+  width: 140px !important;   /* was 100–112px */
+  height: 140px !important;
+  margin: 0 0 20px !important; 
   object-fit: cover;
   border-radius: 50%;
 }
@@ -296,14 +296,15 @@ h2{
   font-weight: 300 !important;
   font-size: 22.4px !important;
   line-height: 32px !important;
-  color: #444 !important;
-  margin: 0 !important;           /
+  color: #444 !important;   
+  margin: 0 0 12px !important;
   max-width: 92%;
   display: -webkit-box;              
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;             
   overflow: hidden;
-  min-height: calc(2 * 32px);   
+  min-height: calc(2 * 32px); 
+  text-align: center !important;
 }
 
 /* Pronouns — one line reserved so rows line up */
@@ -343,6 +344,13 @@ h2{
   width: 22px !important;
   height: 22px !important;
   display: block;
+}
+
+.ambassadors-grid .ambassador-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;  /* centers avatar and text */
+  text-align: center !important;
 }
 
 /* Optional: ensure even cards with very long names remain balanced */
