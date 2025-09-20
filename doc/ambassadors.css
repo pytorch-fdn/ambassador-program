@@ -257,7 +257,7 @@ h2{
   text-align: center; /* change to left if you prefer */
 }
 
-/* === EXACT card dimensions + balanced internals === */
+/* === EXACT card dimensions + balanced internals  old === */
 :root{
   --card-w: 254.96px;      
   --card-h-exact: 480.58px;   
@@ -320,3 +320,88 @@ h2{
   }
 }
 
+/* === Normalize and align everything inside the fixed-height card === */
+
+/* Make the card a centered vertical stack with consistent gaps */
+.ambassadors-grid .ambassador-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;  
+  text-align: center !important;
+  gap: 8px;                          
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+/* Avatar */
+.ambassadors-grid .ambassador-card .avatar {
+  width: 112px !important;
+  height: 112px !important;
+  margin: 0 !important;             
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Name — clamp to 2 lines so different lengths align */
+.ambassadors-grid .ambassador-card .name {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 22.4px !important;
+  line-height: 32px !important;
+  color: #444 !important;
+  margin: 0 !important;           /
+  max-width: 92%;
+  display: -webkit-box;              
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;             
+  overflow: hidden;
+  min-height: calc(2 * 32px);   
+}
+
+/* Pronouns — one line reserved so rows line up */
+.ambassadors-grid .ambassador-card .pronouns {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: #555 !important;
+  font-style: italic;
+  margin: 0 !important;
+  min-height: 24px;               
+}
+
+/* Push socials to the bottom of the fixed-height card */
+.ambassadors-grid .ambassador-card .social-icons {
+  margin-top: auto !important;     
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Icon buttons */
+.ambassadors-grid .ambassador-card .icon {
+  width: 42px !important;
+  height: 42px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fafafa;
+}
+.ambassadors-grid .ambassador-card .icon img {
+  width: 22px !important;
+  height: 22px !important;
+  display: block;
+}
+
+/* Optional: ensure even cards with very long names remain balanced */
+@supports not (-webkit-line-clamp: 2) {
+  .ambassadors-grid .ambassador-card .name {
+    /* Fallback: limit to 2 lines using height + overflow */
+    max-height: calc(2 * 32px);
+    overflow: hidden;
+  }
+}
