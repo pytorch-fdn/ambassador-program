@@ -1,169 +1,597 @@
-/* Build cards & modals from JSON (keeps your design & behavior) */
-(async function () {
-  // Point to your live JSON (or use "./ambassadors.json" if colocated)
-  const DATA_URL = "https://pytorch-fdn.github.io/ambassador-program/doc/ambassadors.json";
-
-  const grid = document.getElementById("ambassadors-grid");
-  if (!grid) return;
-
-  const safe = (s) => (s == null ? "" : String(s).trim());
-  const has = (s) => !!safe(s);
-
-  // Very small inline placeholder (gray circle)
-  const PLACEHOLDER =
-    'data:image/svg+xml;utf8,' +
-    encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">
-         <defs><clipPath id="r"><circle cx="70" cy="70" r="70"/></clipPath></defs>
-         <rect width="100%" height="100%" fill="#e9ecef"/>
-         <g clip-path="url(#r)">
-           <rect width="100%" height="100%" fill="#e9ecef"/>
-         </g>
-       </svg>`
-    );
-
-  function parseGithubUser(github) {
-    let gh = safe(github);
-    if (!gh) return "";
-    if (gh.startsWith("@")) gh = gh.slice(1);
-    // If it's a URL, extract the first path segment
-    if (/^https?:\/\//i.test(gh)) {
-      try {
-        const u = new URL(gh);
-        const seg = u.pathname.split("/").filter(Boolean)[0];
-        return seg || "";
-      } catch {
-        return "";
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ambassadors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+<!-- Your external CSS -->
+<link rel="stylesheet" href="./ambassadors.css">
+</head>
+<body>
+<!-- Wrap page content so it can be blurred when a modal is open -->
+<div id="page-content">
+  <div class="ambassadors-grid">
+    <!-- Regina Nkenchor -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg" alt="Regina Nkenchor" />
+      <h3 class="name">Regina Nkenchor</h3>
+      <p class="pronouns">she/her</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/reginankenchor" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="https://www.linkedin.com/in/reginankenchor" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+    <!-- Alejandro Núñez Arroyo -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://github.com/AleNunezArroyo.png?size=240" alt="Alejandro Núñez Arroyo" />
+      <h3 class="name">Alejandro Núñez Arroyo</h3>
+      <p class="pronouns">—</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/AleNunezArroyo" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+    <!-- Orestis Antonis Makris -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://github.com/OrestisMakris.png?size=240" alt="Orestis Antonis Makris" />
+      <h3 class="name">Orestis Antonis Makris</h3>
+      <p class="pronouns">—</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/OrestisMakris" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+    <!-- ABDULSALAM YAZID BANDE -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://github.com/abdulsalam-bande.png?size=240" alt="ABDULSALAM YAZID BANDE" />
+      <h3 class="name">ABDULSALAM YAZID BANDE</h3>
+      <p class="pronouns">—</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/abdulsalam-bande" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+    <!-- Giorgio Armani Magno -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://github.com/ggiorgioarmanim.png?size=240" alt="Giorgio Armani Magno" />
+      <h3 class="name">Giorgio Armani Magno</h3>
+      <p class="pronouns">—</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/ggiorgioarmanim" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+    <!-- Assoc. Prof. Dr. Eyup Cinar -->
+    <div class="ambassador-card">
+      <img class="avatar" src="https://github.com/drecinar.png?size=240" alt="Assoc. Prof. Dr. Eyup Cinar" />
+      <h3 class="name">Assoc. Prof. Dr. Eyup Cinar</h3>
+      <p class="pronouns">—</p>
+      <div class="social-icons">
+        <a class="icon" href="https://github.com/drecinar" target="_blank" rel="noopener" aria-label="GitHub">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub logo" />
+        </a>
+        <a class="icon" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn logo" />
+        </a>
+      </div>
+    </div>
+  </div><!-- /.ambassadors-grid -->
+</div><!-- /#page-content -->
+<!-- ===== Modals (stay OUTSIDE #page-content so they don’t blur) ===== -->
+<section id="regina-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="regina-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <!-- ✅ Added: full-size photo inside the modal -->
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg"
+           alt="Regina Nkenchor"
+           width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="regina-title">Regina Nkenchor</h3>
+      <p class="pronouns">she/her</p>
+      <p class="location">Location: Lagos, Nigeria</p>
+    </div>
+    <p class="bio">
+      I’m a Machine Learning Engineer at Arm, focused on accelerating ML performance,
+      benchmarking, and deployment on Arm CPUs through projects like KleidiAI and ExecuTorch—helping make PyTorch faster
+      and more efficient on billions of devices. Before this, I built robotic perception systems at Dyson, deploying
+      multi-task vision models on embedded hardware. As a PyTorch Ambassador, I’m passionate about open source and
+      committed to making AI more accessible through real-world PyTorch applications, mentorship, and community initiatives.
+    </p>
+  </div>
+</section>
+<section id="alejandro-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="alejandro-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src=""
+           data-src="https://github.com/AleNunezArroyo.png?size=240"
+           alt="Alejandro Núñez Arroyo" width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="alejandro-title">Alejandro Núñez Arroyo</h3>
+      <p class="pronouns">—</p>
+    </div>
+    <p class="bio">—</p>
+  </div>
+</section>
+<section id="orestis-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orestis-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src=""
+           data-src="https://github.com/OrestisMakris.png?size=240"
+           alt="Orestis Antonis Makris" width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="orestis-title">Orestis Antonis Makris</h3>
+      <p class="pronouns">—</p>
+    </div>
+    <p class="bio">—</p>
+  </div>
+</section>
+<section id="abdulsalam-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="abdulsalam-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src=""
+           data-src="https://github.com/abdulsalam-bande.png?size=240"
+           alt="ABDULSALAM YAZID BANDE" width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="abdulsalam-title">ABDULSALAM YAZID BANDE</h3>
+      <p class="pronouns">—</p>
+    </div>
+    <p class="bio">—</p>
+  </div>
+</section>
+<section id="giorgio-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="giorgio-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src=""
+           data-src="https://github.com/ggiorgioarmanim.png?size=240"
+           alt="Giorgio Armani Magno" width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="giorgio-title">Giorgio Armani Magno</h3>
+      <p class="pronouns">—</p>
+    </div>
+    <p class="bio">—</p>
+  </div>
+</section>
+<section id="eyup-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="eyup-title">
+  <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+  <div class="modal__card">
+    <a href="#" class="modal__close" aria-label="Close">×</a>
+    <div class="modal__avatar-wrap">
+      <img class="modal__avatar"
+           src=""
+           data-src="https://github.com/drecinar.png?size=240"
+           alt="Assoc. Prof. Dr. Eyup Cinar" width="140" height="140" />
+    </div>
+    <div class="modal__header">
+      <h3 id="eyup-title">Assoc. Prof. Dr. Eyup Cinar</h3>
+      <p class="pronouns">—</p>
+    </div>
+    <p class="bio">—</p>
+  </div>
+</section>
+<!-- Your existing JS -->
+<script defer src="./ambassadors.js"></script>
+<!-- Tiny helper to add/remove the fallback 'modal-open' class (for browsers without :has) -->
+<script>
+  (function () {
+    function syncModalOpenClass() {
+      if (location.hash && document.querySelector(location.hash + '.modal')) {
+        document.body.classList.add('modal-open');
+      } else {
+        document.body.classList.remove('modal-open');
       }
     }
-    // Otherwise assume it's a username
-    return gh;
+    window.addEventListener('hashchange', syncModalOpenClass);
+    document.addEventListener('DOMContentLoaded', syncModalOpenClass);
+  })();
+</script>
+</body>
+</html>
+Collapse
+
+
+
+
+1:13
+Regina Nkenchor
+current css before json
+ 
+/* === Base: match WP body typography === */
+:root {
+  --font-body: Helvetica, Arial, sans-serif;
+  --text-color: #676767;  /* rgb(103,103,103) */
+  --body-size: 18px;
+  --body-line: 28px;      /* 28px line-height */
+}
+html { font-size: var(--body-size); }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*, *::before, *::after { box-sizing: border-box; }
+/* === Heading: match WP dump for "Meet the Ambassadors" === */
+h2{
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 200;      /* very light */
+  font-size: 56px;       /* from WP computed */
+  line-height: 64px;     /* from WP computed */
+  color: #444444;        /* rgb(68,68,68) */
+  margin: 0 0 0.5rem;
+}
+/* ===== Ambassadors grid ===== */
+.ambassadors-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-items: center;
+}
+.ambassador-card {
+  max-width: 260px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 16px 14px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.ambassador-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+/* Avatar */
+.ambassador-card .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+.ambassador-card .name {
+  margin: 8px 0 12px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--text-color);
+}
+/* ===== Social icons ===== */
+.ambassador-card .social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* space between GitHub + LinkedIn */
+}
+.ambassador-card .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: background .15s ease, border-color .15s ease, transform .05s ease;
+}
+.ambassador-card .icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.ambassador-card .icon:hover {
+  background: #f8f9fb;
+  border-color: #d0d7de;
+  transform: translateY(-1px);
+}
+.ambassador-card .icon[aria-label="LinkedIn"]:hover {
+  background: #eef6ff;
+  border-color: #b9d7ff;
+}
+.ambassador-card .pronouns {
+  margin: -6px 0 10px;
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}
+/* ===== Modal (only name + pronouns + bio; no logos) ===== */
+.modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+.modal:target { display: grid; place-items: center; }
+.modal__backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
+.modal__card {
+  position: relative; background: #fff; width: min(640px, 92vw); max-height: 85vh;
+  overflow: auto; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.modal__close {
+  position: absolute; top: 10px; right: 12px; font-size: 24px; text-decoration: none; color: #111; line-height: 1;
+}
+.modal__header { margin-bottom: 12px; text-align: left; }
+/* Modal text = match WP body (Helvetica 18/28, #676767) */
+.modal .bio,
+.modal .location {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #676767;
+}
+/* Small spacing tweak for the location line */
+.modal .location {
+  margin-top: 6px;
+}
+/* === Lock to exactly 4 columns at desktop === */
+@media (min-width: 1200px) {
+  .ambassadors-grid {
+    /* exactly 4 fixed-width columns */
+    grid-template-columns: repeat(4, 260px);
+    gap: 20px;
+    max-width: calc(4 * 260px + 3 * 20px); /* 1100px */
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    justify-items: center;
   }
-
-  function avatarFor(p) {
-    const a = safe(p.avatar);
-    if (a) return a;
-    const user = parseGithubUser(p.github);
-    if (user) return `https://github.com/${user}.png?size=240`;
-    return PLACEHOLDER;
+}
+:root{
+  --card-w: 254.96px;   
+  --card-gap: 20px;
+  --avatar-size: 100px; 
+  --icon-size: 38px;
+  --icon-img: 20px;
+  --name-size: 22.4px;  
+  --name-line: 32px;    
+  --name-weight: 300;   
+}
+.ambassadors-grid{
+  gap: var(--card-gap);
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-w), 1fr));
+}
+/* Card width */
+.ambassador-card{
+  max-width: var(--card-w);
+  width: 100%;
+}
+.ambassador-card .name{
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-size: var(--name-size);
+  line-height: var(--name-line);
+  font-weight: var(--name-weight);
+  color: #444;            /* keep readable; adjust if you want #111 */
+  margin: 8px 0 12px;
+  text-align: center;
+}
+/* Scale internals so the layout feels proportional at ~255px */
+.ambassador-card .avatar{
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+}
+.ambassador-card .icon{
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+.ambassador-card .icon img{
+  width: var(--icon-img);
+  height: var(--icon-img);
+}
+@media (min-width: 1200px){
+  .ambassadors-grid{
+    grid-template-columns: repeat(4, var(--card-w));
+    gap: var(--card-gap);
+    max-width: calc(4 * var(--card-w) + 3 * var(--card-gap));
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    justify-items: center;
   }
-
-  // Fetch data
-  let people = [];
-  try {
-    const r = await fetch(DATA_URL, { cache: "no-store" });
-    if (!r.ok) throw new Error(`Fetch failed: ${r.status}`);
-    people = await r.json();
-  } catch (err) {
-    console.error("[Ambassadors] Could not load data:", err);
-    return;
+}
+.modal .modal__card {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  color: #676767;
+}
+.modal .modal__header h3 {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 22.4px;
+  line-height: 32px;
+  color: #444;               /* use #111 if you want stronger contrast */
+  margin: 0 0 6px;
+  text-align: center;
+}
+.modal .modal__header .pronouns {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  font-style: italic;
+  color: #555;
+  text-align: center;
+  margin: 0 0 12px;
+}
+.modal .modal__card .bio,
+.modal .modal__card .location {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif; /* beats .modal .bio/.location */
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  color: #676767;
+  text-align: center; /* change to left if you prefer */
+}
+/* === EXACT card dimensions + balanced internals  old === */
+:root{
+  --card-w: 254.96px;      
+  --card-h-exact: 480.58px;   
+  --pad-y: 24px;           
+  --avatar-size: 112px;       
+  --icon-size: 42px;           
+  --icon-img: 22px;           
+}
+/* === Normalize and align everything inside the fixed-height card === */
+/* Make the card a centered vertical stack with consistent gaps */
+.ambassadors-grid .ambassador-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;  
+  text-align: center !important;
+  gap: 8px;                          
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+/* Avatar */
+.ambassadors-grid .ambassador-card .avatar {
+  width: 140px !important;   /* was 100–112px */
+  height: 140px !important;
+  margin: 0 0 20px !important; 
+  object-fit: cover;
+  border-radius: 50%;
+}
+/* Name — clamp to 2 lines so different lengths align */
+.ambassadors-grid .ambassador-card .name {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 22.4px !important;
+  line-height: 32px !important;
+  color: #444 !important;   
+  margin: 0 0 12px !important;
+  max-width: 92%;
+  display: -webkit-box;              
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;             
+  overflow: hidden;
+  min-height: calc(2 * 32px); 
+  text-align: center !important;
+}
+/* Pronouns — one line reserved so rows line up */
+.ambassadors-grid .ambassador-card .pronouns {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  color: #555 !important;
+  font-style: italic;
+  margin: 0 !important;
+  min-height: 24px;               
+}
+/* Push socials to the bottom of the fixed-height card */
+.ambassadors-grid .ambassador-card .social-icons {
+  margin-top: auto !important;     
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+/* Icon buttons */
+.ambassadors-grid .ambassador-card .icon {
+  width: 42px !important;
+  height: 42px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fafafa;
+}
+.ambassadors-grid .ambassador-card .icon img {
+  width: 22px !important;
+  height: 22px !important;
+  display: block;
+}
+.ambassadors-grid .ambassador-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;  /* centers avatar and text */
+  text-align: center !important;
+}
+/* Optional: ensure even cards with very long names remain balanced */
+@supports not (-webkit-line-clamp: 2) {
+  .ambassadors-grid .ambassador-card .name {
+    /* Fallback: limit to 2 lines using height + overflow */
+    max-height: calc(2 * 32px);
+    overflow: hidden;
   }
-
-  // Sort by name A→Z
-  people.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
-
-  // Templates
-  const cardHTML = (a) => {
-    const avatar = avatarFor(a);
-    return `
-      <div class="ambassador-card" data-id="${safe(a.id)}">
-        <img class="avatar" src="${avatar}" alt="${safe(a.name)}" width="140" height="140"
-             onerror="this.onerror=null;this.src='${PLACEHOLDER}'" />
-        <h3 class="name">${safe(a.name)}</h3>
-        <p class="pronouns">${has(a.pronouns) ? safe(a.pronouns) : "—"}</p>
-        <div class="social-icons">
-          ${has(a.github) ? `
-            <a class="icon" href="${safe(a.github)}" target="_blank" rel="noopener" aria-label="GitHub">
-              <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="20" height="20" />
-            </a>` : ``}
-          ${has(a.linkedin) ? `
-            <a class="icon" href="${safe(a.linkedin)}" target="_blank" rel="noopener" aria-label="LinkedIn">
-              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20" />
-            </a>` : ``}
-        </div>
-      </div>
-    `;
-  };
-
-  const modalHTML = (a) => {
-    const avatar = avatarFor(a);
-    return `
-      <section id="${safe(a.id)}-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="${safe(a.id)}-title">
-        <a href="#" class="modal__backdrop" aria-hidden="true"></a>
-        <div class="modal__card">
-          <a href="#" class="modal__close" aria-label="Close">×</a>
-
-          <div class="modal__avatar-wrap">
-            <img class="modal__avatar" src="${avatar}" alt="${safe(a.name)}" width="140" height="140"
-                 onerror="this.onerror=null;this.src='${PLACEHOLDER}'" />
-          </div>
-
-          <div class="modal__header">
-            <h3 id="${safe(a.id)}-title">${safe(a.name)}</h3>
-            <p class="pronouns">${has(a.pronouns) ? safe(a.pronouns) : "—"}</p>
-            ${has(a.location) ? `<p class="location">Location: ${safe(a.location)}</p>` : ``}
-          </div>
-
-          <p class="bio">${has(a.bio) ? safe(a.bio) : "—"}</p>
-        </div>
-      </section>
-    `;
-  };
-
-  // Inject cards
-  {
-    const frag = document.createDocumentFragment();
-    people.forEach((p) => {
-      const t = document.createElement("template");
-      t.innerHTML = cardHTML(p).trim();
-      frag.appendChild(t.content.firstElementChild);
-    });
-    grid.replaceChildren(frag);
+}
+/* === Background blur + scroll lock when a modal is open === */
+.modal__backdrop {
+  background: rgba(0,0,0,.45);
+}
+@supports (backdrop-filter: blur(2px)) {
+  .modal__backdrop { backdrop-filter: blur(2px); }
+}
+/* Modern approach: use :has() to detect an open modal via :target */
+@supports selector(body:has(.modal:target)) {
+  body:has(.modal:target) {
+    overflow: hidden; /* lock scroll */
   }
-
-  // Inject modals (append to body so they sit above blurred content)
-  {
-    const frag = document.createDocumentFragment();
-    people.forEach((p) => {
-      const t = document.createElement("template");
-      t.innerHTML = modalHTML(p).trim();
-      frag.appendChild(t.content.firstElementChild);
-    });
-    document.body.appendChild(frag);
+  body:has(.modal:target) #page-content {
+    filter: blur(6px);
+    transform: translateZ(0);   /* avoids GPU flicker on some devices */
+    pointer-events: none;       /* prevent clicks through the blur */
   }
-
-  // ===== Open/close + scroll lock + parent postMessage =====
-  function notifyParentModal(isOpen) {
-    try { parent.postMessage({ type: 'ambassador-modal', open: isOpen }, '*'); } catch (_) {}
+}
+body.modal-open { overflow: hidden; }
+body.modal-open #page-content {
+  filter: blur(6px);
+  transform: translateZ(0);
+  pointer-events: none;
+}
+/* Make sure the modal sits above the blurred content */
+.modal { z-index: 1000; }
+body.modal-open { 
+  overflow: hidden;   /* lock scrolling while a modal is open */
+}
+@supports selector(body:has(.modal:target)) {
+  body:has(.modal:target) {
+    overflow: hidden; /* modern browsers can lock scroll purely in CSS */
   }
-  function setModalOpenClass() {
-    const isOpen = !!(location.hash && document.querySelector(location.hash + '.modal'));
-    document.body.classList.toggle('modal-open', isOpen);
-    notifyParentModal(isOpen);
-  }
-
-  // Click a card → open its modal
-  document.addEventListener('click', function (e) {
-    if (e.target.closest('.social-icons a')) return; // let social links work normally
-    const cardEl = e.target.closest('.ambassador-card');
-    if (!cardEl) return;
-    const id = cardEl.getAttribute('data-id');
-    if (!id) return;
-    location.hash = id + '-modal';
-    setModalOpenClass();
-  });
-
-  // ESC closes the modal
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && location.hash) {
-      location.hash = '';
-      setModalOpenClass();
-    }
-  });
-
-  // Back/forward or backdrop clicks
-  window.addEventListener('hashchange', setModalOpenClass);
-
-  // If page loads with modal already open
-  setModalOpenClass();
-})();
+}
+.modal__avatar-wrap { display:flex; justify-content:center; margin-bottom:20px; }
+.modal__avatar { width:140px; height:140px; border-radius:50%; object-fit:cover; box-shadow:0 4px 12px rgba(0,0,0,.15); }
