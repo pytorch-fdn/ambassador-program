@@ -1,26 +1,169 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ambassadors</title>
+/* Build cards & modals from JSON (keeps your design & behavior) */
+(async function () {
+  // Point to your live JSON (or use "./ambassadors.json" if colocated)
+  const DATA_URL = "https://pytorch-fdn.github.io/ambassador-program/doc/ambassadors.json";
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+  const grid = document.getElementById("ambassadors-grid");
+  if (!grid) return;
 
-<link rel="stylesheet" href="./ambassadors.css">
-</head>
-<body>
+  const safe = (s) => (s == null ? "" : String(s).trim());
+  const has = (s) => !!safe(s);
 
-<!-- Wrap page content so it can be blurred when a modal is open -->
-<div id="page-content">
-  <!-- JS will inject all cards here -->
-  <div class="ambassadors-grid" id="ambassadors-grid"></div>
-</div>
+  // Very small inline placeholder (gray circle)
+  const PLACEHOLDER =
+    'data:image/svg+xml;utf8,' +
+    encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">
+         <defs><clipPath id="r"><circle cx="70" cy="70" r="70"/></clipPath></defs>
+         <rect width="100%" height="100%" fill="#e9ecef"/>
+         <g clip-path="url(#r)">
+           <rect width="100%" height="100%" fill="#e9ecef"/>
+         </g>
+       </svg>`
+    );
 
-<!-- JS builds cards + modals from JSON and keeps your modal/scroll behavior -->
-<script defer src="./ambassadors.js"></script>
+  function parseGithubUser(github) {
+    let gh = safe(github);
+    if (!gh) return "";
+    if (gh.startsWith("@")) gh = gh.slice(1);
+    // If it's a URL, extract the first path segment
+    if (/^https?:\/\//i.test(gh)) {
+      try {
+        const u = new URL(gh);
+        const seg = u.pathname.split("/").filter(Boolean)[0];
+        return seg || "";
+      } catch {
+        return "";
+      }
+    }
+    // Otherwise assume it's a username
+    return gh;
+  }
 
-</body>
-</html>
+  function avatarFor(p) {
+    const a = safe(p.avatar);
+    if (a) return a;
+    const user = parseGithubUser(p.github);
+    if (user) return `https://github.com/${user}.png?size=240`;
+    return PLACEHOLDER;
+  }
+
+  // Fetch data
+  let people = [];
+  try {
+    const r = await fetch(DATA_URL, { cache: "no-store" });
+    if (!r.ok) throw new Error(`Fetch failed: ${r.status}`);
+    people = await r.json();
+  } catch (err) {
+    console.error("[Ambassadors] Could not load data:", err);
+    return;
+  }
+
+  // Sort by name A→Z
+  people.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+
+  // Templates
+  const cardHTML = (a) => {
+    const avatar = avatarFor(a);
+    return `
+      <div class="ambassador-card" data-id="${safe(a.id)}">
+        <img class="avatar" src="${avatar}" alt="${safe(a.name)}" width="140" height="140"
+             onerror="this.onerror=null;this.src='${PLACEHOLDER}'" />
+        <h3 class="name">${safe(a.name)}</h3>
+        <p class="pronouns">${has(a.pronouns) ? safe(a.pronouns) : "—"}</p>
+        <div class="social-icons">
+          ${has(a.github) ? `
+            <a class="icon" href="${safe(a.github)}" target="_blank" rel="noopener" aria-label="GitHub">
+              <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="20" height="20" />
+            </a>` : ``}
+          ${has(a.linkedin) ? `
+            <a class="icon" href="${safe(a.linkedin)}" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="20" height="20" />
+            </a>` : ``}
+        </div>
+      </div>
+    `;
+  };
+
+  const modalHTML = (a) => {
+    const avatar = avatarFor(a);
+    return `
+      <section id="${safe(a.id)}-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="${safe(a.id)}-title">
+        <a href="#" class="modal__backdrop" aria-hidden="true"></a>
+        <div class="modal__card">
+          <a href="#" class="modal__close" aria-label="Close">×</a>
+
+          <div class="modal__avatar-wrap">
+            <img class="modal__avatar" src="${avatar}" alt="${safe(a.name)}" width="140" height="140"
+                 onerror="this.onerror=null;this.src='${PLACEHOLDER}'" />
+          </div>
+
+          <div class="modal__header">
+            <h3 id="${safe(a.id)}-title">${safe(a.name)}</h3>
+            <p class="pronouns">${has(a.pronouns) ? safe(a.pronouns) : "—"}</p>
+            ${has(a.location) ? `<p class="location">Location: ${safe(a.location)}</p>` : ``}
+          </div>
+
+          <p class="bio">${has(a.bio) ? safe(a.bio) : "—"}</p>
+        </div>
+      </section>
+    `;
+  };
+
+  // Inject cards
+  {
+    const frag = document.createDocumentFragment();
+    people.forEach((p) => {
+      const t = document.createElement("template");
+      t.innerHTML = cardHTML(p).trim();
+      frag.appendChild(t.content.firstElementChild);
+    });
+    grid.replaceChildren(frag);
+  }
+
+  // Inject modals (append to body so they sit above blurred content)
+  {
+    const frag = document.createDocumentFragment();
+    people.forEach((p) => {
+      const t = document.createElement("template");
+      t.innerHTML = modalHTML(p).trim();
+      frag.appendChild(t.content.firstElementChild);
+    });
+    document.body.appendChild(frag);
+  }
+
+  // ===== Open/close + scroll lock + parent postMessage =====
+  function notifyParentModal(isOpen) {
+    try { parent.postMessage({ type: 'ambassador-modal', open: isOpen }, '*'); } catch (_) {}
+  }
+  function setModalOpenClass() {
+    const isOpen = !!(location.hash && document.querySelector(location.hash + '.modal'));
+    document.body.classList.toggle('modal-open', isOpen);
+    notifyParentModal(isOpen);
+  }
+
+  // Click a card → open its modal
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.social-icons a')) return; // let social links work normally
+    const cardEl = e.target.closest('.ambassador-card');
+    if (!cardEl) return;
+    const id = cardEl.getAttribute('data-id');
+    if (!id) return;
+    location.hash = id + '-modal';
+    setModalOpenClass();
+  });
+
+  // ESC closes the modal
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && location.hash) {
+      location.hash = '';
+      setModalOpenClass();
+    }
+  });
+
+  // Back/forward or backdrop clicks
+  window.addEventListener('hashchange', setModalOpenClass);
+
+  // If page loads with modal already open
+  setModalOpenClass();
+})();
