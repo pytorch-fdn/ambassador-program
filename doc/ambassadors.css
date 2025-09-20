@@ -361,3 +361,34 @@ h2{
     overflow: hidden;
   }
 }
+/* === Background blur + scroll lock when a modal is open === */
+
+.modal__backdrop {
+  background: rgba(0,0,0,.45);
+}
+@supports (backdrop-filter: blur(2px)) {
+  .modal__backdrop { backdrop-filter: blur(2px); }
+}
+
+/* Modern approach: use :has() to detect an open modal via :target */
+@supports selector(body:has(.modal:target)) {
+  body:has(.modal:target) {
+    overflow: hidden; /* lock scroll */
+  }
+  body:has(.modal:target) #page-content {
+    filter: blur(6px);
+    transform: translateZ(0);   /* avoids GPU flicker on some devices */
+    pointer-events: none;       /* prevent clicks through the blur */
+  }
+}
+
+body.modal-open { overflow: hidden; }
+body.modal-open #page-content {
+  filter: blur(6px);
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+/* Make sure the modal sits above the blurred content */
+.modal { z-index: 1000; }
+
