@@ -112,18 +112,17 @@
 </div><!-- /#page-content -->
 
 <!-- ===== Modals (stay OUTSIDE #page-content so they don’t blur) ===== -->
-
 <section id="regina-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="regina-title">
   <a href="#" class="modal__backdrop" aria-hidden="true"></a>
   <div class="modal__card">
     <a href="#" class="modal__close" aria-label="Close">×</a>
 
-    <!-- avatar inside modal (deferred load) -->
+    <!-- ✅ Added: full-size photo inside the modal -->
     <div class="modal__avatar-wrap">
       <img class="modal__avatar"
-           src=""
-           data-src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg"
-           alt="Regina Nkenchor" width="140" height="140" />
+           src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/reginankenchor.jpg"
+           alt="Regina Nkenchor"
+           width="140" height="140" />
     </div>
 
     <div class="modal__header">
