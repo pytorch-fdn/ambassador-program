@@ -306,5 +306,15 @@
     "github": "https://github.com/zhiqingxiao",
     "linkedin": "https://www.linkedin.com/in/zhiqingxiao",
     "bio": "I am an AI researcher with doctoral degree from Tsinghua University. I write PyTorch tutorials and foster PyTorch community in Chinese. My book “Application of Neural Network and PyTorch” (GitHub: zhiqingxiao/pytorch-book) is one of the earliest PyTorch 1 tutorial books, and my book “Reinforcement Learning: Theory and Python Implementation” (GitHub: zhiqingxiao/rl-book) implements many mainstream RL algorithms upon PyTorch. I also maintain a WeChat subscription account and QQ groups for PyTorch community."
-  }
+  },
+  {
+  "id": "talib-sayyed",
+  "name": "Talib Sayyed",
+  "location": "India",
+  "country": "India",
+  "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/talib.jpg",
+  "github": "https://github.com/talibsayyed",
+  "linkedin": "https://www.linkedin.com/in/talibs/",
+  "bio": "I’m a Generative AI Engineer at CoreFlex Solutions in Pune. I enjoy running LLMs locally on my RTX 3080–powered setup and, on weekends, I’d rather be at tech events than asleep. I’m active in the community, and you can verify my work and activities on LinkedIn."
+}
 ]
