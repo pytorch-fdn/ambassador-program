@@ -324,7 +324,7 @@
     "pronouns": "He/Him",
     "location": "London, UK",
     "country": "UK",
-    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Paul_Dowling.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Paul_Dowling%20.jpg",
     "github": "https://github.com/pauldowlingKXSB",
     "linkedin": "https://linkedin.com/in/Paulmdowling",
     "bio": "I am the original founder of the London PyTorch Meetup and run KXSB.org, a platform for open source AI collaboration."
@@ -338,6 +338,6 @@
   "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Tablibupdated.png",
   "github": "https://github.com/talibsayyed",
   "linkedin": "https://www.linkedin.com/in/talibs/",
-  "bio": "I’m a Generative AI Engineer at CoreFlex Solutions in Pune. I enjoy running LLMs locally on my RTX 3080–powered setup and, on weekends, I’d rather be at tech events than asleep. I’m active in the community, and you can verify my work and activities on LinkedIn."
+  "bio": "I am a Generative AI Engineer at SkillReigns Technologies, Pune, with a strong passion for experimenting and performing inference with large language models on my RTX 3080-powered personal setup. I actively engage with the AI and tech community and regularly participate in tech events. You can explore my professional work and contributions on LinkedIn."
 }
 ]
