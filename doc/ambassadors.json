@@ -308,6 +308,28 @@
     "bio": "I am an AI researcher with doctoral degree from Tsinghua University. I write PyTorch tutorials and foster PyTorch community in Chinese. My book “Application of Neural Network and PyTorch” (GitHub: zhiqingxiao/pytorch-book) is one of the earliest PyTorch 1 tutorial books, and my book “Reinforcement Learning: Theory and Python Implementation” (GitHub: zhiqingxiao/rl-book) implements many mainstream RL algorithms upon PyTorch. I also maintain a WeChat subscription account and QQ groups for PyTorch community."
   },
   {
+    "id": "zesheng-zong",
+    "name": "Zesheng Zong",
+    "pronouns": "He/Him",
+    "location": "Dongguan, China",
+    "country": "China",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Zesheng_Zong.jpg",
+    "github": "https://github.com/zeshengzong",
+    "linkedin": "https://www.linkedin.com/in/zesheng-zong-1028b6a2",
+    "bio": "Developer in the PyTorch community, focusing on accelerator integration and dedicated to the growth and engagement of the PyTorch China community."
+  },
+  {
+    "id": "paul-dowling",
+    "name": "Paul Dowling",
+    "pronouns": "He/Him",
+    "location": "London, UK",
+    "country": "UK",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Paul_Dowling.jpg",
+    "github": "https://github.com/pauldowlingKXSB",
+    "linkedin": "https://linkedin.com/in/Paulmdowling",
+    "bio": "I am the original founder of the London PyTorch Meetup and run KXSB.org, a platform for open source AI collaboration."
+  },
+  {
   "id": "talib-sayyed",
   "name": "Talib Sayyed",
   "pronouns": "He/Him",
