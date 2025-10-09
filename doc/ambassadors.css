@@ -1,4 +1,4 @@
-/* === Base: match WP body typography === */
+/* === Base=== */
 :root {
   --font-body: Helvetica, Arial, sans-serif;
   --text-color: #676767;  /* rgb(103,103,103) */
@@ -21,7 +21,7 @@ body {
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* === Heading: match WP dump for "Meet the Ambassadors" === */
+/* === Heading: "Meet the Ambassadors" === */
 h2{
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 200;      /* very light */
@@ -353,7 +353,6 @@ h2{
   text-align: center !important;
 }
 
-/* Optional: ensure even cards with very long names remain balanced */
 @supports not (-webkit-line-clamp: 2) {
   .ambassadors-grid .ambassador-card .name {
     /* Fallback: limit to 2 lines using height + overflow */
@@ -370,15 +369,14 @@ h2{
   .modal__backdrop { backdrop-filter: blur(2px); }
 }
 
-/* Modern approach: use :has() to detect an open modal via :target */
 @supports selector(body:has(.modal:target)) {
   body:has(.modal:target) {
     overflow: hidden; /* lock scroll */
   }
   body:has(.modal:target) #page-content {
     filter: blur(6px);
-    transform: translateZ(0);   /* avoids GPU flicker on some devices */
-    pointer-events: none;       /* prevent clicks through the blur */
+    transform: translateZ(0);  
+    pointer-events: none;      
   }
 }
 
