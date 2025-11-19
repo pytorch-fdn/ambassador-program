@@ -49,6 +49,14 @@ jobs:
                 core.info(`Would close issue #${issue.number}: ${issue.title}`);
 
                 if (!dryRun) {
+                  if (issue.locked) {
+                    await github.rest.issues.unlock({
+                      owner,
+                      repo,
+                      issue_number: issue.number,
+                    });
+                  }
+
                   await github.rest.issues.createComment({
                     owner,
                     repo,
