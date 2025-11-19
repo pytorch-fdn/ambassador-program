@@ -1,0 +1,69 @@
+name: Close Ambassador Applications 2025
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode? (no issues will be closed)"
+        required: false
+        default: "true"
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Close all open application issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const dryRun = core.getInput("dry_run") === "true";
+            const per_page = 100;
+            let page = 1;
+
+            const commentBody = "Application cycle for the 2025 ambassador program is now closed.";
+
+            core.info(`Dry run mode: ${dryRun}`);
+
+            while (true) {
+              const { data: issues } = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: "open",
+                per_page,
+                page,
+              });
+
+              if (issues.length === 0) {
+                core.info("No more open issues found.");
+                break;
+              }
+
+              for (const issue of issues) {
+                if (issue.pull_request) continue;
+
+                core.info(`Would close issue #${issue.number}: ${issue.title}`);
+
+                if (!dryRun) {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    body: commentBody,
+                  });
+
+                  await github.rest.issues.update({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    state: "closed",
+                  });
+                }
+              }
+
+              page += 1;
+            }
