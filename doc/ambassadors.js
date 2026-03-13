@@ -1,4 +1,4 @@
-/* Build ambassadors from JSON + keep modal behavior and scroll lock */
+/* ambassadors from JSON + keep modal behavior and scroll lock */
 (function () {
   const DATA_URL = "./ambassadors.json";
 
