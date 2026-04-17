@@ -34,7 +34,6 @@ Ambassadors are expected to actively contribute to the PyTorch community by:
 To become a PyTorch Ambassador, candidates must meet the following criteria:  
 
 - 🎂 Be at least 18 years old.  
-- 📝 Sign the PyTorch Ambassador Agreement & NDA.  
 - 📜 Must follow the PyTorch Foundation Code of Conduct.  
 - ⚖️ Must comply with the LF antitrust policy [here](https://www.linuxfoundation.org/legal/antitrust-policy).  
 - 🖥️ Demonstrate technical knowledge of PyTorch through:  
