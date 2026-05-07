@@ -11,8 +11,7 @@ body:
       value: |
         Thank you for helping us keep the PyTorch Ambassador directory up to date.
 
-        Please use this form to request updates to your ambassador profile information. Profile updates are currently reviewed and applied manually.
-
+        Please use this form to request updates to your ambassador profile information. 
   - type: input
     id: full-name
     attributes:
