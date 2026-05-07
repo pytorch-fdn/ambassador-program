@@ -1,0 +1,102 @@
+name: Ambassador Profile Update
+description: Request updates to your PyTorch Ambassador profile
+title: "[Ambassador Profile Update]: "
+labels: ["ambassador-profile-update"]
+assignees:
+  - reginankenchor
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping us keep the PyTorch Ambassador directory up to date.
+
+        Please use this form to request updates to your ambassador profile information. Profile updates are currently reviewed and applied manually.
+
+  - type: input
+    id: full-name
+    attributes:
+      label: Full Name
+      placeholder: "Jane Doe"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: update-type
+    attributes:
+      label: What would you like to update?
+      options:
+        - label: Location
+        - label: Country
+        - label: Profile photo
+        - label: Pronouns
+        - label: Bio
+        - label: GitHub URL
+        - label: LinkedIn URL
+        - label: Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Updated Location
+      placeholder: "SeongNam-Si, Korea"
+
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: "South Korea"
+
+  - type: input
+    id: pronouns
+    attributes:
+      label: Pronouns
+      placeholder: "He/him"
+
+  - type: input
+    id: github
+    attributes:
+      label: GitHub URL
+      placeholder: "https://github.com/username"
+
+  - type: input
+    id: linkedin
+    attributes:
+      label: LinkedIn URL
+      placeholder: "https://www.linkedin.com/in/username"
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: Updated Bio
+      description: Please keep your bio concise and community-focused.
+      placeholder: "Write your updated bio here."
+
+  - type: textarea
+    id: profile-photo
+    attributes:
+      label: Updated Profile Photo
+      description: |
+        Please attach a high-quality JPG or PNG image to this issue.
+
+        Recommended:
+        - Square image preferred
+        - Clear headshot
+        - Good lighting
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      placeholder: "Anything else we should know?"
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: I confirm that the submitted information and image may be displayed publicly on the PyTorch Ambassador website.
+          required: true
+    
