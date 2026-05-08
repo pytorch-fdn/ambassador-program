@@ -1,4 +1,5 @@
-name: "Auto-Comment on Nomination Issues"
+name: Auto-Comment on Ambassador Issues
+
 on:
   issues:
     types: [opened]
@@ -6,8 +7,9 @@ on:
 jobs:
   comment-on-issue:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Add Welcome Comment Based on Program
+      - name: Add Comment Based on Issue Type
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -18,65 +20,37 @@ jobs:
             const repoOwner = context.repo.owner;
             const repoName = context.repo.repo;
 
-            let programName = "PyTorch Foundation Program";
-            let programDocs = "https://github.com/pytorch-fdn/foundation-programs";
             let commentBody = "";
 
-            if (labels.includes("ambassador")) {
-              programName = "PyTorch Ambassador Program";
-              programDocs = "https://github.com/pytorch-fdn/ambassador-program/blob/main/README.md";
+            if (labels.includes("ambassador-nomination")) {
               commentBody = [
-                `👋 Thank you for submitting a nomination for the **${programName}**! 🎉`,
+                "👋 Thank you for submitting a nomination for the **PyTorch Ambassador Program**!",
                 "",
-                "Your nomination is currently under review. A team member will evaluate the submission and update the status accordingly.",
+                "Your nomination has been received and is currently under review.",
                 "",
-                "🔹 **Review Process & Next Steps:**",
-                "1️⃣ Initial Review – The nomination will be reviewed by the team.",
-                "2️⃣ Scoring & Selection – Reviewers will assign scores based on eligibility and impact.",
-                "3️⃣ One-on-One Review – If shortlisted, the nominee will have a session with the Executive Director.",
-                "4️⃣ Final Decision – Selected ambassadors will receive an **official invitation**. ✅",
-                "",
-                `📖 Program Details: [View Documentation](${programDocs})`,
-                "",
-                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this nomination issue number.",
+                "A team member will review the submission and follow up if additional information is needed.",
                 "",
                 "Thank you for helping grow the PyTorch community! 🚀"
               ].join("\n\n");
-            } else if (labels.includes("speakers-bureau")) {
-              programName = "Speakers Bureau Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/speakers-bureau/README.md";
+
+            } else if (labels.includes("ambassador-profile-update")) {
               commentBody = [
-                `👋 Thank you for submitting a nomination for the **${programName}**! 🎤`,
+                "👋 Thank you for submitting an ambassador profile update request.",
                 "",
-                "Your nomination is currently being reviewed. A team member will evaluate the speaker’s background, proposed topics, and fit for upcoming events.",
+                "Your request has been received and will be reviewed.",
                 "",
-                `📖 Program Details: [View Documentation](${programDocs})`,
+                "If you are updating your profile photo, please make sure the image is attached to this issue and that you have confirmed permission for it to appear publicly on the PyTorch Ambassador website.",
                 "",
-                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue.",
-                "",
-                "We appreciate your effort to support PyTorch education and visibility worldwide! 🌍"
+                "Thank you for helping us keep the Ambassador directory up to date!"
               ].join("\n\n");
-            } else if (labels.includes("ospo-outreach")) {
-              programName = "OSPO Outreach Program";
-              programDocs = "https://github.com/pytorch-fdn/foundation-programs/blob/main/ospo-outreach/README.md";
-              commentBody = [
-                `👋 Thank you for your submission to the **${programName}**! 🧪`,
-                "",
-                "Your outreach proposal is under review. The team will evaluate the research goals, scope, and alignment with PyTorch Foundation priorities.",
-                "",
-                `📖 Program Details: [View Documentation](${programDocs})`,
-                "",
-                "💬 Have questions? Please submit a [Feedback or Inquiry](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and reference this issue.",
-                "",
-                "Thank you for advancing open-source AI and ML innovation with us! 🤝"
-              ].join("\n\n");
+
             } else {
               commentBody = [
-                `👋 Thank you for submitting to the **${programName}**!`,
+                "👋 Thank you for your submission to the **PyTorch Ambassador Program** repository.",
                 "",
-                `Your submission is under review. Please refer to our [documentation](${programDocs}) for next steps.`,
+                "Your issue has been received and will be reviewed.",
                 "",
-                "If you have questions, submit a [Feedback Issue](https://github.com/pytorch-fdn/foundation-initiative/issues/new?template=feedback.yml) and include this issue number."
+                "Thank you for supporting the PyTorch community!"
               ].join("\n\n");
             }
 
