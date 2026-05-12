@@ -1,0 +1,71 @@
+name: Label Closed Ambassador Applications 2025
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode? (no labels will be added)"
+        required: false
+        default: "true"
+
+jobs:
+  label-closed-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Add 2025 label to closed ambassador issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const dryRun = core.getInput("dry_run") === "true";
+            const per_page = 100;
+            let page = 1;
+
+            const requiredLabel = "ambassador";
+            const yearLabel = "ambassador-program-2025";
+
+            core.info(`Dry run mode: ${dryRun}`);
+
+            while (true) {
+              const { data: issues } = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: "closed",
+                labels: requiredLabel,
+                per_page,
+                page,
+              });
+
+              if (issues.length === 0) {
+                core.info("No more closed ambassador issues found.");
+                break;
+              }
+
+              for (const issue of issues) {
+                if (issue.pull_request) continue;
+
+                const existingLabels = issue.labels.map(label => label.name);
+
+                if (existingLabels.includes(yearLabel)) {
+                  core.info(`Issue #${issue.number} already has label: ${yearLabel}`);
+                  continue;
+                }
+
+                core.info(`Would add label "${yearLabel}" to issue #${issue.number}: ${issue.title}`);
+
+                if (!dryRun) {
+                  await github.rest.issues.addLabels({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    labels: [yearLabel],
+                  });
+                }
+              }
+
+              page += 1;
+            }
