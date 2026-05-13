@@ -1,16 +1,15 @@
 [
   {
-    "id": "abdulsalam-bande",
-    "name": "Abdulsalam Bande",
-    "pronouns": "He/him",
-    "location": "Istanbul, Turkey",
-    "country": "Turkey",
-    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Bande.jpg",
-    "github": "https://github.com/abdulsalam-bande",
-    "linkedin": "https://www.linkedin.com/in/abdulsalam-bande-ml",
-    "bio": "Arun Bhandari is a Software Engineer with 2+ years of experience in backend development, data engineering, and AI integration. Currently pursuing an AI Fellowship at Fusemachines, he is passionate about deep learning, computer vision, and building impactful open-source solutions.
-Arun actively contributes to tech communities through Google Developer Group Kathmandu as a volunteer and work as a mentorship through Code for Nepal, , where he promotes AI/ML learning and explores real-world applications of PyTorch and modern AI technologies."
-  },
+  "id": "abdulsalam-bande",
+  "name": "Abdulsalam Bande",
+  "pronouns": "He/him",
+  "location": "Istanbul, Turkey",
+  "country": "Turkey",
+  "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Bande.jpg",
+  "github": "https://github.com/abdulsalam-bande",
+  "linkedin": "https://www.linkedin.com/in/abdulsalam-bande-ml",
+  "bio": "Arun Bhandari is a Software Engineer with 2+ years of experience in backend development, data engineering, and AI integration. Currently pursuing an AI Fellowship at Fusemachines, he is passionate about deep learning, computer vision, and building impactful open-source solutions.\nArun actively contributes to tech communities through Google Developer Group Kathmandu as a volunteer and works as a mentor through Code for Nepal, where he promotes AI/ML learning and explores real-world applications of PyTorch and modern AI technologies."
+},
   {
     "id": "akhil-varanasi",
     "name": "Akhil Varanasi",
