@@ -1,9 +1,9 @@
 
 ![PyTorch Ecosystem](https://raw.githubusercontent.com/pytorch/pytorch/0d4cedaa47c7ee22042eb24e87eb3cfe95502404/docs/source/_static/img/pytorch-logo-dark.svg)
 
-# PyTorch Ambassadors Program
+# PyTorch Foundation Ambassadors Program
 
-Welcome to the official repository for the **PyTorch Ambassador Program**.
+Welcome to the official repository for the **PyTorch Foundation Ambassador Program**.
 
 This program recognizes and supports exceptional community members who actively promote, teach, and contribute to the PyTorch ecosystem. Ambassadors are leaders, educators, and advocates who help grow PyTorch adoption globally through events, content creation, open-source contributions, and community engagement.
 
@@ -18,8 +18,7 @@ Learn more about the responsibilities, benefits, and eligibility criteria:
 
 ## 🚫 Nominations Closed
 
-The current round of the PyTorch Ambassador Program has now closed (as of **June 7**).  
-Thank you to everyone who submitted nominations!  
+Applications for the 2026 cohort will open on May 18, 2026. Please check back then for additional details and updates.
 
 Please check back here or on [pytorch.org](https://pytorch.org/programs/ambassadors/) for future announcements regarding the next cycle.
 
@@ -27,8 +26,14 @@ Please check back here or on [pytorch.org](https://pytorch.org/programs/ambassad
 
 ## 🗓️ Timeline – Current Cycle
 
-There is no active Ambassador Program cycle at this time.  
-Please check back for the next nomination window.
+| Milestone | Date |
+|---|---|
+| Applications Open | May 18, 2026 |
+| Applications Close | Thursday, June 18, 2026 |
+| Review Period | June – August 2026 |
+| Application Notifications | September 2026 |
+| 2026 Cohort Announced (Term Begins) | October 2026 |
+| 2025 Ambassadorship Cohort Term Ends | October 1, 2027 |
 
 ## ❓ Frequently Asked Questions (FAQ)
 
