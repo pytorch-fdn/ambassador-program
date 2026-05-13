@@ -278,9 +278,9 @@
     "id": "yoshitomo-matsubara",
     "name": "Yoshitomo Matsubara",
     "pronouns": "He/Him",
-    "location": "Bellevue, USA",
+    "location": "Irvine, CA",
     "country": "United States",
-    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/yoshitomo-masdubara.jpg",
+    "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Yoshitomo Matsubara.jpg",
     "github": "https://github.com/yoshitomo-matsubara",
     "linkedin": "https://www.linkedin.com/in/yoshitomo-matsubara",
     "bio": "Yoshitomo Matsubara is a research scientist with strong passion of open source/science. Most of his papers are published with code and/or artifacts for reproducibility and helping research communities build on his work. He is also an ML OSS developer (nights and weekends), actively developing pip-installable PyTorch frameworks, torchdistill and sc2bench, as the author for several years. torchdistill joined PyTorch Ecosystem in 2023."
