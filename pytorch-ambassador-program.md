@@ -1,6 +1,6 @@
-# PyTorch Ambassador Program 🚀
+# PyTorch Foundation Ambassador Program 
 
-The PyTorch Ambassador Program brings together our top rising leaders globally to empower them 
+The PyTorch Foundation Ambassador Program brings together our top rising leaders globally to empower them 
 to activate, connect, and build community and interest in PyTorch at scale. 
 
 ---
@@ -32,7 +32,6 @@ Ambassadors are expected to actively contribute to the PyTorch community by:
 To become a PyTorch Ambassador, candidates must meet the following criteria:  
 
 - 🎂 Be at least 18 years old.  
-- 📝 Sign the PyTorch Ambassador Agreement & NDA.  
 - 📜 Must follow the PyTorch Foundation Code of Conduct.  
 - ⚖️ Must comply with the LF antitrust policy [here](https://www.linuxfoundation.org/legal/antitrust-policy).  
 - 🖥️ Demonstrate technical knowledge of PyTorch through:  
@@ -60,9 +59,9 @@ To become a PyTorch Ambassador, candidates must meet the following criteria:
 - 🎁 Ambassador swag for outreach events.  
 
 ### **4️⃣ Professional Growth Opportunities**  
-- 🔗 Exclusive networking with AI/ML leaders.  
-- 🎙️ Opportunities to speak at PyTorch and industry events.  
-- 🏆 Awards and recognition for top contributors.  
+- 🔗 Access to a network of ML leaders  
+- 🎙️ Speaking opportunities at Foundation and industry events
+- 🏅 Public recognition for top contributors  
 
 ---
 
@@ -85,7 +84,7 @@ Yes! Community members can nominate others who are making a meaningful impact in
 Ambassadors should expect to dedicate 5-10 hours per month for organizing events, engaging in discussions, and learning.  
 
 ### 🔹 Do Ambassadors receive financial support for hosting events?  
-Yes, PyTorch Ambassadors receive quarterly stipends and event sponsorships to fund meetups and workshops.  
+Yes. Ambassadors may request reimbursement for approved event or travel expenses, and can also receive additional support for community activities as needed.
 
 ### 🔹 What happens after I apply?  
 Applications will be reviewed by the PyTorch Foundation team. Selected candidates will be invited for onboarding.  
