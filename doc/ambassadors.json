@@ -8,8 +8,7 @@
   "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Bande.jpg",
   "github": "https://github.com/abdulsalam-bande",
   "linkedin": "https://www.linkedin.com/in/abdulsalam-bande-ml",
-  "bio": "Arun Bhandari is a Software Engineer with 2+ years of experience in backend development, data engineering, and AI integration. Currently pursuing an AI Fellowship at Fusemachines, he is passionate about deep learning, computer vision, and building impactful open-source solutions.\nArun actively contributes to tech communities through Google Developer Group Kathmandu as a volunteer and works as a mentor through Code for Nepal, where he promotes AI/ML learning and explores real-world applications of PyTorch and modern AI technologies."
-},
+  "bio": "Abdulsalam Bande is a Machine Learning Researcher with a master’s degree in Computer Science from Istanbul Technical University, where his work focused on applying machine learning to drug design and bioinformatics. He runs the YouTube channel Machine Learning with PyTorch (@machinelearningwithpytorch), where he explains PyTorch’s neural network modules and reinforcement learning algorithms step by step with pen-and-paper examples. His goal is to make PyTorch more accessible to students, researchers, and self-learners worldwide."
   {
     "id": "akhil-varanasi",
     "name": "Akhil Varanasi",
@@ -52,7 +51,7 @@
     "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Arun.jpg",
     "github": "https://github.com/bhandariarun",
     "linkedin": "https://www.linkedin.com/in/arunbhandari1/",
-    "bio": "Arun Bhandari is a Software Engineer at Innovative Techno Consultant Pvt. Ltd., with experience in backend development, data engineering, and AI integration. He is passionate about deep learning, computer vision, and building impactful open-source solutions. As part of the Google Developer Group Kathmandu , Arun actively contributes to tech communities and loves exploring the possibilities of PyTorch in real-world applications."
+    "bio": "Arun Bhandari is a Software Engineer with 2+ years of experience in backend development, data engineering, and AI integration. Currently pursuing an AI Fellowship at Fusemachines, he is passionate about deep learning, computer vision, and building impactful open-source solutions.\nArun actively contributes to tech communities through Google Developer Group Kathmandu as a volunteer and works as a mentor through Code for Nepal, where he promotes AI/ML learning and explores real-world applications of PyTorch and modern AI technologies."
   },
   {
     "id": "chandra-mohan-negi",
