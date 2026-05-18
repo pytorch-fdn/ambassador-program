@@ -9,13 +9,6 @@ This program recognizes and supports exceptional community members who actively 
 
 ---
 
-## 📌 Program Overview
-
-Learn more about the responsibilities, benefits, and eligibility criteria:  
-**→ [Ambassador Program Overview](./README.md)**
-
----
-
 ## 🎉 Applications & Nominations Now Open
 
 Applications and nominations for the **2026 PyTorch Foundation Ambassador Program** are now open!
