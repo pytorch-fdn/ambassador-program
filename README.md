@@ -5,7 +5,7 @@
 
 Welcome to the official repository for the **PyTorch Foundation Ambassador Program**.
 
-This program recognizes and supports exceptional community members who actively promote, teach, and contribute to the PyTorch ecosystem. Ambassadors are leaders, educators, and advocates who help grow PyTorch adoption globally through events, content creation, open-source contributions, and community engagement.
+This program recognizes and supports exceptional community members who actively promote, teach, and contribute to the PyTorch Foundation projects. Ambassadors are leaders, educators, and advocates who help grow PyTorch adoption globally through events, content creation, open-source contributions, and community engagement.
 
 ---
 
