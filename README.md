@@ -1,5 +1,5 @@
 
-![PyTorch Ecosystem](https://raw.githubusercontent.com/pytorch/pytorch/0d4cedaa47c7ee22042eb24e87eb3cfe95502404/docs/source/_static/img/pytorch-logo-dark.svg)
+![PyTorch Foundation Ambassador Program](https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/PytorchFoundation_Ambassador_color.png)
 
 # PyTorch Foundation Ambassador Program
 
