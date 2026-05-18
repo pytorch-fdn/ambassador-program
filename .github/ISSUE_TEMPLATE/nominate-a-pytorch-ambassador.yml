@@ -195,7 +195,7 @@ body:
   - type: checkboxes
     id: foundation-projects
     attributes:
-      label: "Which PyTorch Foundation-hosted projects is the nominee familiar with?"
+      label: "Which PyTorch Foundation projects is the nominee familiar with?"
       description: "Select all that apply."
       options:
         - label: "PyTorch"
