@@ -16,11 +16,14 @@ Learn more about the responsibilities, benefits, and eligibility criteria:
 
 ---
 
-## 🚫 Nominations Closed
+## 🎉 Applications & Nominations Now Open
 
-Applications for the 2026 cohort will open on May 18, 2026. Please check back then for additional details and updates.
+Applications and nominations for the **2026 PyTorch Foundation Ambassador Program** are now open!
 
-Please check back here or on [pytorch.org](https://pytorch.org/programs/ambassadors/) for future announcements regarding the next cycle.
+Please submit your application by **11:59 PM PDT on June 18, 2026**.
+
+For application details, eligibility requirements, and submission information, visit:
+- https://pytorch.org/programs/ambassadors/application-process/
 
 ---
 
