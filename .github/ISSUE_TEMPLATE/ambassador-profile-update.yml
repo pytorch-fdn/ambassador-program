@@ -1,7 +1,7 @@
-name: Ambassador Profile Update
-description: Request updates to your PyTorch Ambassador profile
+name: Existing Ambassador Profile Update Request
+description: Existing PyTorch Ambassadors can use this form to request updates to their public ambassador profile information.
 title: "[Ambassador Profile Update]: "
-labels: ["ambassador-profile-update"]
+labels: ["ambassador-profile-update", "existing-ambassador"]
 assignees:
   - reginankenchor
 
@@ -9,9 +9,12 @@ body:
   - type: markdown
     attributes:
       value: |
+        > ⚠️ This form is intended only for current or previously accepted PyTorch Ambassadors requesting updates to their ambassador profile information.
+
         Thank you for helping us keep the PyTorch Ambassador directory up to date.
 
-        Please use this form to request updates to your ambassador profile information. 
+        Please use this form to request updates to your ambassador profile information.
+
   - type: input
     id: full-name
     attributes:
@@ -98,4 +101,3 @@ body:
       options:
         - label: I confirm that the submitted information and image may be displayed publicly on the PyTorch Ambassador website.
           required: true
-    
