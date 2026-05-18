@@ -190,12 +190,12 @@ body:
 
   - type: markdown
     attributes:
-      value: "## 🔥 Foundation & Ecosystem Project Familiarity"
+      value: "## 🔥 Foundation Project Familiarity"
 
   - type: checkboxes
     id: foundation-projects
     attributes:
-      label: "Which PyTorch Foundation-hosted projects or ecosystem projects is the nominee familiar with?"
+      label: "Which PyTorch Foundation-hosted projects is the nominee familiar with?"
       description: "Select all that apply."
       options:
         - label: "PyTorch"
@@ -263,7 +263,7 @@ body:
         - Number of events or workshops organized
         - Community reach or growth
         - Number of contributors mentored
-        - Educational or ecosystem initiatives supported
+        - Educational initiatives supported
       placeholder: "Describe contributions, impact, metrics, and include supporting links..."
     validations:
       required: true
