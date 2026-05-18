@@ -8,12 +8,6 @@ body:
   - type: markdown
     attributes:
       value: |
-        ![PyTorch Foundation Ambassador Program](https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/PytorchFoundation_Ambassador_color.png)
-
-body:
-  - type: markdown
-    attributes:
-      value: |
         > 📝 **Title Instructions:** Please replace only `<Nominee Name>` in the issue title above with the nominee’s name. Do not modify the `[2026 Ambassador Application]` prefix.
 
   - type: markdown
