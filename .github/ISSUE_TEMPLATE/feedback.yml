@@ -14,16 +14,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        # 💡 PyTorch Ambassador Program Feedback & Ideas
+        # 💡 PyTorch Ambassador Program Feedback
 
         Thank you for helping improve the **PyTorch Ambassador Program**.
 
         This form is intended specifically for:
         - Ambassador Program feedback
-        - Community improvement ideas
-        - Program operations suggestions
-        - Ambassador experience recommendations
-        - Events, onboarding, mentorship, or engagement ideas
 
         Please provide as much context and detail as possible to help us better review your suggestion.
 
