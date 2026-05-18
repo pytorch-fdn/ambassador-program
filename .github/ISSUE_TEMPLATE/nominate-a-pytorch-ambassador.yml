@@ -1,1 +1,394 @@
-WIP
+name: "PyTorch Foundation 2026 Ambassador Application"
+description: "Submit an application or nomination for the 2026 PyTorch Foundation Ambassador Program"
+title: "[2026 Ambassador Application] <Nominee Name>"
+labels: ["ambassador-nomination-2026", "pending-review"]
+assignees: ["reginankenchor"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <p align="center">
+          <img src="https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/PytorchFoundation_Ambassador_color.png" alt="PyTorch Foundation Ambassador Program" width="500">
+        </p>
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > 📝 **Title Instructions:** Please replace only `<Nominee Name>` in the issue title above with the nominee’s name. Do not modify the `[2026 Ambassador Application]` prefix.
+
+  - type: markdown
+    attributes:
+      value: |
+        # PyTorch Foundation 2026 Ambassador Application
+
+        Thank you for your interest in the **PyTorch Foundation 2026 Ambassador Program**.
+
+        Before submitting an application or nomination, please review the following resources carefully:
+
+        - 📘 [Ambassador Program Requirements](https://pytorch.org/programs/ambassadors/application-process/)
+        - 📜 [PyTorch Foundation Code of Conduct](https://pytorch.org/code-of-conduct/)
+        - ⚖️ [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)
+
+        🌍 The PyTorch Foundation welcomes applications and nominations from contributors and community leaders across the world, including those supporting PyTorch Foundation projects and communities in emerging and underrepresented regions.
+
+        Please ensure the nominee meets all eligibility requirements before submitting.
+
+        ---
+
+        ## 📌 Important Notes
+
+        - Submit only **one application or nomination per nominee**.
+        - If you need to make updates after submission, please edit the existing issue instead of creating a duplicate submission.
+        - 🗓️ Ambassador applications and nominations will remain open from **May 18th, 2026** through **Thursday, June 18th, 2026 at 11:59 PM PDT**.
+        - 🔒 All application issues will be automatically locked after the submission deadline. Once locked, applications can no longer be edited or updated.
+
+  - type: markdown
+    attributes:
+      value: "## 👤 Application Type"
+
+  - type: dropdown
+    id: nomination-type
+    attributes:
+      label: "Application Type"
+      description: "Select whether you are applying for yourself or nominating another individual."
+      options:
+        - Self-nomination
+        - Nominate someone else
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## 👤 Nominator Information"
+
+  - type: input
+    id: nominator-name
+    attributes:
+      label: "Your Name"
+      description: "Complete this section only if nominating someone else."
+      placeholder: "Enter your name"
+
+  - type: input
+    id: nominator-email
+    attributes:
+      label: "Your Email"
+      placeholder: "Enter your email address"
+
+  - type: markdown
+    attributes:
+      value: "## ✅ Eligibility Confirmation"
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Please confirm the following:"
+      options:
+        - label: "The nominee is 18 years of age or older."
+          required: true
+
+        - label: "The nominee agrees to follow the [PyTorch Foundation Code of Conduct](https://pytorch.org/code-of-conduct/)."
+          required: true
+
+        - label: "The nominee agrees to comply with the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/legal/antitrust-policy)."
+          required: true
+
+        - label: "The nominee has active involvement in PyTorch Foundation projects or communities."
+          required: true
+
+        - label: "I confirm that this nominee has not already been submitted for the 2026 Ambassador cycle."
+          required: true
+
+  - type: markdown
+    attributes:
+      value: "## 📞 Nominee Information"
+
+  - type: input
+    id: nominee-name
+    attributes:
+      label: "Nominee Full Name"
+      description: "Please enter the full name of the person being nominated."
+      placeholder: "Enter nominee's full name"
+    validations:
+      required: true
+
+  - type: input
+    id: nominee-email
+    attributes:
+      label: "Nominee Email"
+      placeholder: "Enter nominee email address"
+    validations:
+      required: true
+
+  - type: input
+    id: nominee-location
+    attributes:
+      label: "Current Location"
+      description: "City, State/Province (if applicable), Country"
+      placeholder: "e.g. Nairobi, Kenya"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: "Years of Community Involvement"
+      description: "How long has the nominee been active in AI, ML, open source, or technical communities?"
+      options:
+        - Less than 1 year
+        - 1–2 years
+        - 3–5 years
+        - 5+ years
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: "## 🔗 Social & Community Profiles"
+
+  - type: checkboxes
+    id: profile-platforms
+    attributes:
+      label: "Which platforms or profiles would you like to share?"
+      description: "Select all that apply."
+      options:
+        - label: "GitHub"
+        - label: "GitLab"
+        - label: "LinkedIn"
+        - label: "X / Twitter"
+        - label: "Personal Website / Portfolio"
+        - label: "Other"
+
+  - type: input
+    id: nominee-github
+    attributes:
+      label: "GitHub Profile"
+      placeholder: "https://github.com/username"
+
+  - type: input
+    id: nominee-gitlab
+    attributes:
+      label: "GitLab Profile"
+      placeholder: "https://gitlab.com/username"
+
+  - type: input
+    id: nominee-linkedin
+    attributes:
+      label: "LinkedIn Profile"
+      placeholder: "https://linkedin.com/in/..."
+
+  - type: input
+    id: nominee-twitter
+    attributes:
+      label: "X / Twitter Profile"
+      placeholder: "https://x.com/username"
+
+  - type: input
+    id: nominee-website
+    attributes:
+      label: "Personal Website / Portfolio"
+      placeholder: "https://example.com"
+
+  - type: input
+    id: other-profile
+    attributes:
+      label: "If 'Other' was selected, please specify"
+      placeholder: "Enter additional profile or platform"
+
+  - type: markdown
+    attributes:
+      value: "## 🔥 Foundation & Ecosystem Project Familiarity"
+
+  - type: checkboxes
+    id: foundation-projects
+    attributes:
+      label: "Which PyTorch Foundation-hosted projects or ecosystem projects is the nominee familiar with?"
+      description: "Select all that apply."
+      options:
+        - label: "PyTorch"
+        - label: "vLLM"
+        - label: "DeepSpeed"
+        - label: "Ray"
+        - label: "Helion"
+        - label: "Safetensors"
+        - label: "Other"
+
+  - type: input
+    id: other-foundation-project
+    attributes:
+      label: "If 'Other' was selected, please specify the project name"
+      placeholder: "Enter project name"
+
+  - type: markdown
+    attributes:
+      value: "## 🌍 Community Contributions"
+
+  - type: checkboxes
+    id: nominee-contributions
+    attributes:
+      label: "How has the nominee contributed to the community?"
+      description: "Select all that apply."
+      options:
+        - label: "Open source contributions"
+        - label: "Technical content creation"
+        - label: "Community leadership"
+        - label: "Events or workshops"
+        - label: "Research or academic work"
+        - label: "Mentorship"
+        - label: "University or student outreach"
+        - label: "Translation or localization efforts"
+        - label: "Other"
+
+  - type: input
+    id: other-community-contribution
+    attributes:
+      label: "If 'Other' was selected, please specify"
+      placeholder: "Describe additional community contributions"
+
+  - type: markdown
+    attributes:
+      value: "## 🌍 Community Contribution Overview"
+
+  - type: textarea
+    id: pytorch-contributions
+    attributes:
+      label: "Please describe the nominee’s contributions to PyTorch Foundation projects and communities"
+      description: |
+        Provide detailed information about the nominee’s involvement, leadership, technical work, mentorship, content creation, community engagement, events, workshops, research, or advocacy related to PyTorch Foundation projects.
+
+        Please include at least one supporting link demonstrating the nominee’s contributions or community involvement, such as:
+        - GitHub repositories
+        - Pull requests
+        - Conference talks
+        - Workshop pages
+        - Blogs or tutorials
+        - Videos or livestreams
+        - Research papers
+        - Meetup or event pages
+
+        Where applicable, include measurable impact such as:
+        - Number of events or workshops organized
+        - Community reach or growth
+        - Number of contributors mentored
+        - Educational or ecosystem initiatives supported
+      placeholder: "Describe contributions, impact, metrics, and include supporting links..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: ambassador-motivation
+    attributes:
+      label: "Why does the nominee want to become a PyTorch Foundation Ambassador?"
+      description: "Share what motivates the nominee to support and grow PyTorch Foundation projects and communities."
+      placeholder: "Describe the nominee’s motivation and interest in becoming an Ambassador..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: ambassador-impact
+    attributes:
+      label: "How would this nominee contribute as a PyTorch Foundation Ambassador?"
+      description: |
+        Share how the nominee would help support and grow PyTorch Foundation projects and communities.
+
+        Examples may include:
+        - Organizing community events
+        - Mentoring contributors
+        - Educational outreach
+        - Technical advocacy
+        - Content creation
+        - Supporting local or global AI communities
+      placeholder: "Describe the nominee’s potential impact..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: ambassador-focus
+    attributes:
+      label: "Ambassador Focus Areas"
+      description: "Which areas would the nominee likely focus on as a PyTorch Foundation Ambassador? Select all that apply."
+      options:
+        - label: "Community Building"
+        - label: "Technical Education"
+        - label: "Open Source Contributions"
+        - label: "Research & Academia"
+        - label: "Developer Advocacy"
+        - label: "Mentorship"
+        - label: "Events & Workshops"
+        - label: "Content Creation"
+        - label: "Regional Community Growth"
+        - label: "Other"
+    validations:
+      required: true
+
+  - type: input
+    id: other-focus-area
+    attributes:
+      label: "If 'Other' was selected, please specify"
+      placeholder: "Describe the nominee’s ambassador focus area"
+
+  - type: dropdown
+    id: region
+    attributes:
+      label: "Primary Community Region"
+      description: "Which region does the nominee primarily support or engage with?"
+      options:
+        - Africa
+        - Asia
+        - Europe
+        - Latin America
+        - Middle East
+        - North America
+        - Oceania
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: other-region
+    attributes:
+      label: "If 'Other' was selected, please specify"
+      placeholder: "Enter region or community focus"
+
+  - type: input
+    id: community-country
+    attributes:
+      label: "Primary Community Country During Ambassador Term"
+      description: "Specify the primary country where the nominee expects to engage, contribute, or support community activities during their Ambassador term."
+      placeholder: "Enter country"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: "Additional Information (Optional)"
+      description: "Share any additional context, achievements, talks, projects, videos, blogs, or supporting resources."
+      placeholder: "Additional details..."
+
+  - type: markdown
+    attributes:
+      value: |
+        ## 🗳️ Review Process & Next Steps
+
+        After submission:
+
+        - Your application will be reviewed by the PyTorch Foundation Community Team.
+        - Review status updates may appear through issue labels and comments.
+        - You may be contacted for additional information if needed.
+
+        You can also learn more about the PyTorch Foundation and Ambassador Program here:
+
+        - 🌐 [PyTorch Foundation Website](https://pytorch.org/foundation/)
+        - 🎖 [PyTorch Ambassador Program](https://pytorch.org/programs/ambassadors/)
+
+        Possible review labels may include:
+
+        - `pending-review` ⏳ → Application is awaiting review
+        - `needs-more-info` 📢 → Additional details are required
+        - `approved` ✅ → Application has been accepted
+        - `not-selected` ❌ → Application was not selected for this cycle
+
+        Thank you for supporting the PyTorch Foundation community 🧡
+
