@@ -354,7 +354,7 @@ body:
   - type: input
     id: community-country
     attributes:
-      label: "Primary Community Country During Ambassador Term"
+      label: "Primary Country During Ambassador Term"
       description: "Specify the primary country where the nominee expects to engage, contribute, or support community activities during their Ambassador term."
       placeholder: "Enter country"
     validations:
