@@ -1,71 +1,118 @@
-name: "Submit Feedback or Ideas"
-description: "Share your feedback or propose an idea to improve the PyTorch Ambassador Program."
-title: "[Feedback] <Brief Idea or Topic>"
-labels: ["feedback", "pending-review"]
+name: "PyTorch Ambassador Program Feedback & Ideas"
+description: "Share feedback, suggestions, or ideas related to the PyTorch Ambassador Program."
+title: "[Ambassador Feedback] <Brief Idea or Topic>"
+labels: ["ambassador-feedback", "pending-review"]
+assignees:
+  - reginankenchor
 
 body:
   - type: markdown
     attributes:
       value: |
-        > 📝 **Note:** Please fill out the title field with a brief summary of your feedback or idea, replacing `<Brief Idea or Topic>`.
+        > 📝 **Title Instructions:** Please replace only `<Brief Idea or Topic>` in the issue title above with a short summary of your feedback or idea.
 
   - type: markdown
     attributes:
       value: |
-        # 💡 Submit Feedback or Ideas
+        # 💡 PyTorch Ambassador Program Feedback & Ideas
 
-        Thank you for sharing your feedback or idea to improve the **PyTorch Ambassador Program**!  
-        Please fill out the details below to help us better understand your suggestion.
+        Thank you for helping improve the **PyTorch Ambassador Program**.
+
+        This form is intended specifically for:
+        - Ambassador Program feedback
+        - Community improvement ideas
+        - Program operations suggestions
+        - Ambassador experience recommendations
+        - Events, onboarding, mentorship, or engagement ideas
+
+        Please provide as much context and detail as possible to help us better review your suggestion.
 
   - type: input
     id: feedback-title
     attributes:
-      label: "Brief Summary of Your Idea"
+      label: "Brief Summary"
+      description: "Provide a short summary of your feedback or idea."
       placeholder: "Example: Improve onboarding process for new ambassadors"
+    validations:
+      required: true
 
   - type: dropdown
-    id: program-category
+    id: feedback-category
     attributes:
-      label: "Which area does this feedback apply to?"
+      label: "Which area of the Ambassador Program does this relate to?"
       options:
-        - "PyTorch Ambassador Program"
-        - "Community Events"
-        - "Educational Resources"
-        - "Other"
+        - Ambassador Onboarding
+        - Community Engagement
+        - Events & Workshops
+        - Educational Resources
+        - Mentorship
+        - Communications
+        - Regional Community Growth
+        - Ambassador Operations
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: other-category
+    attributes:
+      label: "If 'Other' was selected, please specify"
+      placeholder: "Describe the category"
 
   - type: textarea
     id: idea-description
     attributes:
       label: "Describe Your Feedback or Idea"
-      description: "Explain your suggestion, the problem it solves, and any potential improvements."
+      description: |
+        Explain:
+        - the current challenge or opportunity
+        - your proposed improvement
+        - why this change would be valuable
+        - any implementation suggestions or examples
+
+        Include links or references if applicable.
       placeholder: "Provide as much detail as possible..."
       render: markdown
+    validations:
+      required: true
 
   - type: checkboxes
     id: benefits
     attributes:
-      label: "What benefits does this idea bring?"
+      label: "What benefits could this idea provide?"
       options:
-        - label: "Improves community engagement"
-        - label: "Enhances event organization"
-        - label: "Provides better educational resources"
-        - label: "Supports contributors and ambassadors"
-        - label: "Other (please describe in the comments below)"
+        - label: "Improves ambassador experience"
+        - label: "Strengthens community engagement"
+        - label: "Supports contributor growth"
+        - label: "Improves onboarding or mentorship"
+        - label: "Enhances educational initiatives"
+        - label: "Improves program operations"
+        - label: "Supports regional community growth"
+        - label: "Other"
+
+  - type: textarea
+    id: implementation-notes
+    attributes:
+      label: "Implementation Suggestions (Optional)"
+      description: "Share any ideas, examples, workflows, or recommendations for implementing this suggestion."
+      placeholder: "Optional implementation details..."
 
   - type: textarea
     id: additional-comments
     attributes:
       label: "Additional Comments (Optional)"
-      placeholder: "Any extra details, related links, or references?"
+      placeholder: "Any extra details, links, references, or supporting context?"
 
   - type: markdown
     attributes:
       value: |
-        ## 🗳️ Next Steps
+        ## 🗳️ Review Process
 
-        Once submitted, a team member will review your feedback.  
-        - If additional details are needed, we will comment here.  
-        - If approved, the idea may be discussed further before implementation.  
-        - If not feasible, we will provide an explanation.  
+        Once submitted:
 
-        Thank you for helping improve the PyTorch Ambassador Program.
+        - The PyTorch Ambassador Program team will review your feedback or idea.
+        - Additional questions or clarification requests may be shared through issue comments.
+        - Suggestions may be discussed internally before implementation or follow-up.
+
+        Thank you for helping improve the PyTorch Ambassador Program community 🧡
