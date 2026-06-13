@@ -1,0 +1,153 @@
+name: Export Ambassador Applications 2026
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: read
+      contents: read
+
+    steps:
+      - name: Export application issues to CSV
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const path = require("path");
+
+            const { owner, repo } = context.repo;
+            const targetLabel = "ambassador-nomination-2026";
+            const outputDir = "ambassador";
+            const outputFile = path.join(outputDir, "ambassador_applications_2026.csv");
+
+            fs.mkdirSync(outputDir, { recursive: true });
+
+            const fields = [
+              "Application Type",
+              "Your Name",
+              "Your Email",
+              "Nominee Full Name",
+              "Affiliation / Organization",
+              "Nominee Email",
+              "Current Location",
+              "Years of Community Involvement",
+              "Which platforms or profiles would you like to share?",
+              "GitHub Profile",
+              "GitLab Profile",
+              "LinkedIn Profile",
+              "X / Twitter Profile",
+              "Personal Website / Portfolio",
+              "If 'Other' was selected, please specify",
+              "Which PyTorch Foundation projects is the nominee familiar with?",
+              "If 'Other' was selected, please specify the project name",
+              "How has the nominee contributed to the community?",
+              "Please describe the nominee’s contributions to PyTorch Foundation projects and communities",
+              "Why does the nominee want to become a PyTorch Foundation Ambassador?",
+              "How would this nominee contribute as a PyTorch Foundation Ambassador?",
+              "Ambassador Focus Areas",
+              "Primary Community Region",
+              "Primary Country During Ambassador Term",
+              "Additional Information (Optional)"
+            ];
+
+            function extract(label, body, allLabels) {
+              if (!body) return "";
+
+              const start = body.indexOf(label);
+              if (start === -1) return "";
+
+              const valueStart = start + label.length;
+              let valueEnd = body.length;
+
+              for (const nextLabel of allLabels) {
+                if (nextLabel === label) continue;
+                const nextIndex = body.indexOf(nextLabel, valueStart);
+                if (nextIndex !== -1 && nextIndex < valueEnd) {
+                  valueEnd = nextIndex;
+                }
+              }
+
+              return body
+                .slice(valueStart, valueEnd)
+                .replace(/^```(?:markdown)?/i, "")
+                .replace(/```$/i, "")
+                .trim();
+            }
+
+            function csvEscape(value) {
+              const text = String(value || "");
+              return `"${text.replace(/"/g, '""')}"`;
+            }
+
+            const rows = [];
+            let page = 1;
+            const perPage = 100;
+
+            while (true) {
+              const { data: issues } = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: "all",
+                labels: targetLabel,
+                per_page: perPage,
+                page,
+              });
+
+              if (issues.length === 0) break;
+
+              for (const issue of issues) {
+                if (issue.pull_request) continue;
+
+                const body = issue.body || "";
+
+                const row = {
+                  "Submission ID": issue.number,
+                  "Issue Title": issue.title,
+                  "Issue URL": issue.html_url,
+                  "Issue State": issue.state,
+                  "GitHub Username": issue.user ? issue.user.login : "",
+                  "Created At": issue.created_at,
+                  "Updated At": issue.updated_at,
+                };
+
+                for (const field of fields) {
+                  row[field] = extract(field, body, fields);
+                }
+
+                rows.push(row);
+              }
+
+              page += 1;
+            }
+
+            const headers = [
+              "Submission ID",
+              "Issue Title",
+              "Issue URL",
+              "Issue State",
+              "GitHub Username",
+              "Created At",
+              "Updated At",
+              ...fields
+            ];
+
+            const csv = [
+              headers.map(csvEscape).join(","),
+              ...rows.map(row =>
+                headers.map(header => csvEscape(row[header])).join(",")
+              ),
+            ].join("\n");
+
+            fs.writeFileSync(outputFile, csv, "utf8");
+
+            core.info(`Exported ${rows.length} applications to ${outputFile}`);
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ambassador-applications-2026
+          path: ambassador/ambassador_applications_2026.csv
