@@ -1,0 +1,101 @@
+name: Lock Ambassador Applications 2026
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode? (no issues will be locked)"
+        required: false
+        default: "true"
+
+jobs:
+  lock-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Lock all 2026 application issues
+        uses: actions/github-script@v7
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const dryRun = core.getInput("dry_run") === "true";
+            const targetLabel = "ambassador-nomination-2026";
+            const perPage = 100;
+            let page = 1;
+
+            core.info(`Dry run mode: ${dryRun}`);
+            core.info(`Target label: ${targetLabel}`);
+
+            while (true) {
+              const { data: issues } = await github.rest.issues.listForRepo({
+                owner,
+                repo,
+                state: "all",
+                per_page: perPage,
+                page,
+              });
+
+              if (issues.length === 0) {
+                core.info("No more issues found.");
+                break;
+              }
+
+              for (const issue of issues) {
+                if (issue.pull_request) {
+                  continue;
+                }
+
+                const hasTargetLabel = issue.labels.some(
+                  (label) => label.name === targetLabel
+                );
+
+                if (!hasTargetLabel) {
+                  continue;
+                }
+
+                if (issue.locked) {
+                  core.info(`Already locked issue #${issue.number}: ${issue.title}`);
+                  continue;
+                }
+
+                const commentBody = [
+                  "Applications and nominations for the 2026 PyTorch Foundation Ambassador Program are now closed.",
+                  "",
+                  `Application Issue: #${issue.number}`,
+                  "",
+                  "This issue has been locked to allow for application review.",
+                  "",
+                  "For questions regarding your application or the program, please contact ambassadors@pytorch.org.",
+                  "",
+                  "Timeline and program information:",
+                  "https://pytorch.org/programs/ambassadors/application-process/"
+                ].join("\n");
+
+                core.info(`Would comment on and lock issue #${issue.number}: ${issue.title}`);
+
+                if (!dryRun) {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    body: commentBody,
+                  });
+
+                  await github.rest.issues.lock({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    lock_reason: "resolved",
+                  });
+
+                  core.info(`Commented on and locked issue #${issue.number}`);
+                }
+              }
+
+              page += 1;
+            }
