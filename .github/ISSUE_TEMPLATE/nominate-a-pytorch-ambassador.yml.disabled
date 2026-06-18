@@ -1,3 +1,19 @@
+# ============================================================================
+# ARCHIVED - DO NOT ENABLE
+#
+# PyTorch Foundation 2026 Ambassador Application
+# Applications closed June 18, 2026.
+#
+# This file has been disabled by renaming it from:
+# ambassador-application-2026.yml
+#
+# To reactivate for a future cycle:
+# 1. Rename back to .yml
+# 2. Update dates, labels, and review process
+# 3. Validate all links and form fields
+# ============================================================================
+
+
 name: "PyTorch Foundation 2026 Ambassador Application"
 description: "Submit an application or nomination for the 2026 PyTorch Foundation Ambassador Program"
 title: "[2026 Ambassador Application] <Nominee Name>"
