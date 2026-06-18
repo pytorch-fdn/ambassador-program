@@ -9,14 +9,17 @@ This program recognizes and supports exceptional community members who actively 
 
 ---
 
-## 🎉 Applications & Nominations Now Open
+## 🎉 Applications & Nominations Closed
 
-Applications and nominations for the **2026 PyTorch Foundation Ambassador Program** are now open!
+The application and nomination period for the 2026 PyTorch Foundation Ambassador Program is now closed.
 
-Please submit your application by **11:59 PM PDT on June 18, 2026**.
+Thank you to everyone who submitted an application or nomination and for your interest in supporting the PyTorch community.
 
-For application details, eligibility requirements, and submission information, visit:
-- https://pytorch.org/programs/ambassadors/application-process/
+Applications are currently under review. Please check back for future Ambassador Program opportunities and announcements.
+
+For more information about the Ambassador Program, visit:
+
+https://pytorch.org/programs/ambassadors/application-process/
 
 ---
 
