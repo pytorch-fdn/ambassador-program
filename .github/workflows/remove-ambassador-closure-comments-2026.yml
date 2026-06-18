@@ -1,4 +1,4 @@
-name: Delete Ambassador Closure Comments 2026
+name: Remove Ambassador Closure Comments 2026
 
 on:
   workflow_dispatch:
