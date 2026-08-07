@@ -1,0 +1,118 @@
+name: Mark Ambassador Applications as In Review 2026
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode? (no labels will be changed)"
+        required: false
+        default: "true"
+
+jobs:
+  update-review-status:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Update application review status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+
+            const dryRun = core.getInput("dry_run") === "true";
+
+            const applicationLabel = "ambassador-nomination-2026";
+            const oldLabel = "pending-review";
+            const newLabel = "review-in-progress";
+
+            core.info(`Dry run mode: ${dryRun}`);
+            core.info(`Replacing "${oldLabel}" with "${newLabel}"`);
+
+            // Make sure the new label exists
+            try {
+              await github.rest.issues.getLabel({
+                owner,
+                repo,
+                name: newLabel,
+              });
+
+              core.info(`Label "${newLabel}" already exists.`);
+            } catch (error) {
+              if (error.status === 404) {
+                if (dryRun) {
+                  core.info(
+                    `Would create label "${newLabel}" because it does not exist.`
+                  );
+                } else {
+                  await github.rest.issues.createLabel({
+                    owner,
+                    repo,
+                    name: newLabel,
+                    description: "Application review is currently in progress",
+                  });
+
+                  core.info(`Created label "${newLabel}".`);
+                }
+              } else {
+                throw error;
+              }
+            }
+
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner,
+                repo,
+                state: "open",
+                labels: `${applicationLabel},${oldLabel}`,
+                per_page: 100,
+              }
+            );
+
+            let updatedCount = 0;
+
+            for (const issue of issues) {
+              // Skip pull requests
+              if (issue.pull_request) continue;
+
+              core.info(
+                `Would update issue #${issue.number}: ${issue.title}`
+              );
+
+              if (dryRun) continue;
+
+              // Remove pending-review
+              await github.rest.issues.removeLabel({
+                owner,
+                repo,
+                issue_number: issue.number,
+                name: oldLabel,
+              });
+
+              // Add review-in-progress
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: issue.number,
+                labels: [newLabel],
+              });
+
+              updatedCount++;
+
+              core.info(
+                `Updated issue #${issue.number}: ${oldLabel} → ${newLabel}`
+              );
+            }
+
+            if (dryRun) {
+              core.info(
+                `Dry run complete. ${issues.length} issue(s) would be reviewed.`
+              );
+            } else {
+              core.info(
+                `Complete. Updated ${updatedCount} issue(s).`
+              );
+            }
