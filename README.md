@@ -29,7 +29,7 @@ https://pytorch.org/programs/ambassadors/application-process/
 |---|---|
 | Applications Open | May 18, 2026 |
 | Applications Close | Thursday, June 18, 2026 |
-| Review Period | September 2026 |
+| Review Period | August 2026 |
 | Application Notifications | September 2026 |
 | 2026 Cohort Announced (Term Begins) | October 2026 |
 | 2025 Ambassadorship Cohort Term Ends | October 1, 2027 |
