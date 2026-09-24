@@ -44,14 +44,16 @@ jobs:
 
           with csv_path.open(newline="", encoding="utf-8-sig") as file:
               reader = csv.DictReader(file)
+
               required_columns = {
                   "Submission ID",
                   "Candidate",
                   "Decision",
               }
 
+              # Corrected: both parentheses are now closed.
               if not reader.fieldnames or not required_columns.issubset(
-                  set(reader.fieldnames
+                  set(reader.fieldnames)
               ):
                   raise SystemExit(
                       "CSV must contain these columns: "
@@ -90,6 +92,7 @@ jobs:
                       )
 
                   seen_ids.add(issue_number)
+
                   decisions.append({
                       "issue_number": issue_number,
                       "candidate": candidate,
@@ -100,6 +103,7 @@ jobs:
               raise SystemExit("The CSV contains no candidate rows.")
 
           output_path = Path(os.environ["RUNNER_TEMP"]) / "decisions.json"
+
           output_path.write_text(
               json.dumps(decisions, ensure_ascii=False),
               encoding="utf-8",
