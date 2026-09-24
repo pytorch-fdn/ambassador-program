@@ -97,7 +97,9 @@ jobs:
                   f"but found {len(selected)}. No issues were changed."
               )
 
-          output_path = os.environ["RUNNER_TEMP"] + "/selected-candidates.json"
+          output_path = os.path.join(
+              os.environ["RUNNER_TEMP"], "selected-candidates.json"
+          )
 
           with open(output_path, "w", encoding="utf-8") as file:
               json.dump(selected, file, ensure_ascii=False)
@@ -149,9 +151,7 @@ jobs:
               selectedRows.map(row => [row.issue_number, row.candidate])
             );
 
-            // Retrieve every OPEN issue with the 2026 nomination label.
-            // GitHub's issues endpoint may also return pull requests, so
-            // explicitly exclude those.
+            // Only OPEN issues carrying the 2026 nomination label.
             const openNominations = (
               await github.paginate(github.rest.issues.listForRepo, {
                 owner,
@@ -166,9 +166,7 @@ jobs:
               openNominations.map(issue => [issue.number, issue])
             );
 
-            // Validate ALL selected candidates before changing ANY issue.
-            // A closed, missing, or incorrectly labeled selected issue
-            // stops the entire run.
+            // Validate every selected candidate before changing any issue.
             const validationErrors = [];
 
             for (const [issueNumber, candidate] of selectedByIssue) {
@@ -220,7 +218,7 @@ jobs:
             core.info(`Not Selected: ${notSelectedIssues.length}`);
             core.info('Closed issues and unrelated issues will not be changed.');
 
-            // Validate that the destination labels exist before any changes.
+            // Confirm that decision labels exist before changing anything.
             const repositoryLabels = await github.paginate(
               github.rest.issues.listLabelsForRepo,
               { owner, repo, per_page: 100 }
@@ -240,8 +238,7 @@ jobs:
               }
             }
 
-            // Fetch comment history before any modifications, so the
-            // workflow can avoid posting the same decision comment twice.
+            // Prepare every change, including whether an issue needs unlocking.
             const plans = [];
 
             for (const issue of openNominations) {
@@ -290,16 +287,32 @@ jobs:
                 desiredComment,
                 labelsToRemove,
                 needsDecisionLabel,
-                needsComment
+                needsComment,
+                needsUnlock: issue.locked === true && needsComment
               });
             }
 
-            // Print the COMPLETE plan before making changes.
+            // Show the full plan. A dry run stops after this preview.
             for (const plan of plans) {
-              const { issue, decision, labelsToRemove,
-                      needsDecisionLabel, needsComment } = plan;
+              const {
+                issue,
+                decision,
+                labelsToRemove,
+                needsDecisionLabel,
+                needsComment,
+                needsUnlock
+              } = plan;
 
-              core.info(`Processing #${issue.number} — ${issue.title}: ${decision}`);
+              core.info(
+                `Processing #${issue.number} — ${issue.title}: ${decision}`
+              );
+
+              if (needsUnlock) {
+                core.info(
+                  `${dryRun ? 'DRY RUN: Would unlock' : 'Will unlock'} ` +
+                  `#${issue.number} before posting its decision comment.`
+                );
+              }
 
               if (needsDecisionLabel) {
                 core.info(
@@ -328,6 +341,7 @@ jobs:
               }
 
               if (
+                !needsUnlock &&
                 !needsDecisionLabel &&
                 labelsToRemove.length === 0 &&
                 !needsComment
@@ -345,7 +359,7 @@ jobs:
               return;
             }
 
-            // Apply changes only after the full validation and preview.
+            // Apply changes. Unlock BEFORE posting a missing comment.
             for (const plan of plans) {
               const {
                 issue,
@@ -353,8 +367,19 @@ jobs:
                 desiredComment,
                 labelsToRemove,
                 needsDecisionLabel,
-                needsComment
+                needsComment,
+                needsUnlock
               } = plan;
+
+              if (needsUnlock) {
+                await github.rest.issues.unlock({
+                  owner,
+                  repo,
+                  issue_number: issue.number
+                });
+
+                core.info(`Unlocked #${issue.number}.`);
+              }
 
               if (needsDecisionLabel) {
                 await github.rest.issues.addLabels({
