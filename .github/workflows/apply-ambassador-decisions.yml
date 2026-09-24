@@ -3,26 +3,8 @@ name: Apply Ambassador Decisions 2026
 on:
   workflow_dispatch:
     inputs:
-      private_repo:
-        description: "Private repo containing the CSV, example: pytorch-fdn/ambassador-program-management"
-        required: true
-        default: "pytorch-fdn/ambassador-program-management"
-        type: string
-
-      private_ref:
-        description: "Branch, tag, or SHA of the private repo"
-        required: true
-        default: "main"
-        type: string
-
-      csv_path:
-        description: "Path to CSV inside the private repo"
-        required: true
-        default: "ambassador/ambassador_decisions_2026.csv"
-        type: string
-
       dry_run:
-        description: "Preview only? No comments or labels will be added."
+        description: "Preview changes without updating labels or posting comments"
         required: true
         default: "true"
         type: choice
@@ -39,192 +21,338 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout private repo containing CSV
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          repository: ${{ inputs.private_repo }}
-          ref: ${{ inputs.private_ref }}
-          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
-          path: private-src
 
-      - name: Apply decisions from CSV
+      - name: Validate CSV and prepare decisions
+        env:
+          CSV_PATH: doc/SC.csv
+        run: |
+          python3 - <<'PY'
+          import csv
+          import json
+          import os
+          from pathlib import Path
+
+          csv_path = Path(os.environ["CSV_PATH"])
+
+          if not csv_path.is_file():
+              raise SystemExit(f"CSV file not found: {csv_path}")
+
+          decisions = []
+          seen_ids = set()
+
+          with csv_path.open(newline="", encoding="utf-8-sig") as file:
+              reader = csv.DictReader(file)
+              required_columns = {
+                  "Submission ID",
+                  "Candidate",
+                  "Decision",
+              }
+
+              if not reader.fieldnames or not required_columns.issubset(
+                  set(reader.fieldnames
+              ):
+                  raise SystemExit(
+                      "CSV must contain these columns: "
+                      "Submission ID, Candidate, Decision"
+                  )
+
+              for line_number, row in enumerate(reader, start=2):
+                  raw_id = (row["Submission ID"] or "").strip()
+                  candidate = (row["Candidate"] or "").strip()
+                  decision = (row["Decision"] or "").strip().lower()
+
+                  if not raw_id.isdigit() or int(raw_id) < 1:
+                      raise SystemExit(
+                          f"Invalid Submission ID on line {line_number}: "
+                          f"{raw_id!r}"
+                      )
+
+                  issue_number = int(raw_id)
+
+                  if issue_number in seen_ids:
+                      raise SystemExit(
+                          f"Duplicate Submission ID #{issue_number} "
+                          f"on line {line_number}"
+                      )
+
+                  if not candidate:
+                      raise SystemExit(
+                          f"Missing candidate name on line {line_number}"
+                      )
+
+                  if decision not in {"selected", "not selected"}:
+                      raise SystemExit(
+                          f"Invalid decision on line {line_number}: "
+                          f"{row['Decision']!r}. "
+                          "Use Selected or Not Selected."
+                      )
+
+                  seen_ids.add(issue_number)
+                  decisions.append({
+                      "issue_number": issue_number,
+                      "candidate": candidate,
+                      "decision": decision,
+                  })
+
+          if not decisions:
+              raise SystemExit("The CSV contains no candidate rows.")
+
+          output_path = Path(os.environ["RUNNER_TEMP"]) / "decisions.json"
+          output_path.write_text(
+              json.dumps(decisions, ensure_ascii=False),
+              encoding="utf-8",
+          )
+
+          print(f"Validated {len(decisions)} candidate decisions.")
+          PY
+
+      - name: Update nomination issues
         uses: actions/github-script@v7
         env:
-          CSV_PATH: ${{ github.workspace }}/private-src/${{ inputs.csv_path }}
+          DECISIONS_PATH: ${{ runner.temp }}/decisions.json
+          DRY_RUN: ${{ inputs.dry_run }}
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require("fs");
 
             const { owner, repo } = context.repo;
-            const csvPath = process.env.CSV_PATH;
-            const dryRun = core.getInput("dry_run") === "true";
+            const dryRun = process.env.DRY_RUN === "true";
 
-            const ACCEPTED_LABEL = "accepted-2026";
-            const NOT_SELECTED_LABEL = "not-selected-2026";
+            const NOMINATION_LABEL = "ambassador-nomination-2026";
+            const REVIEW_LABEL = "review-in-progress";
+
+            const SELECTED_LABEL = "Selected";
+            const NOT_SELECTED_LABEL = "Not Selected";
+
+            // Remove these older labels if they are present.
+            const OLD_DECISION_LABELS = ["Accepted", "Not Accepted"];
+
+            // Hidden markers help prevent duplicate comments on reruns.
+            const SELECTED_MARKER =
+              "<!-- ambassador-selected-2026 -->";
+
+            const NOT_SELECTED_MARKER =
+              "<!-- ambassador-not-selected-2026 -->";
+
+            const SELECTED_COMMENT = [
+              "Congratulations! You have been selected as a 2026 PyTorch Foundation Ambassador.",
+              "",
+              "You will receive an email with details about the next steps and onboarding process.",
+              "",
+              "Thank you for contributing to the PyTorch Foundation community!",
+              "",
+              SELECTED_MARKER
+            ].join("\n");
+
+            const NOT_SELECTED_COMMENT = [
+              "Thank you for your interest in the 2026 PyTorch Foundation Ambassador Program and for the time you took to submit your nomination.",
+              "",
+              "We sincerely appreciate your contributions to the PyTorch Foundation community. While you were not selected for this year’s Ambassador Program, we value your involvement and encourage you to stay connected and explore other ways to get involved with the PyTorch Foundation community: [Get involved](https://pytorch.org/new/).",
+              "",
+              NOT_SELECTED_MARKER
+            ].join("\n");
+
+            const decisions = JSON.parse(
+              fs.readFileSync(process.env.DECISIONS_PATH, "utf8")
+            );
 
             core.info(`Dry run: ${dryRun}`);
-            core.info(`Reading CSV from: ${csvPath}`);
+            core.info(`CSV contains ${decisions.length} decisions.`);
 
-            if (!fs.existsSync(csvPath)) {
-              core.setFailed(`CSV file not found at: ${csvPath}`);
-              return;
+            // Verify that both new labels exist before changing issues.
+            const repositoryLabels = await github.paginate(
+              github.rest.issues.listLabelsForRepo,
+              { owner, repo, per_page: 100 }
+            );
+
+            const existingLabelNames = new Set(
+              repositoryLabels.map(label => label.name)
+            );
+
+            for (const label of [SELECTED_LABEL, NOT_SELECTED_LABEL]) {
+              if (!existingLabelNames.has(label)) {
+                throw new Error(
+                  `The "${label}" label does not exist. ` +
+                  "Create both new labels in GitHub before running this workflow."
+                );
+              }
             }
 
-            function parseCSV(text) {
-              const lines = text.trim().split(/\r?\n/);
+            // Validate every CSV issue before changing any issue.
+            const issuesToUpdate = [];
 
-              if (lines.length < 2) {
-                throw new Error("CSV must include a header row and at least one data row.");
-              }
+            for (const row of decisions) {
+              const { issue_number, candidate } = row;
 
-              const headers = lines[0].split(",").map(h => h.trim());
-
-              return lines.slice(1).map(line => {
-                const values = line.split(",").map(v => v.trim());
-                const row = {};
-
-                headers.forEach((header, index) => {
-                  row[header] = values[index] || "";
-                });
-
-                return row;
+              const { data: issue } = await github.rest.issues.get({
+                owner,
+                repo,
+                issue_number
               });
-            }
 
-            async function ensureLabel(name, color) {
-              try {
-                await github.rest.issues.getLabel({
-                  owner,
-                  repo,
-                  name,
-                });
-              } catch (error) {
-                if (error.status === 404) {
-                  if (dryRun) {
-                    core.info(`DRY RUN: Would create label ${name}`);
-                    return;
-                  }
-
-                  await github.rest.issues.createLabel({
-                    owner,
-                    repo,
-                    name,
-                    color,
-                  });
-
-                  core.info(`Created label: ${name}`);
-                } else {
-                  throw error;
-                }
+              if (issue.pull_request) {
+                throw new Error(
+                  `#${issue_number} is a pull request, not a nomination issue.`
+                );
               }
-            }
 
-            async function issueExists(issueNumber) {
-              try {
-                await github.rest.issues.get({
-                  owner,
-                  repo,
-                  issue_number: issueNumber,
-                });
+              const labels = issue.labels.map(label =>
+                typeof label === "string" ? label : label.name
+              );
 
-                return true;
-              } catch (error) {
-                if (error.status === 404) return false;
-                throw error;
+              if (!labels.includes(NOMINATION_LABEL)) {
+                throw new Error(
+                  `#${issue_number} does not have the ` +
+                  `"${NOMINATION_LABEL}" label. ` +
+                  "Check the issue number in your CSV."
+                );
               }
+
+              const issueText =
+                `${issue.title}\n${issue.body || ""}`.toLowerCase();
+
+              if (!issueText.includes(candidate.toLowerCase())) {
+                throw new Error(
+                  `#${issue_number}: Candidate "${candidate}" ` +
+                  "was not found in the issue title or body. " +
+                  "Check that the CSV matches the correct nomination."
+                );
+              }
+
+              issuesToUpdate.push({ ...row, labels });
             }
 
-            async function commentAndLabel(issueNumber, commentBody, labelName) {
+            core.info("All nomination issues passed validation.");
+
+            for (const row of issuesToUpdate) {
+              const {
+                issue_number,
+                candidate,
+                decision,
+                labels
+              } = row;
+
+              const isSelected = decision === "selected";
+
+              const targetLabel = isSelected
+                ? SELECTED_LABEL
+                : NOT_SELECTED_LABEL;
+
+              const oppositeLabel = isSelected
+                ? NOT_SELECTED_LABEL
+                : SELECTED_LABEL;
+
+              const commentMarker = isSelected
+                ? SELECTED_MARKER
+                : NOT_SELECTED_MARKER;
+
+              const commentBody = isSelected
+                ? SELECTED_COMMENT
+                : NOT_SELECTED_COMMENT;
+
+              const labelsToRemove = [
+                REVIEW_LABEL,
+                oppositeLabel,
+                ...OLD_DECISION_LABELS
+              ].filter(label => labels.includes(label));
+
+              core.info(
+                `Processing #${issue_number} — ${candidate}: ${targetLabel}`
+              );
+
+              const comments = await github.paginate(
+                github.rest.issues.listComments,
+                { owner, repo, issue_number, per_page: 100 }
+              );
+
+              const alreadyCommented = comments.some(comment =>
+                comment.body?.includes(commentMarker)
+              );
+
               if (dryRun) {
-                core.info(`DRY RUN: Would comment on issue #${issueNumber}`);
-                core.info(`DRY RUN: Would add label ${labelName} to issue #${issueNumber}`);
-                core.info(commentBody);
-                return;
-              }
+                if (!labels.includes(targetLabel)) {
+                  core.info(
+                    `DRY RUN: Would add "${targetLabel}" to #${issue_number}.`
+                  );
+                }
 
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                body: commentBody,
-              });
+                for (const label of labelsToRemove) {
+                  core.info(
+                    `DRY RUN: Would remove "${label}" from #${issue_number}.`
+                  );
+                }
 
-              await github.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                labels: [labelName],
-              });
+                if (!labels.includes(REVIEW_LABEL)) {
+                  core.info(
+                    `DRY RUN: #${issue_number} already has no ` +
+                    `"${REVIEW_LABEL}" label.`
+                  );
+                }
 
-              core.info(`Commented and labeled issue #${issueNumber}`);
-            }
+                core.info(
+                  alreadyCommented
+                    ? `DRY RUN: Decision comment already exists on #${issue_number}; would skip it.`
+                    : `DRY RUN: Would post the ${targetLabel} comment on #${issue_number}.`
+                );
 
-            await ensureLabel(ACCEPTED_LABEL, "2ea44f");
-            await ensureLabel(NOT_SELECTED_LABEL, "d73a4a");
-
-            const csvText = fs.readFileSync(csvPath, "utf8");
-            const rows = parseCSV(csvText);
-
-            let processed = 0;
-
-            for (const row of rows) {
-              const issueNumber = Number(row["Submission ID"]);
-              const candidateName = row["Candidate"] || row["Name"] || "there";
-              const decision = (row["Decision"] || "").trim().toLowerCase();
-
-              if (!issueNumber) {
-                core.info("Skipping row with missing or invalid Submission ID.");
                 continue;
               }
 
-              const exists = await issueExists(issueNumber);
+              // Add the new decision label.
+              if (!labels.includes(targetLabel)) {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number,
+                  labels: [targetLabel]
+                });
 
-              if (!exists) {
-                core.info(`Issue #${issueNumber} not found. Skipping.`);
-                continue;
+                core.info(
+                  `#${issue_number}: Added "${targetLabel}".`
+                );
               }
 
-              if (decision === "accepted" || decision === "accept") {
-                const message = [
-                  `Hello ${candidateName},`,
-                  "",
-                  "Congratulations! We are excited to inform you that you have been selected as a 2026 PyTorch Foundation Ambassador.",
-                  "",
-                  "Your contributions, impact, and commitment to the PyTorch Foundation ecosystem stood out during the review process.",
-                  "",
-                  "Next steps and onboarding information will be shared separately.",
-                  "",
-                  "Best regards,",
-                  "The PyTorch Foundation Ambassador Program Team"
-                ].join("\n");
+              // Remove review-in-progress, the opposite decision label,
+              // and any old Accepted / Not Accepted labels.
+              for (const label of labelsToRemove) {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number,
+                  name: label
+                });
 
-                await commentAndLabel(issueNumber, message, ACCEPTED_LABEL);
-                processed += 1;
-              } else if (
-                decision === "not selected" ||
-                decision === "not-selected" ||
-                decision === "not_selected"
-              ) {
-                const message = [
-                  `Hello ${candidateName},`,
-                  "",
-                  "Thank you for applying to the 2026 PyTorch Foundation Ambassador Program.",
-                  "",
-                  "After careful consideration, your application was not selected for this cycle.",
-                  "",
-                  "We truly appreciate your time, effort, and contributions to the PyTorch Foundation community, and we encourage you to stay involved and apply again in a future cycle.",
-                  "",
-                  "If you have any questions, please contact ambassadors@pytorch.org.",
-                  "",
-                  "Best regards,",
-                  "The PyTorch Foundation Ambassador Program Team"
-                ].join("\n");
+                core.info(
+                  `#${issue_number}: Removed "${label}".`
+                );
+              }
 
-                await commentAndLabel(issueNumber, message, NOT_SELECTED_LABEL);
-                processed += 1;
+              // Post the appropriate decision comment once.
+              if (alreadyCommented) {
+                core.info(
+                  `#${issue_number}: Decision comment already exists. Skipping.`
+                );
               } else {
-                core.info(`Unknown decision "${row["Decision"]}" for issue #${issueNumber}. Skipping.`);
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: commentBody
+                });
+
+                core.info(
+                  `#${issue_number}: Posted ${targetLabel} comment.`
+                );
               }
+
+              core.info(`#${issue_number}: Finished.`);
             }
 
-            core.info(`Processed ${processed}/${rows.length} rows.`);
+            core.info(
+              dryRun
+                ? `Dry run complete: previewed ${decisions.length} decisions.`
+                : `Complete: processed ${decisions.length} decisions.`
+            );
