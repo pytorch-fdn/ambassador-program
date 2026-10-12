@@ -1,35 +1,35 @@
 # PyTorch Ambassador Program 
 
-## Overview 🌎  
+## Overview  
 
 The PyTorch Ambassador Program brings together our top rising leaders globally to empower them 
 to activate, connect, and build community and interest in PyTorch at scale. 
 
 ---
 
-## 🔹 Responsibilities  
+##  Responsibilities  
 
 Ambassadors are expected to actively contribute to the PyTorch community by:  
 
-### **1️⃣ Local Community Leadership**  
+### Local Community Leadership 
 - Build and foster local PyTorch communities through networking and engagement.  
 - Host at least one event per quarter (in-person or virtual) to educate and connect users.  
 - Engage in online discussions on official PyTorch platforms (Slack, PyTorch Discuss, etc.).  
 - Encourage collaboration and share insights from local communities with the global PyTorch network.  
 
-### **2️⃣ Learning & Development**  
+### Learning & Development 
 - Complete the PyTorch Ambassador onboarding program and ongoing training.  
 - Engage in PyTorch Foundation learning sessions to stay updated on new developments.  
 - Develop as a subject matter expert (SME) and contribute to community learning.  
 
-### **3️⃣ Knowledge Sharing**  
+### Knowledge Sharing 
 - Create and share content (blog posts, tutorials, videos) related to PyTorch.  
 - Promote PyTorch advancements and community contributions on social media.  
 - Identify success stories to be featured by the PyTorch Foundation.  
 
 ---
 
-## ✅ Requirements  
+## Requirements  
 
 To become a PyTorch Ambassador, candidates must meet the following criteria:  
 
@@ -44,23 +44,23 @@ To become a PyTorch Ambassador, candidates must meet the following criteria:
 
 ---
 
-## 🎁 Benefits  
+## Benefits  
 
-### **1️⃣ Recognition & Community Engagement**  
+### Recognition & Community Engagement
 - 🏅 "PyTorch Ambassador" title for LinkedIn and professional recognition.  
 - 🌟 Featured on PyTorch’s official website and social media.  
 - 🔒 Access to a private Slack group for engagement with other ambassadors and PyTorch Foundation staff.  
 
-### **2️⃣ Access to Exclusive Resources**  
+### Access to Exclusive Resources**  
 - 🎤 Invites to training, leadership workshops, and technical briefings.  
 - 📖 Event organization materials and playbooks.  
 
-### **3️⃣ Financial & Event Support**  
+### Financial & Event Support 
 - 💰 Approved expense reimbursement to support community engagement  
 - 🎟️ Free or discounted tickets to the PyTorch Conference.  
 - 🎁 Ambassador swag for outreach events.  
 
-### **4️⃣ Professional Growth Opportunities**  
+### Professional Growth Opportunities  
 - 🔗 Exclusive networking with AI/ML leaders.  
 - 🎙️ Opportunities to speak at PyTorch and industry events.  
 - 🏆 Awards and recognition for top contributors.  
