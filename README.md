@@ -43,9 +43,6 @@ Yes. Self-nominations are encouraged during active nomination windows if you mee
 ### What happens after I submit a nomination?
 Your submission will be reviewed by the PyTorch Foundation team. Qualified nominees may be contacted for further discussion and onboarding.
 
-### Where can I give feedback or ask questions?
-You can submit feedback or inquiries [here](https://github.com/pytorch-fdn/ambassador-program/issues/new?template=feedback.yml&title=%5BFeedback%5D%20).
-
 ---
 
 ## 📬 Contact
