@@ -353,12 +353,12 @@
     "id": "zesheng-zong",
     "name": "Zesheng Zong",
     "pronouns": "He/Him",
-    "location": "Dongguan, China",
+    "location": "ShenZhen, China",
     "country": "China",
     "avatar": "https://raw.githubusercontent.com/pytorch-fdn/ambassador-program/main/ambassador/ambassador-photos/Zesheng_Zong.jpg",
     "github": "https://github.com/zeshengzong",
     "linkedin": "https://www.linkedin.com/in/zesheng-zong-1028b6a2",
-    "bio": "Developer in the PyTorch community, focusing on accelerator integration and dedicated to the growth and engagement of the PyTorch China community.",
+    "bio": "Zesheng Zong is an AI framework engineer at Huawei. As a PyTorch Ambassador and Co-chair of the PyTorch TAC Accelerator Integration WG, he focuses on accelerator integration and optimization for the PyTorch ecosystem. He promotes global community collaboration, advances framework adaptation for AI accelerators, and helps grow the PyTorch developer community.",
     "city": "Dongguan"
   },
   {
