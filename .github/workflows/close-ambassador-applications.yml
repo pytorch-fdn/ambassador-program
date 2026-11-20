@@ -1,8 +1,13 @@
-name: Close Ambassador Applications 2026
+name: Close Ambassador Applications
 
 on:
   workflow_dispatch:
     inputs:
+      year:
+        description: "Application year"
+        type: string
+        required: true
+        default: "2026"
       dry_run:
         description: "Preview which issues will be closed"
         type: boolean
@@ -10,7 +15,7 @@ on:
         default: true
 
 concurrency:
-  group: close-ambassador-applications-2026
+  group: close-ambassador-applications
   cancel-in-progress: false
 
 jobs:
@@ -20,16 +25,23 @@ jobs:
       issues: write
 
     steps:
-      - name: Preview or close 2026 application issues
+      - name: Preview or close application issues
         uses: actions/github-script@v7
         env:
+          APPLICATION_YEAR: ${{ inputs.year }}
           DRY_RUN: ${{ inputs.dry_run }}
         with:
           script: |
             const { owner, repo } = context.repo;
+            const year = process.env.APPLICATION_YEAR.trim();
             const dryRun = process.env.DRY_RUN !== "false";
-            const targetLabel = "ambassador-nomination-2026";
 
+            if (!/^20\d{2}$/.test(year)) {
+              core.setFailed("Enter a four-digit application year, such as 2026.");
+              return;
+            }
+
+            const targetLabel = `ambassador-nomination-${year}`;
             const results = await github.paginate(github.rest.issues.listForRepo, {
               owner,
               repo,
@@ -39,7 +51,7 @@ jobs:
             });
 
             const applications = results.filter(issue => !issue.pull_request);
-            core.info(`Found ${applications.length} open 2026 application issues.`);
+            core.info(`Found ${applications.length} open issues with label ${targetLabel}.`);
 
             for (const issue of applications) {
               if (dryRun) {
